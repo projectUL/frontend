@@ -11,6 +11,7 @@ import CompanyPage from "./pages/CompanyPage";
 import "./App.css";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
+import OfferPage from "./pages/OfferPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="offers" element={<OffersPage />} />
+        <Route path="offer/:id" element={<OfferPage />} />
         <Route path="companies" element={<CompaniesPage />} />
         <Route path="companies/:id" element={<CompanyPage />} />
         <Route path="register" element={<AuthPage register={true} />} />

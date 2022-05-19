@@ -1,11 +1,8 @@
 import React from "react";
+import MainScreen from "../components/home/MainScreen";
 
 function HomePage() {
-  return (
-    <div>
-      <h1>HomePage</h1>
-    </div>
-  );
+  return <MainScreen />;
 }
 
 export default HomePage;

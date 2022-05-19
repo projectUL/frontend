@@ -1,0 +1,13 @@
+.title {
+  font-size: 2rem;
+  width: 60%;
+}
+.box {
+  width: 50%;
+}
+
+.btn {
+  display: flex;
+  justify-content: end;
+  margin-top: 1rem;
+}
