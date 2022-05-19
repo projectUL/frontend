@@ -1,8 +1,31 @@
+import { Route, Routes } from "react-router-dom";
+
+import MainNavigation from "./components/layout/MainNavigation";
+import HomePage from "./pages/HomePage";
+import OffersPage from "./pages/OffersPage";
+import CompaniesPage from "./pages/CompaniesPage";
+
+import AuthPage from "./pages/AuthPage";
+import CompanyPage from "./pages/CompanyPage";
+
+import "./App.css";
+import ProfilePage from "./pages/ProfilePage";
+import EditProfilePage from "./pages/EditProfilePage";
 
 function App() {
   return (
     <div>
-      <h1>Hello World!</h1>
+      <MainNavigation />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="offers" element={<OffersPage />} />
+        <Route path="companies" element={<CompaniesPage />} />
+        <Route path="companies/:id" element={<CompanyPage />} />
+        <Route path="register" element={<AuthPage register={true} />} />
+        <Route path="login" element={<AuthPage login={true} />} />
+        <Route path="profile" element={<EditProfilePage />} />
+        <Route path="profile/:id" element={<ProfilePage />} />
+      </Routes>
     </div>
   );
 }
