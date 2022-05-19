@@ -12,6 +12,7 @@ import "./App.css";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfilePage from "./pages/EditProfilePage";
 import OfferPage from "./pages/OfferPage";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="login" element={<AuthPage login={true} />} />
         <Route path="profile" element={<EditProfilePage />} />
         <Route path="profile/:id" element={<ProfilePage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

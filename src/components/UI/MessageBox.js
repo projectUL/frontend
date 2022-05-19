@@ -1,5 +1,5 @@
 import React from "react";
-import BoxWrapper from "../layout/BoxWrapper";
+import BoxWrapper from "./BoxWrapper";
 import Button from "./Button";
 
 import classes from "./MessageBox.module.css";

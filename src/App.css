@@ -12,3 +12,28 @@ html {
   min-height: 100%; /* make sure it is at least as tall as the viewport */
   position: relative;
 }
+
+.mainHome {
+  height: 100%;
+  width: 100%;
+  margin-top: 5rem;
+}
+.bgImgHome {
+  background-image: url("./images/homeImg.jpg");
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.centered {
+  margin: 3rem auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
