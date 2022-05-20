@@ -1,9 +1,11 @@
 .title {
   font-size: 2rem;
+  font-weight: bold;
   width: 60%;
+  margin-bottom: 1rem;
 }
 .box {
-  width: 50%;
+  width: 40vw;
 }
 
 .btn {
@@ -13,5 +15,5 @@
 }
 
 .content {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }

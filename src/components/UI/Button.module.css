@@ -5,10 +5,11 @@
   font-size: 1.5rem;
   border: none;
   border-radius: 15px;
-  padding: 0.5rem;
+  padding: 0.8rem;
 }
 .btn:hover {
   transition: 0.25s;
-  background-color: #fcd265;
-  color: black;
+  background-color: white;
+  color: #8667f2;
+  cursor: pointer;
 }
