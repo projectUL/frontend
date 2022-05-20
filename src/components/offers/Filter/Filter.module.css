@@ -1,0 +1,18 @@
+.wrap {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin-top: 1.2rem;
+}
+
+.h {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.container {
+  display: block;
+  font-size: 1.5rem;
+}
