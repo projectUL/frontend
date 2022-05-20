@@ -1,7 +1,7 @@
 .box {
-  background-color: rgb(224, 231, 255, 0.4);
+  background-color: var(--secendary);
   border-radius: 20px;
-  padding: 1rem;
+  padding: 1.3rem;
   display: flex;
   flex-direction: column;
   height: fit-content;

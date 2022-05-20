@@ -1,5 +1,5 @@
 .btn {
-  background-color: #8667f2;
+  background-color: var(--action);
   color: white;
   width: fit-content;
   font-size: 1.5rem;
@@ -10,6 +10,6 @@
 .btn:hover {
   transition: 0.25s;
   background-color: white;
-  color: #8667f2;
+  color: var(--action);
   cursor: pointer;
 }
