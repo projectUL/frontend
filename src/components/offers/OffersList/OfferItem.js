@@ -12,11 +12,14 @@ function OfferItem(props) {
       <div className={classes.mid}>
         <div className={classes.offerName}>{props.offer_name}</div>
         <div className={classes.companyInfo}>
-          {props.company_name} {props.isRemote && <div className={classes.remote}>Remote</div>}
+          {props.company_name}{" "}
+          {props.isRemote && <div className={classes.remote}>Remote</div>}
         </div>
         <div className={classes.techs}>
           {props.techs.map((tech) => (
-            <div className={classes.techItem}>{tech}</div>
+            <div className={classes.techItem} key={tech}>
+              {tech}
+            </div>
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import classes from "./Filter.module.css";
 const ListOfCheckBox = (props) => {
   return (
-    <label className={classes.container} for={props.text}>
+    <label className={classes.container} htmlFor={props.text}>
       <input type="checkbox" name={props.text} />
       {props.text}
     </label>

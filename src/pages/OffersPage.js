@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Search from "../components/offers/Search/Search";
 import Filter from "../components/offers/Filter/Filter";
 import OffersList from "../components/offers/OffersList/OffersList";
+import Pagebar from "../components/offers/Pagebar/Pagebar";
 
 const fakeData = [
   {
@@ -58,15 +59,29 @@ const deafult = {
   offers: [],
 };
 
+const pagedefault = {
+  currentPage: 1,
+  pages: 30,
+  hasNext: false,
+  hasPrevious: false,
+};
+
 function OffersPage() {
   const [offersSearch, setOffersSearch] = useState(deafult);
+  const [page, setPage] = useState(pagedefault);
+
+  function changePage(page) {
+    setPage((lastState) => {
+      return { ...lastState, currentPage: page };
+    });
+  }
 
   return (
     <div className="wrap-offersPage">
       <Search />
       <div className="content-offersPage">
         <Filter />
-        <OffersList data={fakeData} />
+        <OffersList data={fakeData} page={page} changePage={changePage} />
       </div>
     </div>
   );

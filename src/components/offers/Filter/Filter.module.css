@@ -14,5 +14,10 @@
 
 .container {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.container input {
+  margin-right: 1rem;
 }

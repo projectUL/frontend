@@ -1,0 +1,22 @@
+.pagebar {
+  display: flex;
+  justify-content: center;
+}
+
+.pagebar button {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50%;
+  margin: 0.5rem;
+}
+
+.current {
+  background-color: #8667f2;
+}
+
+.pagebar button:hover {
+  transition: 0.25s;
+  color: white;
+  background-color: black;
+}
