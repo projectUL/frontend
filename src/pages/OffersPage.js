@@ -53,7 +53,7 @@ const fakeData = [
 ];
 
 const deafult = {
-  keyWords: [],
+  searchtext: "",
   category: [],
   jobType: [],
   offers: [],
@@ -76,9 +76,16 @@ function OffersPage() {
     });
   }
 
+  function searchHandler(text) {
+    setOffersSearch((lastState) => {
+      return { ...lastState, searchtext: text };
+    });
+    console.log(text);
+  }
+
   return (
     <div className="wrap-offersPage">
-      <Search />
+      <Search searchHandler={searchHandler} />
       <div className="content-offersPage">
         <Filter />
         <OffersList data={fakeData} page={page} changePage={changePage} />

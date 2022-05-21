@@ -1,0 +1,9 @@
+.chip {
+  padding: 1rem;
+  background-color: var(--chip);
+  color: var(--primary);
+}
+
+.chip button {
+  margin-left: 1rem;
+}
