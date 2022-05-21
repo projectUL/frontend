@@ -1,12 +1,12 @@
 .section {
   width: 100%;
-  font-size: 1rem;
+  font-size: 0.5rem;
   padding-right: 2rem;
 }
 
 .section li {
   margin-left: 2rem;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .section ul {

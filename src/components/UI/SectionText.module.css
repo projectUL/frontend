@@ -4,9 +4,10 @@
   padding-right: 2rem;
 }
 
-.section span {
-  width: fit-content;
-  font-size: 1.2rem;
+.content {
+  font-size: 1rem;
+  line-break: inherit;
+  width: 100%;
 }
 
 .section h1 {
