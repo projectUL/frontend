@@ -7,8 +7,8 @@ function SectionList(props) {
     <div className={classes.section}>
       <h1>{props.title}</h1>
       <ul>
-        {props.points.map((el) => {
-          return <li>{el}</li>;
+        {props.points.map((el, index) => {
+          return <li key={index}>{el}</li>;
         })}
       </ul>
     </div>

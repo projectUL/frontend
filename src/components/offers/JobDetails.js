@@ -9,7 +9,7 @@ function JobDetails(props) {
       <div className={classes.title}>Job Detail</div>
       {props.jobProperties.map((property) => {
         return (
-          <div className={classes.property}>
+          <div className={classes.property} key={property.name}>
             <div className={classes.name}>{property.name}</div>
             <div className={classes.value}>{property.value} </div>
           </div>
