@@ -74,7 +74,7 @@ function AccountPage() {
         changeAccountPage={changeAccountPage}
         picked={accountPage}
       />
-      <div className="account_page_content">
+      <div className="account_page_boxRad">
         {accountPage === "applications" && <ApplicationsPage />}
         {accountPage === "settings" && <SettingsPage />}
       </div>
