@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
 
 import classes from "./RegisterForm.module.css";
+
+import AuthContext from "../context/auth-context";
 
 const defaultData = {
   isEmployer: false,
@@ -13,6 +15,10 @@ const defaultData = {
 
 function RegisterForm() {
   const [formData, setFormData] = useState(defaultData);
+
+  let navigate = useNavigate();
+
+  const authCtx = useContext(AuthContext);
 
   function accountTypeHandler(event) {
     if (event.target.value === "student") {
@@ -46,6 +52,10 @@ function RegisterForm() {
 
   function submitHandler(event) {
     event.preventDefault();
+    if (formData.isEmployer) authCtx.login(1, 20000, 1, "user@edu.ul.pl");
+    else authCtx.login(2, 20000, 2, "pracodawca@fujutsuake.pl");
+
+    return navigate("/offers");
   }
 
   return (

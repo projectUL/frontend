@@ -1,9 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../UI/Button";
 
 import classes from "./MainNavigation.module.css";
 
-function MainNavigation() {
+function MainNavigation(props) {
+  let navigate = useNavigate();
+
+  function userLogout() {
+    props.authCtx.logout();
+    return navigate("/");
+  }
+
   return (
     <header className={classes.header}>
       <div className={classes.logo}>Logo</div>
@@ -21,7 +29,7 @@ function MainNavigation() {
         </ul>
       </nav>
       <nav>
-        {true && (
+        {props.authCtx.accessLevel === 0 && (
           <ul>
             <li>
               <Link to="/register">Register</Link>
@@ -31,10 +39,13 @@ function MainNavigation() {
             </li>
           </ul>
         )}
-        {false && (
+        {props.authCtx.accessLevel !== 0 && (
           <ul>
             <li>
               <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+              <Button onClick={userLogout}>Logout</Button>
             </li>
           </ul>
         )}

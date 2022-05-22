@@ -22,15 +22,19 @@ function App() {
 
   return (
     <div>
-      <MainNavigation />
+      <MainNavigation authCtx={authCtx} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="offers" element={<OffersPage />} />
         <Route path="offers/:id" element={<OfferPage />} />
         <Route path="companies" element={<CompaniesPage />} />
         <Route path="companies/:id" element={<CompanyPage />} />
-        <Route path="register" element={<AuthPage register={true} />} />
-        <Route path="login" element={<AuthPage login={true} />} />
+        {authCtx.accessLevel === 0 && (
+          <>
+            <Route path="register" element={<AuthPage register={true} />} />
+            <Route path="login" element={<AuthPage login={true} />} />
+          </>
+        )}
         {authCtx.accessLevel !== 0 && (
           <>
             <Route path="profile" element={<EditProfilePage />} />
