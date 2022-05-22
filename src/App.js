@@ -12,10 +12,10 @@ import CompanyPage from "./pages/CompanyPage";
 
 import "./App.css";
 import ProfilePage from "./pages/ProfilePage";
-import EditProfilePage from "./pages/EditProfilePage";
 import OfferPage from "./pages/OfferPage";
 import NotFound from "./pages/NotFound";
 import AuthContext from "./components/context/auth-context";
+import AccountPage from "./pages/AccountPage";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -37,7 +37,7 @@ function App() {
         )}
         {authCtx.accessLevel !== 0 && (
           <>
-            <Route path="profile" element={<EditProfilePage />} />
+            <Route path="profile" element={<AccountPage />} />
             <Route path="profile/:id" element={<ProfilePage />} />
           </>
         )}

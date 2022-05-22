@@ -109,3 +109,11 @@ html {
 .bgImgLogin {
   background-image: url("./images/login.png");
 }
+
+.account_page_content {
+  background-color: var(--secendary);
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}

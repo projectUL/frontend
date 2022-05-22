@@ -1,0 +1,51 @@
+.header {
+  width: 50%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  margin-top: 2rem;
+  margin-left: 25%;
+}
+
+.header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+  height: 100%;
+}
+
+.header li {
+  width: 100%;
+  height: 100%;
+}
+
+.header button {
+  text-decoration: none;
+  font-size: 2rem;
+  color: #252525;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  width: 100%;
+  height: 100%;
+  font-weight: bold;
+}
+
+.textundericon {
+  font-size: 1rem;
+}
+
+.header button:hover,
+.header button:active,
+.header button.active {
+  color: #8667f2;
+  transition: 0.25s;
+}
+
+.picked {
+  color: var(--action);
+}

@@ -1,0 +1,24 @@
+.container {
+  width: 100%;
+  display: flex;
+  font-size: 3rem;
+  justify-content: flex-end;
+}
+
+.container button {
+  border: none;
+  background-color: none;
+  border-radius: 15px 15px 0 0;
+}
+
+.eye {
+  display: flex;
+  align-items: flex-end;
+  background-color: var(--secendary);
+  border-radius: 15px 15px 0 0;
+  font-size: 3rem;
+}
+
+.container button:hover {
+  color: var(--action);
+}
