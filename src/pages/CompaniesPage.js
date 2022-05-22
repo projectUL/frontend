@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CompaniesList from "../components/companies/CompaniesList";
+import CompaniesList from "../components/companies/CompaniesList/CompaniesList";
 import Pagebar from "../components/offers/Pagebar/Pagebar";
 import Search from "../components/offers/Search/Search";
 

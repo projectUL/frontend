@@ -2,11 +2,13 @@ import React from "react";
 import AuthForm from "../components/auth/AuthForm";
 
 function AuthPage(props) {
-  const providedAuthType = props.register ? "register" : "login";
+  let providedAuthType = props.register ? "register" : "login";
+
   return (
     <div>
-      <h1>AuthPage {providedAuthType}</h1>
       <AuthForm providedAuthType={providedAuthType} />
+      {providedAuthType === "register" && <div className="bgImgRegister"></div>}
+      {providedAuthType === "login" && <div className="bgImgLogin"></div>}
     </div>
   );
 }

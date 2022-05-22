@@ -78,3 +78,34 @@ html {
 .offer_btn {
   margin-top: 3rem;
 }
+
+.company_page {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+.company_page_jobs {
+  margin-top: 2rem;
+}
+
+.offer_compOverview {
+  width: 60%;
+}
+
+.bgImgRegister,
+.bgImgLogin {
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -1;
+  width: 50vw;
+  height: 100vh;
+}
+.bgImgRegister {
+  background-image: url("./images/registration.png");
+}
+.bgImgLogin {
+  background-image: url("./images/login.png");
+}

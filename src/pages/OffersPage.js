@@ -90,6 +90,7 @@ function OffersPage() {
         <Filter />
         <OffersList data={fakeData} page={page} changePage={changePage} />
       </div>
+      <Pagebar {...page} changePage={changePage} />
     </div>
   );
 }

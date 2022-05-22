@@ -53,7 +53,11 @@ function OfferPage() {
       <div>
         <h2>{fakeOffer.offer_name}</h2>
         <h3>{fakeOffer.company_name}</h3>
-        <SectionText title="Company Overview" content={content} />
+        <SectionText
+          title="Company Overview"
+          content={content}
+          className="offer_compOverview"
+        />
         <SectionList title="Your scope of duties" points={fakeOffer.duties} />
         <SectionList title="Our expectations" points={fakeOffer.expectations} />
         <SectionList title="What we offer" points={fakeOffer.weOffer} />

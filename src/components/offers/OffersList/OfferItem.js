@@ -2,8 +2,15 @@ import React from "react";
 
 import classes from "./OfferItem.module.css";
 import Button from "../../UI/Button";
+import { useNavigate } from "react-router-dom";
 
 function OfferItem(props) {
+  let navigate = useNavigate();
+
+  function offerNavigate() {
+    return navigate("/offers/1");
+  }
+
   return (
     <div className={`defaultBox ${classes.item}`}>
       <div className={classes.logo}>
@@ -25,7 +32,9 @@ function OfferItem(props) {
       </div>
       <div className={classes.right}>
         <div>
-          <Button className={classes.btn}>See More</Button>
+          <Button className={classes.btn} onClick={offerNavigate}>
+            See More
+          </Button>
         </div>
         <div>{`Posted ${props.created}`}</div>
       </div>

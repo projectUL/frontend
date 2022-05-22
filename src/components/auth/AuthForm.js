@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import classes from "./AuthForm.module.css";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
 function AuthForm(props) {
-  const { authType, setAuthType } = useState(props.providedAuthType);
+  const [authType, setAuthType] = useState(props.providedAuthType);
+
+  useEffect(() => {
+    setAuthType(props.providedAuthType);
+  }, [authType, setAuthType, props.providedAuthType]);
 
   return (
-    <div>
-      <h1>{authType}</h1>
+    <div className={`defaultBox ${classes.box}`}>
       {authType === "register" && <RegisterForm />}
-      {authType !== "register" && <LoginForm />}
+      {authType === "login" && <LoginForm />}
     </div>
   );
 }

@@ -1,0 +1,41 @@
+.companyCard {
+  width: 100%;
+  height: fit-content;
+  padding: 2rem;
+}
+
+.companyDetails {
+  display: flex;
+  justify-content: space-between;
+}
+
+.img img {
+  width: 100px;
+  height: 100px;
+}
+
+.btn {
+  width: 100%;
+}
+
+.description {
+  font-size: 1.2rem;
+}
+
+.activeOffers {
+  width: fit-content;
+  height: fit-content;
+  border-radius: 15px;
+  border: 2px solid grey;
+  padding: 1rem;
+  font-size: 1rem;
+  color: grey;
+}
+
+.data {
+  display: flex;
+}
+
+.companyOverview {
+  width: 60%;
+}

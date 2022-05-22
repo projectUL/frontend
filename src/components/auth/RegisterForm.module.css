@@ -1,0 +1,22 @@
+.radio {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+}
+
+.inputs div {
+  display: flex;
+  flex-direction: column;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  margin-top: 1rem;
+  width: 50%;
+}
