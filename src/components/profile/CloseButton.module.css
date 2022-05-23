@@ -1,0 +1,16 @@
+.closeButton_wrap {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--delete);
+  color: white;
+  font-size: 2rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton_wrap:hover {
+  cursor: pointer;
+}
