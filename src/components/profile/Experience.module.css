@@ -1,0 +1,14 @@
+.experience_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  border: 3px solid var(--action);
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.experience_wrap p {
+  font-size: 1.3rem;
+}
