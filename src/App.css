@@ -5,6 +5,7 @@
   --secendary: #e0e7ff;
   --action: #8667f2;
   --chip: #fcd265;
+  --delete: #ff0000;
 }
 * {
   font-family: "Nunito Sans", sans-serif;
@@ -124,4 +125,118 @@ html {
   width: 100%;
   height: 100%;
   background-color: var(--secendary);
+}
+
+/* ProfilePage */
+.profilePage_wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 5rem;
+  background-color: var(--secendary);
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+
+.profilePage_personalData {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profilePage_personalData_box {
+  display: flex;
+  gap: 3rem;
+}
+
+.profilePage_personalData_box img {
+  width: 13rem;
+  height: 13rem;
+  background-size: contain;
+}
+
+.profilePage_personalData_box2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.profilePage_personalData_name {
+  font-size: 1.8rem;
+}
+
+.profilePage_personalData_about {
+  font-size: 1rem;
+  line-height: 1.3rem;
+}
+
+.profilePage_line {
+  width: 100%;
+  height: 2px;
+  background-color: black;
+  position: relative;
+  margin: 1rem 0;
+}
+
+.square {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: black;
+  transform: rotate(45deg);
+  top: -2px;
+}
+
+.square_end {
+  right: 0;
+}
+
+.profilePage_skills {
+  display: flex;
+  flex-direction: column;
+}
+
+.profilePage_title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.profilePage_skill_box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}
+
+.profilePage_courses ul {
+  font-size: 1.2rem;
+  margin-left: 2rem;
+}
+
+.profilePage_education_box {
+  display: flex;
+  font-size: 1.3rem;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.profilePage_projects {
+  display: flex;
+  flex-direction: column;
+}
+
+.profilePage_projects_box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: 3rem;
 }
