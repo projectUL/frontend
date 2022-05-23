@@ -1,0 +1,67 @@
+.container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project_wrap {
+  width: 60%;
+  background-color: var(--secendary);
+  border-radius: 0.8rem;
+}
+
+.btn_box {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-right: 1rem;
+  padding-top: 1rem;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2.5rem;
+}
+
+.project_box {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.project_box img {
+  width: 100%;
+  background-size: cover;
+  border-radius: 0.8rem;
+}
+
+.title {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.chipBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.desc {
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+}
+
+.github {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
