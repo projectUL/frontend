@@ -1,9 +1,23 @@
 .chip {
-  padding: 1rem;
+  padding: 1rem 2rem;
   background-color: var(--chip);
   color: var(--primary);
+  width: fit-content;
+  font-size: 1rem;
+  color: black;
+  border-radius: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.chip button {
-  margin-left: 1rem;
+.ml {
+  margin-left: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ml:hover {
+  cursor: pointer;
 }
