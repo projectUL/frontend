@@ -1,0 +1,19 @@
+.btnAdd_wrap {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.3rem;
+  border: solid 0.2rem var(--action);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionColor {
+  color: var(--action);
+  font-size: 1.8rem;
+}
+
+.btnAdd_wrap:hover {
+  cursor: pointer;
+}
