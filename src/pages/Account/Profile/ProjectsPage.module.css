@@ -1,0 +1,22 @@
+.projects_wrap {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1.5rem;
+  gap: 1rem;
+}
+
+.addProjects {
+  width: 20rem;
+  height: 20rem;
+  border: 5px solid var(--action);
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15rem;
+  color: var(--action);
+}
+
+.addProjects:hover {
+  cursor: pointer;
+}
