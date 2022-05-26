@@ -52,8 +52,19 @@ function RegisterForm() {
 
   function submitHandler(event) {
     event.preventDefault();
-    if (formData.isEmployer) authCtx.login(5, 999999999, 1, "user@edu.ul.pl");
-    else authCtx.login(4, 999999999, 2, "pracodawca@fujutsuake.pl");
+    const expirationTime = new Date(new Date().getTime() + +20000 * 1000);
+
+    if (formData.isEmployer)
+      authCtx.login(5, expirationTime.toISOString(), 1, "user@edu.ul.pl");
+    else
+      authCtx.login(
+        4,
+        expirationTime.toISOString(),
+        2,
+        "pracodawca@fujutsuake.pl"
+      );
+
+    //authCtx.login(5224, 20000, 2, "pracodawcaa@fujutsuake.pl");
 
     return navigate("/offers");
   }
