@@ -60,6 +60,8 @@ export const AuthContextProvider = (props) => {
 
   const logoutHandler = useCallback(() => {
     setToken(null);
+    setAccessLevel(0);
+    setEmail("");
     localStorage.removeItem("token");
     localStorage.removeItem("expirationTime");
     localStorage.removeItem("accessLevel");
