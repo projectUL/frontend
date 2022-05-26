@@ -30,6 +30,11 @@
   margin-left: 0.5rem;
 }
 
+.project_wrap {
+  width: 15rem;
+  height: 15rem;
+}
+
 .project {
   position: absolute;
   bottom: 0.5rem;

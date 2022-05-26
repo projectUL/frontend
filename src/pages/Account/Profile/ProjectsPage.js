@@ -9,16 +9,18 @@ import AddProject from "../../../components/profile/AddProject";
 function ProjectsPage() {
   const [addProjectDisplay, setAddProjectDisplay] = useState(false);
   return (
-    <div className={classes.projects_wrap}>
-      <div className={classes.addProjects}>
-        <FaPlus onClick={() => setAddProjectDisplay(true)} />
+    <div className={classes.center}>
+      <div className={classes.projects_wrap}>
+        <div className={classes.addProjects}>
+          <FaPlus onClick={() => setAddProjectDisplay(true)} />
+        </div>
+        <Project />
+        <Project />
+        <Project />
+        <Project />
+        <Project />
+        {addProjectDisplay && <AddProject setAddProjectDisplay={setAddProjectDisplay} />}
       </div>
-      <Project />
-      <Project />
-      <Project />
-      <Project />
-      <Project />
-      {addProjectDisplay && <AddProject setAddProjectDisplay={setAddProjectDisplay} />}
     </div>
   );
 }

@@ -4,20 +4,22 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-}
-.profileDescriptionForm label {
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
 
 .profileDescriptionForm input[type="text"],
 input[type="date"] {
   width: 20rem;
-  height: 2.3rem;
+  height: 2rem;
   border: none;
   border-radius: 0.5rem;
   outline: none;
   padding: 0.8rem;
-  font-size: 1.5rem;
+}
+
+.profileDescriptionForm_SecondSection_description {
+  height: 15rem;
+  width: 60%;
 }
 
 .profileDescriptionForm textarea {
@@ -26,17 +28,18 @@ input[type="date"] {
   resize: none;
   outline: none;
   padding: 0.5rem;
-  font-size: 1.5rem;
+  height: 100%;
 }
 
 .profileDescriptionForm_FirstSection_Wrap {
   display: flex;
   gap: 2.5rem;
+  height: 17rem;
 }
 
 .profileDescriptionForm_FirstSection_Wrap_Img {
-  width: 20rem;
-  height: 20rem;
+  width: 17rem;
+  height: 100%;
   border: 3px solid white;
   border-radius: 1.5rem;
   display: flex;
@@ -73,7 +76,11 @@ input[type="date"] {
   gap: 1rem;
 }
 
+.startEndCollege input[type="date"] {
+  font-size: 1rem;
+}
+
 .profileDescriptionForm_button {
   align-self: flex-end;
-  width: 15rem;
+  width: 12rem;
 }

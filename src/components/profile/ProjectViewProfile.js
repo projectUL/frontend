@@ -6,7 +6,7 @@ const ProjectViewProfile = ({ onClick }) => {
     <div className={classes.project_wrap} onClick={() => onClick()}>
       <img src={git} alt="git" />
       <div className={classes.title_wrap}>
-        <p className={classes.title}>PornHub</p>
+        <p className={classes.title}>Project</p>
       </div>
     </div>
   );

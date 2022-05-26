@@ -1,9 +1,8 @@
 .chip {
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
   background-color: var(--chip);
   color: var(--primary);
   width: fit-content;
-  font-size: 1rem;
   color: black;
   border-radius: 2.5rem;
   display: flex;

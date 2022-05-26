@@ -117,6 +117,7 @@ html {
   height: 100%;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+  margin-bottom: 2rem;
 }
 
 .account_page_boxRad {
@@ -219,7 +220,7 @@ html {
 
 .profilePage_education_box {
   display: flex;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   gap: 2rem;
   margin: 2rem 0;
 }
@@ -231,12 +232,17 @@ html {
 .profilePage_projects {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.fs {
+  align-self: flex-start;
 }
 
 .profilePage_projects_box {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  width: 70%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 
-  gap: 3rem;
+  gap: 1rem;
 }

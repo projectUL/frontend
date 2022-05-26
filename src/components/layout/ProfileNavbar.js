@@ -9,7 +9,7 @@ function ProfileNavbar(props) {
 
   return (
     <div className={classes.header}>
-      <ul>
+      <ul className={classes.xd}>
         <li className={props.picked === "description" ? classes.picked : ""}>
           <button value="description" onClick={changePage}>
             Description

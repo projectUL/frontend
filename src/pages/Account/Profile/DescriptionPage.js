@@ -20,7 +20,7 @@ function DescriptionPage() {
       </div>
       <div className={classes.profileDescriptionForm_SecondSection_description}>
         <label htmlFor="description">Description</label>
-        <textarea name="" id="description" cols="30" rows="10"></textarea>
+        <textarea name="" id="description"></textarea>
       </div>
       <div className={classes.profileDescriptionForm_ThirdSection_School}>
         <label htmlFor="college">College</label>

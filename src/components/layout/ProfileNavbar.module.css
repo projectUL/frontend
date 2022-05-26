@@ -21,6 +21,8 @@
 .header li {
   width: 100%;
   height: 100%;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .header button {
@@ -43,12 +45,22 @@
 
 .picked {
   background-color: var(--action);
-  border-top-left-radius: 15px;
 }
 
 .picked button {
   color: white;
   border-top-left-radius: 15px;
+}
+
+.xd li:first-of-type {
+  border-radius: 0;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.xd li:last-of-type {
+  border-radius: 0;
+  border-bottom-left-radius: 15px;
 }
 
 .picked button:hover {

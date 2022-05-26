@@ -36,28 +36,15 @@ function AccountPage() {
   if (accountPage === "profile") {
     return (
       <>
-        <AccountNavbar
-          changeAccountPage={changeAccountPage}
-          picked={accountPage}
-        />
-        <ChangeModeEye
-          clicked={isEditProfileMode}
-          changeEyeMode={changeProfileMode}
-        />
+        <AccountNavbar changeAccountPage={changeAccountPage} picked={accountPage} />
+        <ChangeModeEye clicked={isEditProfileMode} changeEyeMode={changeProfileMode} />
         {isEditProfileMode && (
           <>
-            <ProfileNavbar
-              changeProfilePage={changeProfilePage}
-              picked={profilePage}
-            />
+            <ProfileNavbar changeProfilePage={changeProfilePage} picked={profilePage} />
             <div className="account_page_content">
-              {profilePage === "description" && profilePage && (
-                <DescriptionPage />
-              )}
+              {profilePage === "description" && profilePage && <DescriptionPage />}
               {profilePage === "skills" && profilePage && <SkillsPage />}
-              {profilePage === "experience" && profilePage && (
-                <ExperiencePage />
-              )}
+              {profilePage === "experience" && profilePage && <ExperiencePage />}
               {profilePage === "projects" && profilePage && <ProjectsPage />}
             </div>
           </>
@@ -70,10 +57,7 @@ function AccountPage() {
 
   return (
     <>
-      <AccountNavbar
-        changeAccountPage={changeAccountPage}
-        picked={accountPage}
-      />
+      <AccountNavbar changeAccountPage={changeAccountPage} picked={accountPage} />
       <div className="account_page_boxRad">
         {accountPage === "applications" && <ApplicationsPage />}
         {accountPage === "settings" && <SettingsPage />}

@@ -1,19 +1,26 @@
-.projects_wrap {
+.center {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.projects_wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   padding: 1.5rem;
   gap: 1rem;
 }
 
 .addProjects {
-  width: 20rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
   border: 5px solid var(--action);
   border-radius: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 15rem;
+  font-size: 10rem;
   color: var(--action);
 }
 

@@ -1,7 +1,7 @@
 .container {
-  width: 100%;
-  height: 100%;
-  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 2;
@@ -12,12 +12,23 @@
 }
 
 .project_wrap {
+  height: 90vh;
   width: 60%;
   background-color: var(--secendary);
   border-radius: 0.8rem;
+  font-size: 1rem;
+  overflow-y: scroll;
+  position: relative;
+}
+
+.project_wrap img {
+  background-size: contain;
 }
 
 .btn_box {
+  position: sticky;
+  top: 0;
+  right: 0;
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -27,6 +38,7 @@
 }
 
 .infoBox {
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -46,7 +58,7 @@
 }
 
 .title {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
@@ -57,11 +69,9 @@
 }
 
 .desc {
-  font-size: 1.3rem;
-  line-height: 1.8rem;
+  line-height: 1.5rem;
 }
 
 .github {
   margin-top: 1rem;
-  font-size: 1.2rem;
 }

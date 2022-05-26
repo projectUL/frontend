@@ -96,7 +96,7 @@ function ProfilePage(props) {
         <div className="square square_end"></div>
       </div>
       <div className="profilePage_projects">
-        <p className="profilePage_title">Projects</p>
+        <p className="profilePage_title fs">Projects</p>
         <div className="profilePage_projects_box">
           <ProjectViewProfile onClick={() => setProjectDisplay(true)} />
           <ProjectViewProfile onClick={() => setProjectDisplay(true)} />
