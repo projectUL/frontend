@@ -1,0 +1,20 @@
+.btn {
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 25px;
+  color: white;
+  font-weight: bold;
+  border: 0;
+}
+
+.red {
+  background-color: #ec7e7e;
+}
+
+.green {
+  background-color: #4abd4a;
+}
+
+.yellow {
+  background-color: #dfae54;
+}

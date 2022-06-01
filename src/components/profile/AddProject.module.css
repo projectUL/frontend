@@ -1,9 +1,10 @@
 .container {
-  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-
+  z-index: 2;
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
@@ -11,11 +12,13 @@
 }
 
 .addProjects_wrap {
-  width: 50%;
+  height: 90vh;
+  width: 60%;
   background-color: var(--secendary);
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  overflow-y: scroll;
   position: relative;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
 }
 
 .form {

@@ -1,0 +1,64 @@
+.logo img {
+  width: 100px;
+  height: 100px;
+}
+
+.application {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 100%;
+
+  font-size: 1.2rem;
+  border: solid var(--action) 3px;
+  margin-top: 2rem;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  overflow: hidden;
+}
+
+.company {
+  display: flex;
+  background-color: var(--secendary);
+
+  width: 100%;
+  padding: 1rem;
+}
+.companyName {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.appInfo {
+  display: flex;
+  padding: 1rem;
+  background-color: #9177ee;
+  color: white;
+  font-weight: 600;
+}
+.appDate {
+  display: flex;
+  align-items: flex-end;
+  font-size: 0.75rem;
+  width: 30%;
+}
+.offerStatus {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.offerName {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 3rem;
+}
+.status {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
