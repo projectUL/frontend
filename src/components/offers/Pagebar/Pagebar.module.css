@@ -12,6 +12,7 @@
   margin: 0.5rem;
   width: 70px;
   height: 70px;
+  border: 0;
 }
 
 .current {

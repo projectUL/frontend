@@ -1,9 +1,10 @@
 import React from "react";
+import SettingsForms from "../../../components/settings/SettingsForms";
 
 function SettingsPage() {
   return (
     <>
-      <h1>Settings</h1>
+      <SettingsForms />
     </>
   );
 }
