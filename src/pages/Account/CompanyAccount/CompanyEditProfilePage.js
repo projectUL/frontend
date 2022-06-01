@@ -1,6 +1,6 @@
 import React from "react";
 
-function CompanyProfilePage() {
+function CompanyEditProfilePage() {
   return (
     <>
       <h1>Profile Page</h1>
@@ -8,4 +8,4 @@ function CompanyProfilePage() {
   );
 }
 
-export default CompanyProfilePage;
+export default CompanyEditProfilePage;
