@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
 
 import classes from "./LoginForm.module.css";
+
+import AuthContext from "../context/auth-context";
 
 const defaultData = {
   isEmployer: false,
@@ -12,8 +14,16 @@ const defaultData = {
 
 function LoginForm() {
   const [formData, setFormData] = useState(defaultData);
+  const authCtx = useContext(AuthContext);
+  let navigate = useNavigate();
+
   function submitHandler(event) {
     event.preventDefault();
+    const expirationTime = new Date(new Date().getTime() + +20000 * 1000);
+
+    authCtx.login(6, expirationTime.toISOString(), 3, "admin@admin.pl");
+
+    return navigate("/offers");
   }
 
   function emailChangeHandler(event) {

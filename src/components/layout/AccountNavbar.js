@@ -10,6 +10,33 @@ function AccountNavbar(props) {
     props.changeAccountPage(event.currentTarget.value);
   }
 
+  if (props.admin) {
+    return (
+      <div className={classes.header}>
+        <ul>
+          <li>
+            <button value="profile" onClick={changeAccountPage}>
+              <div className={props.picked === "profile" ? classes.picked : ""}>
+                <FaUserCircle />
+                <div className={classes.textundericon}>Verifications</div>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button value="settings" onClick={changeAccountPage}>
+              <div
+                className={props.picked === "settings" ? classes.picked : ""}
+              >
+                <BsFillGearFill />
+                <div className={classes.textundericon}>Settings</div>
+              </div>
+            </button>
+          </li>
+        </ul>
+      </div>
+    );
+  }
+
   return (
     <div className={classes.header}>
       <ul>

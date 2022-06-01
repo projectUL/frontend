@@ -13,6 +13,7 @@ import AuthContext from "../components/context/auth-context";
 import MyOffersPage from "./Account/CompanyAccount/MyOffersPage";
 import CreateOfferPage from "./Account/CompanyAccount/CreateOfferPage";
 import CompanyProfilePage from "./Account/CompanyAccount/CompanyProfilePage";
+import VerificationPage from "./Account/Admin/VerificationPage";
 
 function AccountPage() {
   const [profilePage, setProfilePage] = useState("description");
@@ -97,6 +98,20 @@ function AccountPage() {
           {accountPage === "profile" && <CompanyProfilePage />}
           {accountPage === "createOffer" && <CreateOfferPage />}
           {accountPage === "applications" && <MyOffersPage />}
+          {accountPage === "settings" && <SettingsPage />}
+        </div>
+      </>
+    );
+  } else if (authCtx.accessLevel === 3) {
+    return (
+      <>
+        <AccountNavbar
+          admin={true}
+          changeAccountPage={changeAccountPage}
+          picked={accountPage}
+        />
+        <div className="account_page_boxRad">
+          {accountPage === "profile" && <VerificationPage />}
           {accountPage === "settings" && <SettingsPage />}
         </div>
       </>
