@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AccountNavbar from "../components/layout/AccountNavbar";
 import ProfileNavbar from "../components/layout/ProfileNavbar";
 import ChangeModeEye from "../components/profile/ChangeModeEye";
@@ -9,12 +9,16 @@ import ProjectsPage from "./Account/Profile/ProjectsPage";
 import SkillsPage from "./Account/Profile/SkillsPage";
 import SettingsPage from "./Account/Settings/SettingsPage";
 import ProfilePage from "./ProfilePage";
+import AuthContext from "../components/context/auth-context";
+import MyOffersPage from "./Account/CompanyAccount/MyOffersPage";
+import CreateOfferPage from "./Account/CompanyAccount/CreateOfferPage";
+import CompanyProfilePage from "./Account/CompanyAccount/CompanyProfilePage";
 
 function AccountPage() {
   const [profilePage, setProfilePage] = useState("description");
   const [accountPage, setAccountPage] = useState("profile");
   const [isEditProfileMode, setIsEditProfileMode] = useState(true);
-
+  const authCtx = useContext(AuthContext);
   //function sendData(data) {}
 
   function changeProfilePage(page) {
@@ -33,53 +37,71 @@ function AccountPage() {
     });
   }
 
-  if (accountPage === "profile") {
+  if (authCtx.accessLevel === 1) {
+    if (accountPage === "profile") {
+      return (
+        <>
+          <AccountNavbar
+            changeAccountPage={changeAccountPage}
+            picked={accountPage}
+          />
+          <ChangeModeEye
+            clicked={isEditProfileMode}
+            changeEyeMode={changeProfileMode}
+          />
+          {isEditProfileMode && (
+            <>
+              <ProfileNavbar
+                changeProfilePage={changeProfilePage}
+                picked={profilePage}
+              />
+              <div className="account_page_content">
+                {profilePage === "description" && profilePage && (
+                  <DescriptionPage />
+                )}
+                {profilePage === "skills" && profilePage && <SkillsPage />}
+                {profilePage === "experience" && profilePage && (
+                  <ExperiencePage />
+                )}
+                {profilePage === "projects" && profilePage && <ProjectsPage />}
+              </div>
+            </>
+          )}
+
+          {!isEditProfileMode && <ProfilePage id="1" />}
+        </>
+      );
+    }
+
     return (
       <>
         <AccountNavbar
           changeAccountPage={changeAccountPage}
           picked={accountPage}
         />
-        <ChangeModeEye
-          clicked={isEditProfileMode}
-          changeEyeMode={changeProfileMode}
+        <div className="account_page_boxRad">
+          {accountPage === "applications" && <ApplicationsPage />}
+          {accountPage === "settings" && <SettingsPage />}
+        </div>
+      </>
+    );
+  } else if (authCtx.accessLevel === 2) {
+    return (
+      <>
+        <AccountNavbar
+          company={true}
+          changeAccountPage={changeAccountPage}
+          picked={accountPage}
         />
-        {isEditProfileMode && (
-          <>
-            <ProfileNavbar
-              changeProfilePage={changeProfilePage}
-              picked={profilePage}
-            />
-            <div className="account_page_content">
-              {profilePage === "description" && profilePage && (
-                <DescriptionPage />
-              )}
-              {profilePage === "skills" && profilePage && <SkillsPage />}
-              {profilePage === "experience" && profilePage && (
-                <ExperiencePage />
-              )}
-              {profilePage === "projects" && profilePage && <ProjectsPage />}
-            </div>
-          </>
-        )}
-
-        {!isEditProfileMode && <ProfilePage id="1" />}
+        <div className="account_page_boxRad">
+          {accountPage === "profile" && <CompanyProfilePage />}
+          {accountPage === "createOffer" && <CreateOfferPage />}
+          {accountPage === "applications" && <MyOffersPage />}
+          {accountPage === "settings" && <SettingsPage />}
+        </div>
       </>
     );
   }
-
-  return (
-    <>
-      <AccountNavbar
-        changeAccountPage={changeAccountPage}
-        picked={accountPage}
-      />
-      <div className="account_page_boxRad">
-        {accountPage === "applications" && <ApplicationsPage />}
-        {accountPage === "settings" && <SettingsPage />}
-      </div>
-    </>
-  );
 }
 
 export default AccountPage;

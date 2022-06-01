@@ -3,7 +3,7 @@ import React from "react";
 import classes from "./AccountNavbar.module.css";
 
 import { FaUserCircle, FaPaperPlane } from "react-icons/fa";
-import { BsFillGearFill } from "react-icons/bs";
+import { BsFillGearFill, BsFillPlusCircleFill } from "react-icons/bs";
 
 function AccountNavbar(props) {
   function changeAccountPage(event) {
@@ -21,13 +21,27 @@ function AccountNavbar(props) {
             </div>
           </button>
         </li>
+        {props.company && (
+          <li>
+            <button value="createOffer" onClick={changeAccountPage}>
+              <div
+                className={props.picked === "createOffer" ? classes.picked : ""}
+              >
+                <BsFillPlusCircleFill />
+                <div className={classes.textundericon}>Create Offer</div>
+              </div>
+            </button>
+          </li>
+        )}
         <li>
           <button value="applications" onClick={changeAccountPage}>
             <div
               className={props.picked === "applications" ? classes.picked : ""}
             >
               <FaPaperPlane />
-              <div className={classes.textundericon}>Applications</div>
+              <div className={classes.textundericon}>
+                {props.company ? "My Offers" : "Applications"}
+              </div>
             </div>
           </button>
         </li>

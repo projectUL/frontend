@@ -54,7 +54,7 @@ function RegisterForm() {
     event.preventDefault();
     const expirationTime = new Date(new Date().getTime() + +20000 * 1000);
 
-    if (formData.isEmployer)
+    if (!formData.isEmployer)
       authCtx.login(5, expirationTime.toISOString(), 1, "user@edu.ul.pl");
     else
       authCtx.login(
