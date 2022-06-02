@@ -26,8 +26,12 @@ function CompanyProfilePage(props) {
               picked={myOffersPage}
             />
 
-            {myOffersPage === "current" && <CurrentOffersPage />}
-            {myOffersPage === "history" && <HistoryOffersPage />}
+            {myOffersPage === "current" && (
+              <CurrentOffersPage myOffersPage={myOffersPage} />
+            )}
+            {myOffersPage === "history" && (
+              <HistoryOffersPage myOffersPage={myOffersPage} />
+            )}
           </>
         )}
         {props.accountPage === "settings" && <SettingsPage />}

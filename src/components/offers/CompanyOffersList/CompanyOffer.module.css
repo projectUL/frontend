@@ -1,0 +1,23 @@
+.offer {
+  display: flex;
+  font-size: 1.2rem;
+  width: 100%;
+  justify-content: space-around;
+  padding: 3rem 1rem;
+  background-color: aliceblue;
+  border: 2px solid var(--action);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+  margin: 2rem 0;
+  border-radius: 15px;
+}
+.offer div {
+  display: flex;
+  align-items: center;
+}
+
+.ends {
+  display: flex;
+  flex-direction: column;
+}

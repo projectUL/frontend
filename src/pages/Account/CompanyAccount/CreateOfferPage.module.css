@@ -35,6 +35,7 @@
 
 .jobtype {
   display: flex;
+  margin-bottom: 4rem;
 }
 
 .leftjt {
@@ -63,10 +64,6 @@
 
 .leftjt input[type="date"] {
   width: 100%;
-}
-
-.jobdetails {
-  margin-bottom: 4rem;
 }
 
 .area {

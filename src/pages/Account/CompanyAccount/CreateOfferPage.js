@@ -19,37 +19,36 @@ function CreateOfferPage() {
         <div className="square square_end"></div>
       </div>
       <span className={classes.title}>Job Details</span>
-      <div className={classes.jobdetails}>
-        <div className={classes.jobtype}>
-          <div className={classes.leftjt}>
+
+      <div className={classes.jobtype}>
+        <div className={classes.leftjt}>
+          <div className={classes.input}>
+            <label htmlFor="jobtype">Job Type</label>
+            <input type="text" id="jobtype" />
+          </div>
+          <div className={classes.date}>
             <div className={classes.input}>
-              <label htmlFor="jobtype">Job Type</label>
-              <input type="text" id="jobtype" />
-            </div>
-            <div className={classes.date}>
-              <div className={classes.input}>
-                <label htmlFor="start">Start</label>
-                <input type="date" id="start" />
-              </div>
-              <div className={classes.input}>
-                <label htmlFor="end">End</label>
-                <input type="date" id="end" />
-              </div>
+              <label htmlFor="start">Start</label>
+              <input type="date" id="start" />
             </div>
             <div className={classes.input}>
-              <label htmlFor="salary">Salary</label>
-              <input type="text" id="salary" />
+              <label htmlFor="end">End</label>
+              <input type="date" id="end" />
             </div>
           </div>
-          <div className={classes.rightjt}>
-            <div className={classes.input}>
-              <label htmlFor="location">Location</label>
-              <input type="text" id="location" />
-            </div>
-            <div className={classes.input}>
-              <label htmlFor="candidates">Number of candidates</label>
-              <input type="text" id="candidates" />
-            </div>
+          <div className={classes.input}>
+            <label htmlFor="salary">Salary</label>
+            <input type="text" id="salary" />
+          </div>
+        </div>
+        <div className={classes.rightjt}>
+          <div className={classes.input}>
+            <label htmlFor="location">Location</label>
+            <input type="text" id="location" />
+          </div>
+          <div className={classes.input}>
+            <label htmlFor="candidates">Number of candidates</label>
+            <input type="text" id="candidates" />
           </div>
         </div>
       </div>
