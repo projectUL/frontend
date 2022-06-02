@@ -9,7 +9,7 @@ const fakeOffer = {
   id: 5,
   company_name: "Google company",
   offer_name: "Fullstack mitomani",
-  logo: "https://cdn.pixabay.com/photo/2015/12/11/11/43/google-1088004_640.png",
+  logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
   techs: ["Java", "SpringBoot"],
   duties: [
     "mitomania 1",

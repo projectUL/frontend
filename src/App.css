@@ -157,6 +157,7 @@ html {
   width: 13rem;
   height: 13rem;
   background-size: contain;
+  border-radius: 15px;
 }
 
 .profilePage_personalData_box2 {
