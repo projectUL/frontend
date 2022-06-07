@@ -6,6 +6,7 @@
   --action: #8667f2;
   --chip: #fcd265;
   --delete: #ff0000;
+  --errorMessageForm: red;
 }
 * {
   font-family: "Nunito Sans", sans-serif;

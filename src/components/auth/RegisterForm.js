@@ -1,72 +1,71 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../UI/Button";
 
 import classes from "./RegisterForm.module.css";
-
-import AuthContext from "../context/auth-context";
+import api from "../../api/api";
+import Button from "../UI/Button";
+import ErrorMessageForm from "../UI/ErrorMessageForm";
 
 const defaultData = {
-  isEmployer: false,
-  email: "",
-  password: "",
-  companyName: "",
+  email: { value: "", isEmpty: true },
+  password: { value: "", isEmpty: true },
+  repeatPassword: { value: "", isEmpty: true },
+  companyName: { value: "", isEmpty: true },
 };
 
 function RegisterForm() {
+  const [isEmployer, setIsEmployer] = useState(false);
   const [formData, setFormData] = useState(defaultData);
+  const [showError, setShowError] = useState(false);
+  const [errorApi, setErrorApi] = useState(false);
 
   let navigate = useNavigate();
 
-  const authCtx = useContext(AuthContext);
-
   function accountTypeHandler(event) {
-    if (event.target.value === "student") {
-      setFormData((lastState) => {
-        return { ...lastState, isEmployer: false, companyName: "" };
-      });
-    } else if (event.target.value === "company") {
-      setFormData((lastState) => {
-        return { ...lastState, isEmployer: true };
-      });
-    }
+    const chceckIsEmployer = event.target.value === "company" ? true : false;
+    setIsEmployer(chceckIsEmployer);
   }
 
-  function emailChangeHandler(event) {
-    setFormData((lastState) => {
-      return { ...lastState, email: event.target.value };
+  function inputChangeHandler(event) {
+    setFormData(() => {
+      return { ...formData, [event.target.name]: { value: event.target.value, isEmpty: checkIsEmpty(event.target.value) } };
     });
   }
 
-  function passwordChangeHandler(event) {
-    setFormData((lastState) => {
-      return { ...lastState, password: event.target.value };
-    });
-  }
-
-  function companyNameChangeHandler(event) {
-    setFormData((lastState) => {
-      return { ...lastState, companyName: event.target.value };
-    });
-  }
-
-  function submitHandler(event) {
+  async function submitHandler(event) {
     event.preventDefault();
-    const expirationTime = new Date(new Date().getTime() + +20000 * 1000);
 
-    if (!formData.isEmployer)
-      authCtx.login(5, expirationTime.toISOString(), 1, "user@edu.ul.pl");
-    else
-      authCtx.login(
-        4,
-        expirationTime.toISOString(),
-        2,
-        "pracodawca@fujutsuake.pl"
-      );
+    if (!validation()) {
+      setShowError(true);
+      return;
+    }
 
-    //authCtx.login(5224, 20000, 2, "pracodawcaa@fujutsuake.pl");
+    const data = await api.registration({
+      email: formData.email.value,
+      password: formData.password.value,
+      companyName: formData.companyName.value,
+    });
 
-    return navigate("/offers");
+    console.log("data R", data);
+    if (data.hasOwnProperty("error")) {
+      setErrorApi(true);
+      return;
+    }
+
+    return navigate("/login");
+  }
+
+  function checkIsEmpty(value) {
+    return value === "";
+  }
+
+  function validation() {
+    for (const key in formData) {
+      if (!isEmployer && key === "companyName") continue;
+
+      if (formData[key].isEmpty) return false;
+    }
+    return true;
   }
 
   return (
@@ -76,56 +75,36 @@ function RegisterForm() {
         <div>
           <div className={classes.radio}>
             <div>
-              <input
-                type="radio"
-                name="accountType"
-                id="student"
-                value="student"
-                onClick={accountTypeHandler}
-                defaultChecked
-              />
+              <input type="radio" name="accountType" id="student" value="student" onClick={accountTypeHandler} defaultChecked />
               <label htmlFor="student">Student</label>
             </div>
             <div>
-              <input
-                type="radio"
-                name="accountType"
-                id="company"
-                value="company"
-                onClick={accountTypeHandler}
-              />
+              <input type="radio" name="accountType" id="company" value="company" onClick={accountTypeHandler} />
               <label htmlFor="student">Company</label>
             </div>
           </div>
           <div className={classes.inputs}>
-            {formData.isEmployer && (
+            {isEmployer && (
               <div>
                 <label htmlFor="companyname">Company name</label>
-                <input
-                  type="text"
-                  id="companyname"
-                  value={formData.companyName}
-                  onChange={companyNameChangeHandler}
-                />
+                <input name="companyName" type="text" id="companyname" value={formData.companyName.value} onChange={inputChangeHandler} />
+                {showError && formData.companyName.isEmpty && <ErrorMessageForm message="Fill in this field." />}
               </div>
             )}
             <div>
               <label htmlFor="email">Email</label>
-              <input
-                type="text"
-                id="email"
-                value={formData.email}
-                onChange={emailChangeHandler}
-              />
+              <input name="email" type="text" id="email" value={formData.email.value} onChange={inputChangeHandler} />
+              {showError && formData.email.isEmpty && <ErrorMessageForm message="Fill in this field." />}
             </div>
             <div>
               <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={formData.password}
-                onChange={passwordChangeHandler}
-              />
+              <input name="password" type="password" id="password" value={formData.password.value} onChange={inputChangeHandler} />
+              {showError && formData.password.isEmpty && <ErrorMessageForm message="Fill in this field." />}
+            </div>
+            <div>
+              <label htmlFor="repeatPassword">Repeat password</label>
+              <input name="repeatPassword" type="password" id="repeatPassword" value={formData.repeatPassword.value} onChange={inputChangeHandler} />
+              {showError && formData.repeatPassword.isEmpty && <ErrorMessageForm message="Fill in this field." />}
             </div>
           </div>
         </div>
@@ -133,6 +112,11 @@ function RegisterForm() {
           <Button className={classes.btn}>Sign Up</Button>
           <div>
             Do you have account? <Link to="/login">Login</Link>
+            {errorApi && isEmployer ? (
+              <ErrorMessageForm message="Given email and / or company name are exists." />
+            ) : (
+              <ErrorMessageForm message="Given email are exists." />
+            )}
           </div>
         </div>
       </form>

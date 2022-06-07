@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import CompanyCard from "../components/companies/CompanyCard";
 import OffersList from "../components/offers/OffersList/OffersList";
 import SectionText from "../components/UI/SectionText";
+
+import api from "../api/api";
 
 const fakeData = [
   {
@@ -71,6 +73,25 @@ function CompanyPage() {
   const { id } = useParams();
 
   const [page, setPage] = useState(pagedefault);
+  const [company, setCompany] = useState({});
+  const [errorApi, setErroApi] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const dataAPI = useCallback(async () => {
+    const response = await api.getCompanyById(id);
+
+    if (response.hasOwnProperty("error")) {
+      setErroApi(true);
+      return;
+    }
+
+    setIsLoading(false);
+    setCompany(response);
+  }, []);
+
+  useEffect(() => {
+    dataAPI();
+  }, [dataAPI]);
 
   function changePage(page) {
     setPage((lastState) => {
@@ -78,16 +99,16 @@ function CompanyPage() {
     });
   }
   return (
-    <div className="company_page">
-      <CompanyCard {...fakeData2} />
-      <SectionText
-        className="company_page_jobs"
-        title="Jobs:"
-        content={
-          <OffersList data={fakeData} page={page} changePage={changePage} />
-        }
-      />
-    </div>
+    <>
+      {isLoading ? (
+        <p>Laduje dane</p>
+      ) : (
+        <div className="company_page">
+          <CompanyCard {...company} />
+          <SectionText className="company_page_jobs" title="Jobs:" content={<OffersList data={company.jobs} page={page} changePage={changePage} />} />
+        </div>
+      )}
+    </>
   );
 }
 

@@ -1,0 +1,5 @@
+.error {
+  color: var(--errorMessageForm);
+  margin: 5px 0;
+  font-size: 0.8rem;
+}

@@ -19,13 +19,7 @@ function Search(props) {
     <BoxWrapper>
       <form onSubmit={searchHandler}>
         <div className={classes.search}>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchText}
-            onChange={changeSearchTextHandler}
-            className={classes.searchInput}
-          />
+          <input type="text" placeholder="Search..." value={searchText} onChange={changeSearchTextHandler} className={classes.searchInput} />
         </div>
       </form>
     </BoxWrapper>

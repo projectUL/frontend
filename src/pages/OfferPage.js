@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import JobDetails from "../components/offers/JobDetails";
 import Button from "../components/UI/Button";
 import SectionList from "../components/UI/SectionList";
 import SectionText from "../components/UI/SectionText";
+import api from "../api/api";
 
 const fakeOffer = {
   id: 5,
@@ -11,22 +12,9 @@ const fakeOffer = {
   offer_name: "Fullstack mitomani",
   logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
   techs: ["Java", "SpringBoot"],
-  duties: [
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-  ],
+  duties: ["mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1"],
   expectations: ["mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1"],
-  weOffer: [
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-  ],
+  weOffer: ["mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1"],
   created: "09-05-2022",
   isRemote: false,
 };
@@ -47,23 +35,42 @@ const details = {
 
 function OfferPage() {
   const { id } = useParams();
-  const { offer, setOffer } = useState(fakeOffer);
+  const [offer, setOffer] = useState({});
+  const [errorApi, setErroApi] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const dataAPI = useCallback(async () => {
+    const response = await api.getOfferById(id);
+    if (response.hasOwnProperty("error")) {
+      setErroApi(true);
+      return;
+    }
+    setOffer(response.data);
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    dataAPI();
+  }, [dataAPI]);
+
   return (
     <div className="offer_page">
-      <div>
-        <h2>{fakeOffer.offer_name}</h2>
-        <h3>{fakeOffer.company_name}</h3>
-        <SectionText
-          title="Company Overview"
-          content={content}
-          className="offer_compOverview"
-        />
-        <SectionList title="Your scope of duties" points={fakeOffer.duties} />
-        <SectionList title="Our expectations" points={fakeOffer.expectations} />
-        <SectionList title="What we offer" points={fakeOffer.weOffer} />
-        <Button className="offer_btn">Apply Job</Button>
-      </div>
-      <JobDetails {...details} />
+      {isLoading ? (
+        <h1>Laduje dane</h1>
+      ) : (
+        <>
+          <div>
+            <h2>{offer.offer_name}</h2>
+            <h3>{offer.companyName}</h3>
+            <SectionText title="Company Overview" content={offer.companyOverview} className="offer_compOverview" />
+            <SectionList title="Your scope of duties" points={offer.duties} />
+            <SectionList title="Our expectations" points={offer.expectations} />
+            <SectionList title="What we offer" points={offer.weOffer} />
+            <Button className="offer_btn">Apply Job</Button>
+          </div>
+          <JobDetails {...offer.jobDetail} jobType={offer.jobType} />
+        </>
+      )}
     </div>
   );
 }

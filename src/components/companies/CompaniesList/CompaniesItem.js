@@ -8,22 +8,22 @@ function CompaniesItem(props) {
   let navigate = useNavigate();
 
   function offerNavigate() {
-    return navigate("/companies/1");
+    return navigate(`/companies/${props.id}`);
   }
 
   return (
     <div className={`defaultBox ${classes.companiesItem}`}>
       <div className={classes.companyDetails}>
         <div className={classes.img}>
-          <img src={props.logo} alt="logo" />
+          <img src={props.companyLogo} alt="logo" />
         </div>
         <div className={classes.description}>
-          <div>{props.company_name}</div>
-          <div>{props.website}</div>
+          <div>{props.companyName}</div>
+          <div>{props.companyWebsite}</div>
         </div>
       </div>
       <Button className={classes.btn} onClick={offerNavigate}>
-        {`${props.active_offers} Job Posted`}
+        {`${props.jobs.length} Job Posted`}
       </Button>
     </div>
   );

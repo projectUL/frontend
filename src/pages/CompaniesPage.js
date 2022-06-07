@@ -1,45 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import CompaniesList from "../components/companies/CompaniesList/CompaniesList";
 import Pagebar from "../components/offers/Pagebar/Pagebar";
 import Search from "../components/offers/Search/Search";
-
-const fakeData = [
-  {
-    id: 1,
-    company_name: "Google company",
-    website: "www.google.com",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    active_offers: 3,
-  },
-  {
-    id: 2,
-    company_name: "Google company",
-    website: "www.google.com",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    active_offers: 3,
-  },
-  {
-    id: 3,
-    company_name: "Google company",
-    website: "www.google.com",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    active_offers: 3,
-  },
-  {
-    id: 4,
-    company_name: "Google company",
-    website: "www.google.com",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    active_offers: 3,
-  },
-  {
-    id: 5,
-    company_name: "Google company",
-    website: "www.google.com",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    active_offers: 3,
-  },
-];
+import api from "../api/api";
 
 const pagedefault = {
   currentPage: 1,
@@ -49,11 +12,38 @@ const pagedefault = {
 };
 
 function CompaniesPage() {
-  const [searchText, setSearchText] = useState("");
+  //const [searchText, setSearchText] = useState("");
+  const [companies, setCompanies] = useState([]);
   const [page, setPage] = useState(pagedefault);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorApi, setErroApi] = useState(false);
+
+  const dataAPI = useCallback(async () => {
+    const response = await api.getAllCompany();
+    if (response.hasOwnProperty("error")) {
+      setErroApi(true);
+      return;
+    }
+    setCompanies(response.data);
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    dataAPI();
+  }, [dataAPI]);
 
   function searchHandler(text) {
-    setSearchText(text);
+    //setSearchText(text);
+    async function data() {
+      const response = await api.getCompanyBySearch(text);
+      if (response.hasOwnProperty("error")) {
+        setErroApi(true);
+        return;
+      }
+      setCompanies(response.data);
+      setIsLoading(false);
+    }
+    data();
     console.log(text);
   }
 
@@ -62,12 +52,18 @@ function CompaniesPage() {
       return { ...lastState, currentPage: page };
     });
   }
-
+  console.log(companies);
   return (
     <div>
-      <Search searchHandler={searchHandler} />
-      <CompaniesList data={fakeData} />
-      <Pagebar {...page} changePage={changePage} />
+      {isLoading ? (
+        <p>Laduje dane</p>
+      ) : (
+        <>
+          <Search searchHandler={searchHandler} />
+          <CompaniesList data={companies} />
+          <Pagebar {...page} changePage={changePage} />
+        </>
+      )}
     </div>
   );
 }

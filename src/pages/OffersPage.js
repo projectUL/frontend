@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Search from "../components/offers/Search/Search";
 import Filter from "../components/offers/Filter/Filter";
 import OffersList from "../components/offers/OffersList/OffersList";
 import Pagebar from "../components/offers/Pagebar/Pagebar";
 
+import api from "../api/api";
 const fakeData = [
   {
     id: 1,
@@ -53,10 +54,9 @@ const fakeData = [
 ];
 
 const deafult = {
-  searchtext: "",
+  searchText: "",
   category: [],
   jobType: [],
-  offers: [],
 };
 
 const pagedefault = {
@@ -69,6 +69,23 @@ const pagedefault = {
 function OffersPage() {
   const [offersSearch, setOffersSearch] = useState(deafult);
   const [page, setPage] = useState(pagedefault);
+  const [offers, setOffers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorApi, setErroApi] = useState(false);
+
+  const dataAPI = useCallback(async () => {
+    const response = await api.getAllOffers();
+    if (response.hasOwnProperty("error")) {
+      setErroApi(true);
+      return;
+    }
+    setOffers(response.data);
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    dataAPI();
+  }, [dataAPI]);
 
   function changePage(page) {
     setPage((lastState) => {
@@ -76,19 +93,48 @@ function OffersPage() {
     });
   }
 
-  function searchHandler(text) {
+  function searchHandler(text = "") {
     setOffersSearch((lastState) => {
-      return { ...lastState, searchtext: text };
+      return { ...lastState, searchText: text };
     });
-    console.log(text);
+
+    async function data() {
+      const response = await api.getFilterOffers(text, offersSearch.category, offersSearch.jobType);
+      if (response.hasOwnProperty("error")) {
+        setErroApi(true);
+        return;
+      }
+      console.log(response);
+      setOffers(response.data.data);
+      setIsLoading(false);
+    }
+    data();
+  }
+
+  function filterHandler({ category, jobType }) {
+    setOffersSearch((lastState) => {
+      return { ...lastState, category: category, jobType: jobType };
+    });
+
+    async function data() {
+      const response = await api.getFilterOffers(offersSearch.text, category, jobType);
+      if (response.hasOwnProperty("error")) {
+        setErroApi(true);
+        return;
+      }
+      console.log(response);
+      setOffers(response.data.data);
+      setIsLoading(false);
+    }
+    data();
   }
 
   return (
     <div className="wrap-offersPage">
       <Search searchHandler={searchHandler} />
       <div className="content-offersPage">
-        <Filter />
-        <OffersList data={fakeData} page={page} changePage={changePage} />
+        <Filter filterHandler={filterHandler} />
+        <OffersList data={offers} page={page} changePage={changePage} />
       </div>
       <Pagebar {...page} changePage={changePage} />
     </div>
