@@ -3,6 +3,8 @@ import Button from "../UI/Button";
 
 import classes from "./JobDetails.module.css";
 
+import moment from "moment";
+
 function JobDetails(props) {
   return (
     <div className={`defaultBox ${classes.jobDetails}`}>
@@ -20,12 +22,12 @@ function JobDetails(props) {
 
       <div className={classes.property}>
         <div className={classes.name}>Starts</div>
-        <div className={classes.value}>{props.starts} </div>
+        <div className={classes.value}>{moment(props.starts).format("DD.MM.YYYY")} </div>
       </div>
 
       <div className={classes.property}>
         <div className={classes.name}>Ends</div>
-        <div className={classes.value}>{props.ends} </div>
+        <div className={classes.value}>{moment(props.ends).format("DD.MM.YYYY")} </div>
       </div>
 
       <div className={classes.property}>
