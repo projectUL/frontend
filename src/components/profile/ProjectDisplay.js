@@ -4,13 +4,13 @@ import ChipViewProfile from "./ChipViewProfile";
 import git from "./../../../src/images/git.jpg";
 
 import { FaGithub } from "react-icons/fa";
-const ProjectDisplay = ({ setProjectDisplay }) => {
+const ProjectDisplay = (props) => {
   return (
     <div className={classes.container}>
       <div className={classes.project_wrap}>
         <div className={classes.btn_box}>
           <div>
-            <CloseButton onClick={() => setProjectDisplay(false)} />
+            <CloseButton fun={props.close} />
           </div>
         </div>
         <div className={classes.infoBox}>

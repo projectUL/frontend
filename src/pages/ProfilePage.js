@@ -16,7 +16,9 @@ function ProfilePage(props) {
   if (!id) id = props.id;
 
   const [projectDisplay, setProjectDisplay] = useState(false);
-
+  function closeProjectDisplay() {
+    setProjectDisplay(true);
+  }
   return (
     <div className="profilePage_wrap">
       <div className="profilePage_personalData">
@@ -98,14 +100,14 @@ function ProfilePage(props) {
       <div className="profilePage_projects">
         <p className="profilePage_title fs">Projects</p>
         <div className="profilePage_projects_box">
-          <ProjectViewProfile onClick={() => setProjectDisplay(true)} />
-          <ProjectViewProfile onClick={() => setProjectDisplay(true)} />
-          <ProjectViewProfile onClick={() => setProjectDisplay(true)} />
-          <ProjectViewProfile onClick={() => setProjectDisplay(true)} />
-          <ProjectViewProfile onClick={() => setProjectDisplay(true)} />
+          <ProjectViewProfile onClick={closeProjectDisplay} />
+          <ProjectViewProfile onClick={closeProjectDisplay} />
+          <ProjectViewProfile onClick={closeProjectDisplay} />
+          <ProjectViewProfile onClick={closeProjectDisplay} />
+          <ProjectViewProfile onClick={closeProjectDisplay} />
         </div>
       </div>
-      {projectDisplay && <ProjectDisplay setProjectDisplay={setProjectDisplay} />}
+      {projectDisplay && <ProjectDisplay close={setProjectDisplay} />}
     </div>
   );
 }

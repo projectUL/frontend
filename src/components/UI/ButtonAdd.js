@@ -1,11 +1,11 @@
 import classes from "./ButtonAdd.module.css";
 import { FaPlus } from "react-icons/fa";
 
-const ButtonAdd = () => {
+const ButtonAdd = (props) => {
   return (
-    <div className={classes.btnAdd_wrap}>
+    <button className={classes.btnAdd_wrap} onClick={() => props.add && props.add()}>
       <FaPlus className={classes.actionColor} />
-    </div>
+    </button>
   );
 };
 

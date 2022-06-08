@@ -1,12 +1,12 @@
 import classes from "./Experience.module.css";
 import ButtonDelete from "./../UI/ButtonDelete";
-const Experience = () => {
+const Experience = (props) => {
   return (
     <div className={classes.experience_wrap}>
-      <p>Google</p>
-      <p>fullstack</p>
-      <p>15.15.2222 - 25.25.2525</p>
-      <ButtonDelete />
+      <p>{props.data.companyName}</p>
+      <p>{props.data.position}</p>
+      <p>{`${props.data.start} - ${props.data.end}`}</p>
+      <ButtonDelete delete={props.delete} />
     </div>
   );
 };

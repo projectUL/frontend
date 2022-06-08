@@ -1,9 +1,9 @@
 import { FaTimes } from "react-icons/fa";
 import classes from "./CloseButton.module.css";
 
-const CloseButton = ({ onClick }) => {
+const CloseButton = (props) => {
   return (
-    <div className={classes.closeButton_wrap} onClick={() => onClick()}>
+    <div className={classes.closeButton_wrap} onClick={() => props.fun()}>
       <FaTimes />
     </div>
   );

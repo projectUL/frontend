@@ -17,7 +17,12 @@
   border-radius: 50%;
   background-color: var(--action);
 }
-
+.circleGrey {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: gray;
+}
 .ml {
   margin-left: 1.5rem;
 }

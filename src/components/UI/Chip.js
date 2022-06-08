@@ -4,14 +4,19 @@ import classes from "./Chip.module.css";
 
 function Chip(props) {
   function removeChipHandler(val) {
-    props.removeChip(val.target.value);
+    props.removeChip(props.children);
   }
 
   return (
     <div className={classes.chip}>
       {props.children}
       <div className={classes.ml}>
-        <FaTimes onClick={removeChipHandler} value={props.children} />
+        <FaTimes
+          onClick={(event) => {
+            if (props.removeChip) return removeChipHandler(event);
+          }}
+          value={props.children}
+        />
       </div>
     </div>
   );

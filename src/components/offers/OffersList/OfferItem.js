@@ -5,6 +5,7 @@ import Button from "../../UI/Button";
 import { useNavigate } from "react-router-dom";
 
 import api from "../../../api/api";
+import moment from "moment";
 
 function OfferItem({ id }) {
   let navigate = useNavigate();
@@ -22,6 +23,7 @@ function OfferItem({ id }) {
     }
 
     setIsLoading(false);
+    console.log(response);
     setOffer(response.data);
   }, []);
 
@@ -62,7 +64,7 @@ function OfferItem({ id }) {
                 See More
               </Button>
             </div>
-            <div>{`Posted ${offer.created}`}</div>
+            <div>{`Posted ${moment(offer.created).format("DD.MM.YYYY")}`}</div>
           </div>
         </>
       )}
