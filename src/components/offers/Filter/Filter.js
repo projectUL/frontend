@@ -4,21 +4,21 @@ import ListOfCheckBox from "./ListOfCheckBox";
 import { useState } from "react";
 
 const category = [
-  "Administracja biurowa",
-  "Obsługa Klienta",
-  "Badania i Rozwój",
-  "Finanse",
+  "Office administration",
+  "Customer service",
+  "Research & Development",
+  "Finance",
   "HR",
-  "Inne",
-  "Inżynieria i Technologia",
+  "Other",
+  "Engineering & Technology",
   "IT",
-  "Logistyka",
-  "Marketing i Media",
-  "Prawo i administracja",
-  "Sprzedaż",
-  "Zarządzanie",
-  "Konsulting i Strategia",
-  "Design Kreacja",
+  "Logistics",
+  "Marketing & Media",
+  "Law & Administration",
+  "Sales",
+  "Management",
+  "Consulting & Strategy",
+  "Design & Creation",
 ];
 
 const jobType = ["Stationary", "Remote", "Hybrid"];
