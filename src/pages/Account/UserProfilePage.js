@@ -28,20 +28,12 @@ function UserProfilePage(props) {
     <>
       {props.accountPage === "profile" && (
         <>
-          <ChangeModeEye
-            clicked={isEditProfileMode}
-            changeEyeMode={changeProfileMode}
-          />
+          <ChangeModeEye clicked={isEditProfileMode} changeEyeMode={changeProfileMode} />
           <div className="account_page_content">
             {isEditProfileMode && (
               <>
-                <ProfileNavbar
-                  changeProfilePage={changeProfilePage}
-                  picked={profilePage}
-                />
-                {profilePage === "description" && profilePage && (
-                  <DescriptionPage />
-                )}
+                <ProfileNavbar changeProfilePage={changeProfilePage} picked={profilePage} />
+                {profilePage === "description" && profilePage && <DescriptionPage />}
                 {profilePage === "skills" && <SkillsPage />}
                 {profilePage === "experience" && <ExperiencePage />}
                 {profilePage === "projects" && <ProjectsPage />}
