@@ -73,4 +73,13 @@ export default {
       return { error: true };
     }
   },
+  async getUserId(email) {
+    try {
+      const response = await axios.get(`${backEndUrl}user/createprofile/${email}`); //627d48d6569bc8ba6916385c
+      console.log(response);
+      //return response;
+    } catch (error) {
+      return { error: true };
+    }
+  },
 };
