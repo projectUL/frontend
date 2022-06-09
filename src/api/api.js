@@ -24,6 +24,17 @@ export default {
       return { error: true };
     }
   },
+  async createProfile(email) {
+    try {
+      const response = await axios.post(`${backEndUrl}userprofile/createprofile/${email}`); //627d48d6569bc8ba6916385c { email: "123@edu.uni.lodz.pl", password: "123456789"}
+      console.log(response);
+      //return response.data;
+    } catch (error) {
+      return {
+        error: true,
+      };
+    }
+  },
   async getAllCompany() {
     try {
       const response = await axios.get(`${backEndUrl}company/search`); //627d48d6569bc8ba6916385c

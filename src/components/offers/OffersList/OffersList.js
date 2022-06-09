@@ -9,7 +9,7 @@ function OffersList(props) {
     else return <OfferItem key={element} id={element} />;
   });
 
-  return <div className={classes.offersList}>{list}</div>;
+  return <div className={classes.offersList}>{list.length ? list : <p className={classes.noOffers}>No offers</p>} </div>;
 }
 
 export default OffersList;

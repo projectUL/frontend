@@ -46,11 +46,12 @@ function RegisterForm() {
       companyName: formData.companyName.value,
     });
 
-    console.log("data R", data);
     if (data.hasOwnProperty("error")) {
       setErrorApi(true);
       return;
     }
+
+    await api.createProfile(formData.email.value);
 
     return navigate("/login");
   }
@@ -67,7 +68,6 @@ function RegisterForm() {
     }
     return true;
   }
-
   return (
     <React.Fragment>
       <form onSubmit={submitHandler}>
@@ -112,11 +112,12 @@ function RegisterForm() {
           <Button className={classes.btn}>Sign Up</Button>
           <div>
             Do you have account? <Link to="/login">Login</Link>
-            {errorApi && isEmployer ? (
-              <ErrorMessageForm message="Given email and / or company name are exists." />
-            ) : (
-              <ErrorMessageForm message="Given email are exists." />
-            )}
+            {errorApi &&
+              (isEmployer ? (
+                <ErrorMessageForm message="Given email and / or company name exists." />
+              ) : (
+                <ErrorMessageForm message="Given email exists." />
+              ))}
           </div>
         </div>
       </form>

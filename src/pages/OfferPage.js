@@ -52,7 +52,6 @@ function OfferPage() {
   useEffect(() => {
     dataAPI();
   }, [dataAPI]);
-
   return (
     <div className="offer_page">
       {isLoading ? (
@@ -60,7 +59,7 @@ function OfferPage() {
       ) : (
         <>
           <div>
-            <h2>{offer.offer_name}</h2>
+            <h2>{offer.offerTitle}</h2>
             <h3>{offer.companyName}</h3>
             <SectionText title="Company Overview" content={offer.companyOverview} className="offer_compOverview" />
             <SectionList title="Your scope of duties" points={offer.duties} />

@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import classes from "./OfferItem.module.css";
 import Button from "../../UI/Button";
 import { useNavigate } from "react-router-dom";
-
+import LoadingSpinner from "./../../UI/LoadingSpinner";
 import api from "../../../api/api";
 import moment from "moment";
 
@@ -23,7 +23,6 @@ function OfferItem({ id }) {
     }
 
     setIsLoading(false);
-    console.log(response);
     setOffer(response.data);
   }, []);
 
@@ -34,11 +33,14 @@ function OfferItem({ id }) {
   function offerNavigate() {
     return navigate(`/offers/${id}`);
   }
-
+  console.log(offer);
   return (
     <div className={`defaultBox ${classes.item}`}>
       {isLoading ? (
-        <p>Laduje dane</p>
+        <div className={classes.loading}>
+          <p>Loading data</p>
+          <LoadingSpinner />
+        </div>
       ) : (
         <>
           <div className={classes.logo}>

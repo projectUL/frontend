@@ -98,6 +98,7 @@ function OffersPage() {
       return { ...lastState, searchText: text };
     });
 
+    console.log();
     async function data() {
       const response = await api.getFilterOffers(text, offersSearch.category, offersSearch.jobType);
       if (response.hasOwnProperty("error")) {
@@ -112,17 +113,13 @@ function OffersPage() {
   }
 
   function filterHandler({ category, jobType }) {
-    setOffersSearch((lastState) => {
-      return { ...lastState, category: category, jobType: jobType };
-    });
-
+    setOffersSearch({ ...offersSearch, category: category, jobType: jobType });
     async function data() {
-      const response = await api.getFilterOffers(offersSearch.text, category, jobType);
+      const response = await api.getFilterOffers(offersSearch.searchText, category, jobType);
       if (response.hasOwnProperty("error")) {
         setErroApi(true);
         return;
       }
-      console.log(response);
       setOffers(response.data.data);
       setIsLoading(false);
     }

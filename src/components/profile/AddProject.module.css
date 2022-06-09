@@ -89,13 +89,17 @@
 
 .secondSection {
   display: flex;
+  align-items: center;
   gap: 1.5rem;
 }
 
 .btnAddWrap {
+  width: 1.5rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   padding-top: 1.5rem;
+  margin-top: 1.2rem;
 }
 
 .form button {

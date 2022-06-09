@@ -23,6 +23,7 @@ const category = [
 
 const jobType = ["Stationary", "Remote", "Hybrid"];
 const defaultFilters = { category: "", jobType: "" };
+
 const Filter = ({ filterHandler }) => {
   const [filters, setFilters] = useState(defaultFilters);
   function handleOnSubmit(event) {
