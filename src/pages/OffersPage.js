@@ -98,9 +98,9 @@ function OffersPage() {
       return { ...lastState, searchText: text };
     });
 
-    console.log();
+    console.log(text);
     async function data() {
-      const response = await api.getFilterOffers(text, offersSearch.category, offersSearch.jobType);
+      const response = await api.getFilterOffers(text, offersSearch.category[0], offersSearch.jobType[0]);
       if (response.hasOwnProperty("error")) {
         setErroApi(true);
         return;
@@ -113,7 +113,7 @@ function OffersPage() {
   }
 
   function filterHandler({ category, jobType }) {
-    setOffersSearch({ ...offersSearch, category: category, jobType: jobType });
+    setOffersSearch({ ...offersSearch, category: [category], jobType: [jobType] });
     async function data() {
       const response = await api.getFilterOffers(offersSearch.searchText, category, jobType);
       if (response.hasOwnProperty("error")) {
