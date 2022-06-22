@@ -27,7 +27,7 @@ export default {
   async createProfile(email) {
     try {
       const response = await axios.post(`${backEndUrl}userprofile/createprofile/${email}`); //627d48d6569bc8ba6916385c { email: "123@edu.uni.lodz.pl", password: "123456789"}
-      console.log(response);
+      console.log("createProfile", response);
       //return response.data;
     } catch (error) {
       return {
@@ -86,11 +86,143 @@ export default {
   },
   async getUserId(email) {
     try {
-      const response = await axios.get(`${backEndUrl}user/createprofile/${email}`); //627d48d6569bc8ba6916385c
-      console.log(response);
-      //return response;
+      const response = await axios.get(`${backEndUrl}userprofile/${email}`); //627d48d6569bc8ba6916385c
+      return response;
     } catch (error) {
       return { error: true };
+    }
+  },
+  async getUserProfileDescription(id) {
+    try {
+      const response = await axios.get(`${backEndUrl}userprofile/createprofile/description/${id}`); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return { error: true };
+    }
+  },
+  async putUserProfileDescription(id, description) {
+    try {
+      const response = await axios.put(`${backEndUrl}userprofile/createprofile/description/${id}`, description); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return { error: true };
+    }
+  },
+  async getUserProfileSkills(id) {
+    try {
+      const response = await axios.get(`${backEndUrl}userprofile/createprofile/skills/${id}`); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return { error: true };
+    }
+  },
+  async putUserProfileSkills(id, skills) {
+    try {
+      const response = await axios.put(`${backEndUrl}userprofile/createprofile/skills/${id}`, skills); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return { error: true };
+    }
+  },
+  async deleteUserProfileSkills(id, toDelete) {
+    try {
+      const response = await axios.delete(`${backEndUrl}userprofile/delete/skills/${id}`, toDelete); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      console.log(error);
+      return { error: true };
+    }
+  },
+  async getUserProfileExperience(id) {
+    try {
+      const response = await axios.get(`${backEndUrl}userprofile/createprofile/experience/${id}`); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      console.log(error);
+      return { error: true };
+    }
+  },
+  async putUserProfileExperience(id, experience) {
+    try {
+      const response = await axios.put(`${backEndUrl}userprofile/createprofile/experience/${id}`, experience); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      console.log(error);
+      return { error: true };
+    }
+  },
+  async deleteUserProfileExperience(id, toDelete) {
+    try {
+      const response = await axios.delete(`${backEndUrl}userprofile/delete/experience/${id}`, toDelete); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      console.log(error);
+      return { error: true };
+    }
+  },
+  async getUserProfileProjects(id) {
+    try {
+      const response = await axios.get(`${backEndUrl}userprofile/createprofile/project/${id}`); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return { error: true };
+    }
+  },
+  async putUserProfileProjects(id, projects) {
+    try {
+      const response = await axios.put(`${backEndUrl}userprofile/createprofile/project/${id}`, projects); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return { error: true };
+    }
+  },
+  async deleteUserProfileExperience(id, toDelete) {
+    try {
+      const response = await axios.delete(`${backEndUrl}userprofile/delete/project/${id}`, toDelete); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      console.log(error);
+      return { error: true };
+    }
+  },
+  async getUserProfile(email) {
+    try {
+      const response = await axios.get(`${backEndUrl}userprofile/getprofile/${email}`); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return { error: true };
+    }
+  },
+  async getUserApplications(email) {
+    try {
+      const response = await axios.get(`${backEndUrl}user/${email}`); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
+  async putUserNewEmail(change) {
+    try {
+      const response = await axios.put(`${backEndUrl}user/edit/email`, change); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
+  async putUserNewPassword(change) {
+    try {
+      const response = await axios.put(`${backEndUrl}user/edit/pswd`, change); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
+  async putApply(email, apply) {
+    try {
+      const response = await axios.put(`${backEndUrl}user/apply/${email}`, apply); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return error;
     }
   },
 };
