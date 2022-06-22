@@ -3,7 +3,7 @@ import { FaTimes } from "react-icons/fa";
 
 const ButtonDelete = (props) => {
   return (
-    <button className={classes.btnDelete_wrap} onClick={() => props.delete && props.delete()}>
+    <button className={classes.btnDelete_wrap} onClick={() => props.delete && props.delete(props.value)}>
       <FaTimes className={classes.deleteColor} />
     </button>
   );

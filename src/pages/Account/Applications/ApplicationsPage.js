@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import ApplicationsList from "../../../components/applications/ApplicationsList";
+import api from "../../../api/api";
 
 const fakeData = [
   {
@@ -50,11 +51,18 @@ const fakeData = [
 ];
 
 function ApplicationsPage() {
-  return (
-    <>
-      <ApplicationsList applications={fakeData} />
-    </>
-  );
+  const [applications, setApplications] = useState([]);
+  const dataAPI = useCallback(async () => {
+    const response = await api.getUserApplications(localStorage.getItem("email"));
+    console.log(response);
+    if (response.status === 200) setApplications(response.data.applications);
+  }, []);
+
+  useEffect(() => {
+    dataAPI();
+  }, [dataAPI]);
+  console.log(applications);
+  return <>{applications.length !== 0 ? <ApplicationsList applications={applications} /> : <p>Loading...</p>}</>;
 }
 
 export default ApplicationsPage;

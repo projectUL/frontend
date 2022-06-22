@@ -8,18 +8,36 @@ import AddProject from "../../../components/profile/AddProject";
 
 import api from "../../../api/api";
 
-const defaultProjects = [
-  { projectName: "Project 1", id: "15478" },
-  { projectName: "Project 2", id: "15478" },
-  { projectName: "Project 3", id: "15478" },
-  { projectName: "Project 4", id: "15478" },
-];
-
-function ProjectsPage() {
-  const [projects, setProjects] = useState(defaultProjects);
+function ProjectsPage(props) {
+  const [projects, setProjects] = useState([]);
   const [addProjectDisplay, setAddProjectDisplay] = useState(false);
-  function deleteProject() {
-    console.log("delete");
+  const [reloadData, setReloadData] = useState(false);
+
+  const dataAPI = useCallback(async () => {
+    const response = await api.getUserProfileProjects(props.id);
+    console.log(response);
+    // console.log(typeof response.data);
+    if (typeof response.data !== "object") {
+      return;
+    }
+
+    setProjects(response.data);
+    // if (response.hasOwnProperty("error")) {
+    //   setErroApi(true);
+    //   return;
+    // }
+  }, []);
+
+  useEffect(() => {
+    dataAPI();
+  }, [reloadData]);
+
+  async function deleteProject(value) {
+    console.log(`usuwam`, value);
+    const toDelete = { data: { projectName: value } };
+    const response = await api.deleteUserProfileExperience(props.id, toDelete);
+    console.log(response);
+    setReloadData(!reloadData);
   }
   return (
     <div className={classes.center}>
@@ -31,7 +49,15 @@ function ProjectsPage() {
           <Project key={index} data={project} delete={deleteProject} />
         ))}
 
-        {addProjectDisplay && <AddProject setAddProjectDisplay={setAddProjectDisplay} />}
+        {addProjectDisplay && (
+          <AddProject
+            setAddProjectDisplay={setAddProjectDisplay}
+            projects={projects}
+            id={props.id}
+            reloadData={reloadData}
+            setReloadData={setReloadData}
+          />
+        )}
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import classes from "./CloseButton.module.css";
 
 const CloseButton = (props) => {
   return (
-    <div className={classes.closeButton_wrap} onClick={() => props.fun()}>
+    <div className={classes.closeButton_wrap} onClick={() => props.fun(props.value)}>
       <FaTimes />
     </div>
   );

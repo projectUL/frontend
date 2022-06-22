@@ -5,7 +5,7 @@ import Button from "../components/UI/Button";
 import SectionList from "../components/UI/SectionList";
 import SectionText from "../components/UI/SectionText";
 import api from "../api/api";
-
+import moment from "moment";
 const fakeOffer = {
   id: 5,
   company_name: "Google company",
@@ -52,6 +52,21 @@ function OfferPage() {
   useEffect(() => {
     dataAPI();
   }, [dataAPI]);
+  async function applyToJob() {
+    const apply = {
+      companyName: offer.companyName,
+      jobName: offer.offerTitle,
+      companyPic: offer.companyLogo,
+      status: "Pending",
+      applied: moment().toDate(),
+      offerID: offer.id,
+    };
+    //console.log(offer);
+    //console.log(apply);
+    const res = await api.putApply(localStorage.getItem("email"), apply);
+    console.log(res);
+  }
+
   return (
     <div className="offer_page">
       {isLoading ? (
@@ -65,9 +80,11 @@ function OfferPage() {
             <SectionList title="Your scope of duties" points={offer.duties} />
             <SectionList title="Our expectations" points={offer.expectations} />
             <SectionList title="What we offer" points={offer.weOffer} />
-            <Button className="offer_btn">Apply Job</Button>
+            <Button className="offer_btn" onClick={() => applyToJob()}>
+              Apply Job
+            </Button>
           </div>
-          <JobDetails {...offer.jobDetail} jobType={offer.jobType} />
+          <JobDetails {...offer.jobDetail} jobType={offer.jobType} apply={applyToJob} />
         </>
       )}
     </div>

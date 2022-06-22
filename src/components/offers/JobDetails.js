@@ -40,7 +40,7 @@ function JobDetails(props) {
         <div className={classes.value}>{props.numberOfCandidates} </div>
       </div>
       <div className={classes.action}>
-        <Button className={classes.btn} onClick={props.onClick}>
+        <Button className={classes.btn} onClick={() => props.apply()}>
           Apply job
         </Button>
       </div>

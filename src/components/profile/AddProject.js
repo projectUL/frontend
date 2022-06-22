@@ -29,10 +29,10 @@ const defaultProjectForm = {
   technologies: ["Java", "JavaScript", "SQL", "PHP"],
 };
 
-const AddProject = ({ setAddProjectDisplay }) => {
+const AddProject = (props) => {
   const [projectForm, setProjectForm] = useState(defaultProjectForm);
   const close = () => {
-    setAddProjectDisplay(false);
+    props.setAddProjectDisplay(false);
   };
   function handleChange(event) {
     setProjectForm({
@@ -60,9 +60,26 @@ const AddProject = ({ setAddProjectDisplay }) => {
     const newTechnologies = projectForm.technologies.filter((name) => name != value);
     setProjectForm({ ...projectForm, technologies: newTechnologies });
   }
-  function handleSubmit(event) {
+
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(projectForm);
+
+    const newProject = [
+      ...props.projects,
+      {
+        projectName: projectForm.name.value,
+        projectLink: projectForm.linkRepository.value,
+        projectDesc: projectForm.description.value,
+        projectTech: projectForm.technologies,
+        projectLogo: "",
+        userEmail: localStorage.getItem("email"),
+      },
+    ];
+    console.log(newProject);
+    const response = await api.putUserProfileProjects(props.id, newProject);
+    console.log(response);
+    props.setReloadData(!props.reloadData);
+    close();
   }
   return (
     <div className={classes.container}>

@@ -9,7 +9,7 @@ const Project = (props) => {
         <p className={classes.title}>{props.data.projectName}</p>
       </div>
       <div className={classes.project}>
-        <CloseButton fun={props.delete} />
+        <CloseButton fun={props.delete} value={props.data.projectName} />
       </div>
     </div>
   );

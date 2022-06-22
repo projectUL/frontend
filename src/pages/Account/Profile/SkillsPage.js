@@ -9,12 +9,8 @@ import Chip from "./../../../components/UI/Chip";
 import api from "../../../api/api";
 
 const deafultUserSkillsData = {
-  skills: [
-    { skillName: "Angielski", skillLevel: 3 },
-    { skillName: "Angielski", skillLevel: 4 },
-    { skillName: "Angielski", skillLevel: 5 },
-  ],
-  courses: ["Java", "JavaScript", "SQL", "PHP"],
+  skills: [],
+  courses: [],
 };
 const defaultSkill = {
   value: "",
@@ -25,32 +21,37 @@ const defaultCourse = {
   value: "",
   isEmpty: true,
 };
-function SkillsPage() {
+function SkillsPage(props) {
   const [skill, setSkill] = useState(defaultSkill);
   const [course, setCourse] = useState(defaultCourse);
   const [userSkillsDate, setUserSkillsDate] = useState(deafultUserSkillsData);
   const [showError, setShowError] = useState(false);
   const [errorApi, setErroApi] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [reloadData, setReloadData] = useState(false);
 
-  // const dataAPI = useCallback(async () => {
+  const dataAPI = useCallback(async () => {
+    const response = await api.getUserProfileSkills(props.id);
+    console.log(response);
+    // console.log(typeof response.data);
+    if (typeof response.data !== "object") {
+      return;
+    }
 
-  //   if (!validation(userSkillsDate)) {
-  //     setShowError(true);
-  //     return;
-  //   }
+    setUserSkillsDate({
+      skills: response.data.skill ? response.data.skill : [],
+      courses: response.data.courses ? response.data.courses : [],
+    });
 
-  //   const response = await api.getCompanyById(id);
+    // if (response.hasOwnProperty("error")) {
+    //   setErroApi(true);
+    //   return;
+    // }
+  }, []);
 
-  //   if (response.hasOwnProperty("error")) {
-  //     setErroApi(true);
-  //     return;
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   dataAPI();
-  // }, [dataAPI]);
+  useEffect(() => {
+    dataAPI();
+  }, [reloadData]);
 
   function handleChangeSkill(event) {
     if (event.target.id === "skillName")
@@ -73,46 +74,69 @@ function SkillsPage() {
     });
   }
 
-  function handleSubmitSkill(event) {
+  async function handleSubmitSkill(event) {
     event.preventDefault();
-    console.log(skill);
-
-    // if (!validation(userDate)) {
+    // if (!validation(userDescriptionDate)) {
     //   setShowError(true);
     //   return;
     // }
-
-    // const response = await api.getCompanyById(id);
-
+    const newSkills = {
+      skill: [
+        ...userSkillsDate.skills,
+        {
+          skillName: skill.value,
+          skillLevel: skill.skillLevel,
+        },
+      ],
+      courses: userSkillsDate.courses,
+    };
+    console.log(newSkills);
+    const response = await api.putUserProfileSkills(props.id, newSkills);
+    console.log(response);
+    setSkill(defaultSkill);
+    setReloadData(!reloadData);
     // if (response.hasOwnProperty("error")) {
     //   setErroApi(true);
     //   return;
     // }
-    //console.log("zapisane")
   }
-  function handleSubmitCourse(event) {
-    event.preventDefault();
-    console.log(course);
 
-    // if (!validation(userDate)) {
+  async function handleSubmitCourse(event) {
+    event.preventDefault();
+    // if (!validation(userDescriptionDate)) {
     //   setShowError(true);
     //   return;
     // }
-
-    // const response = await api.getCompanyById(id);
-
+    const newCourses = {
+      skill: userSkillsDate.skills,
+      courses: [...userSkillsDate.courses, course.value], //[course.value],
+    };
+    console.log(newCourses);
+    const response = await api.putUserProfileSkills(props.id, newCourses);
+    console.log(response);
+    setCourse(defaultCourse);
+    setReloadData(!reloadData);
     // if (response.hasOwnProperty("error")) {
     //   setErroApi(true);
     //   return;
     // }
-    //console.log("zapisane")
   }
-  function handleDeleteSkill(event) {
-    console.log("Usuwam");
+
+  async function handleDeleteSkill(value) {
+    const toDelete = { data: { skillName: value } };
+    const response = await api.deleteUserProfileSkills(props.id, toDelete);
+    console.log(response);
+    setReloadData(!reloadData);
   }
-  function handleDeleteCourse(value) {
-    console.log("Usuwam", value);
+
+  async function handleDeleteCourse(value) {
+    console.log(value);
+    const toDelete = { data: { course: value } };
+    const response = await api.deleteUserProfileSkills(props.id, toDelete);
+    console.log(response);
+    setReloadData(!reloadData);
   }
+
   function validation(data) {
     for (const key in data) {
       if (data[key].isEmpty) return false;

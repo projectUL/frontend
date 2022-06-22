@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+import moment from "moment";
 import classes from "./DescriptionPage.module.css";
 import Button from "./../../../components/UI/Button";
 
@@ -13,15 +14,15 @@ const deafultUserDescriptionData = {
     value: "",
     isEmpty: true,
   },
-  phonNumber: {
+  phoneNumber: {
     value: "",
     isEmpty: true,
   },
-  descripion: {
+  description: {
     value: "",
     isEmpty: true,
   },
-  collage: {
+  college: {
     value: "",
     isEmpty: true,
   },
@@ -38,30 +39,43 @@ const deafultUserDescriptionData = {
     isEmpty: true,
   },
 };
-function DescriptionPage() {
+function DescriptionPage(props) {
   const [userDescriptionDate, setUserDescriptionDate] = useState(deafultUserDescriptionData);
   const [showError, setShowError] = useState(false);
   const [errorApi, setErroApi] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [reloadData, setReloadData] = useState(false);
 
-  // const dataAPI = useCallback(async () => {
+  const dataAPI = useCallback(async () => {
+    const response = await api.getUserProfileDescription(props.id);
+    //console.log(response);
+    //console.log(typeof response.data);
+    if (typeof response.data !== "object") {
+      return;
+    }
 
-  //   if (!validation(userDate)) {
-  //     setShowError(true);
-  //     return;
-  //   }
+    const userDataFromDB = {};
+    for (const key in response.data) {
+      if (key === "start" || key === "end") {
+        userDataFromDB[key] = {
+          value: response.data[key] === null ? "" : moment(response.data[key]).format("YYYY-MM-DD"),
+          isEmpty: response.data[key] === "",
+        };
+      } else {
+        userDataFromDB[key] = { value: response.data[key] === null ? "" : response.data[key], isEmpty: response.data[key] === "" };
+      }
+    }
+    console.log(userDataFromDB);
+    setUserDescriptionDate(userDataFromDB);
+    // if (response.hasOwnProperty("error")) {
+    //   setErroApi(true);
+    //   return;
+    // }
+  }, []);
 
-  //   const response = await api.getCompanyById(id);
-
-  //   if (response.hasOwnProperty("error")) {
-  //     setErroApi(true);
-  //     return;
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   dataAPI();
-  // }, [dataAPI]);
+  useEffect(() => {
+    dataAPI();
+  }, [dataAPI]);
 
   function handleChange(event) {
     setUserDescriptionDate({
@@ -72,17 +86,18 @@ function DescriptionPage() {
       },
     });
   }
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(userDescriptionDate);
+    //console.log(userDescriptionDate);
 
     // if (!validation(userDescriptionDate)) {
     //   setShowError(true);
     //   return;
     // }
-
-    // const response = await api.getCompanyById(id);
-
+    const profileDataForm = createProfileToSend(userDescriptionDate);
+    const response = await api.putUserProfileDescription(props.id, profileDataForm);
+    console.log(response);
+    setReloadData(true);
     // if (response.hasOwnProperty("error")) {
     //   setErroApi(true);
     //   return;
@@ -96,6 +111,12 @@ function DescriptionPage() {
     }
     return true;
   }
+  function createProfileToSend(obj) {
+    const newObj = {};
+    for (const key in obj) newObj[key] = obj[key].value;
+
+    return newObj;
+  }
   return (
     <form className={classes.profileDescriptionForm} onSubmit={handleSubmit}>
       <div className={classes.profileDescriptionForm_FirstSection_Wrap}>
@@ -107,17 +128,17 @@ function DescriptionPage() {
           <input type="text" id="name" onChange={handleChange} value={userDescriptionDate.name.value} />
           <label htmlFor="email">Email</label>
           <input type="text" id="email" onChange={handleChange} value={userDescriptionDate.email.value} />
-          <label htmlFor="phonNumber">Phon number</label>
-          <input type="text" id="phonNumber" onChange={handleChange} value={userDescriptionDate.phonNumber.value} />
+          <label htmlFor="phoneNumber">Phon number</label>
+          <input type="text" id="phoneNumber" onChange={handleChange} value={userDescriptionDate.phoneNumber.value} />
         </div>
       </div>
       <div className={classes.profileDescriptionForm_SecondSection_description}>
         <label htmlFor="description">Description</label>
-        <textarea name="" id="description" onChange={handleChange} value={userDescriptionDate.descripion.value}></textarea>
+        <textarea name="" id="description" onChange={handleChange} value={userDescriptionDate.description.value}></textarea>
       </div>
       <div className={classes.profileDescriptionForm_ThirdSection_School}>
         <label htmlFor="college">College</label>
-        <input type="text" id="college" onChange={handleChange} value={userDescriptionDate.collage.value} />
+        <input type="text" id="college" onChange={handleChange} value={userDescriptionDate.college.value} />
         <label htmlFor="direction">Direction</label>
         <input type="text" id="direction" onChange={handleChange} value={userDescriptionDate.direction.value} />
         <div className={classes.startEndCollege_wrap}>

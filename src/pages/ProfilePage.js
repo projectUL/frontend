@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import SkillViewProfile from "./../components/profile/SkillViewProfile";
@@ -6,9 +6,27 @@ import ProjectViewProfile from "./../components/profile/ProjectViewProfile";
 import ExperienceProfileView from "./../components/profile/ExperienceProfileView";
 import ProjectDisplay from "./../components/profile/ProjectDisplay";
 
+import api from "../api/api";
+import moment from "moment";
 import git from "./../images/git2.jpg";
 
 import { FaGithub, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+
+const deafultUserProfile = {
+  description: {
+    name: "Your name",
+    email: "Your email",
+    phoneNumber: "Your phone number",
+    description: "Your description",
+    college: "Your college name",
+  },
+  skills: {
+    skill: [],
+    courses: [],
+  },
+  experience: [],
+  projects: [],
+};
 
 function ProfilePage(props) {
   let { id } = useParams();
@@ -16,35 +34,49 @@ function ProfilePage(props) {
   if (!id) id = props.id;
 
   const [projectDisplay, setProjectDisplay] = useState(false);
-  function closeProjectDisplay() {
+  const [userProfile, setUserProfile] = useState(deafultUserProfile);
+  const [showProject, setShowProject] = useState({});
+
+  const dataAPI = useCallback(async () => {
+    const response = await api.getUserProfile(localStorage.getItem("email"));
+    console.log(response);
+    if (response.status === 200 && response.data !== {})
+      setUserProfile({
+        description: { ...response.data.description },
+        skills: { ...response.data.skills },
+        experience: [...response.data.experience],
+        projects: [...response.data.projects],
+      });
+  }, []);
+
+  useEffect(() => {
+    dataAPI();
+  }, [dataAPI]);
+
+  function closeProjectDisplay(project) {
     setProjectDisplay(true);
+    setShowProject(project);
   }
+  console.log(userProfile);
   return (
     <div className="profilePage_wrap">
       <div className="profilePage_personalData">
         <div className="profilePage_personalData_box">
           <img src={git} alt="podatek" />
           <div className="profilePage_personalData_box2">
-            <p className="profilePage_personalData_name">Adam Kowalski</p>
+            <p className="profilePage_personalData_name">{userProfile.description.name}</p>
             <p>
               <FaGithub /> asdas.github
             </p>
             <p>
-              <FaEnvelope /> email@wp.com
+              <FaEnvelope /> {userProfile.description.email}
             </p>
             <p>
-              <FaPhoneAlt /> 874-874-874
+              <FaPhoneAlt /> {userProfile.description.phoneNumber}
             </p>
           </div>
         </div>
-        <p className="profilePage_personalData_about">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit harum adipisci omnis alias nobis repellendus sunt iusto deleniti recusandae
-          sequi veritatis officia soluta quam quos, consequatur consequuntur nam dignissimos culpa. Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Architecto, eligendi, aspernatur nisi nesciunt ipsa distinctio cumque officia ullam maiores accusamus quis temporibus
-          voluptates explicabo dicta error excepturi reiciendis. Quas, enim! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae impedit
-          quam alias facilis quisquam consectetur? Praesentium accusamus, quidem illo magni inventore facere qui excepturi doloremque, maxime
-          dignissimos voluptatem molestiae eos!
-        </p>
+        <p className="profilePage_personalData_about">{userProfile.description.description}</p>
       </div>
       <div className="profilePage_line">
         <div className="square"></div>
@@ -53,8 +85,9 @@ function ProfilePage(props) {
       <div className="profilePage_skills">
         <p className="profilePage_title">Skills</p>
         <div className="profilePage_skill_box">
-          <SkillViewProfile />
-          <SkillViewProfile />
+          {userProfile.skills.skill.map((s, i) => (
+            <SkillViewProfile skill={s} key={i} />
+          ))}
         </div>
       </div>
       <div className="profilePage_line">
@@ -64,9 +97,9 @@ function ProfilePage(props) {
       <div className="profilePage_courses">
         <p className="profilePage_title">Courses</p>
         <ul>
-          <li>Firebase</li>
-          <li>Firebase</li>
-          <li>Firebase</li>
+          {userProfile.skills.courses.map((c) => (
+            <li>{c}</li>
+          ))}
         </ul>
       </div>
       <div className="profilePage_line">
@@ -75,8 +108,9 @@ function ProfilePage(props) {
       </div>
       <div className="profilePage_expirience">
         <p className="profilePage_title">Expierence</p>
-        <ExperienceProfileView />
-        <ExperienceProfileView />
+        {userProfile.experience.map((e) => (
+          <ExperienceProfileView exp={e} />
+        ))}
       </div>
       <div className="profilePage_line">
         <div className="square"></div>
@@ -85,12 +119,10 @@ function ProfilePage(props) {
       <div className="profilePage_education">
         <p className="profilePage_title">Education</p>
         <div className="profilePage_education_box">
-          <p>Uniwersytet Łódzki Wydział Fizyki i Informatyki Stosowanej</p>
-          <p className="bold">2018-2021</p>
-        </div>
-        <div className="profilePage_education_box">
-          <p>Uniwersytet Łódzki Wydział Fizyki i Informatyki Stosowanej</p>
-          <p className="bold">2018-2021</p>
+          <p>{userProfile.description.college}</p>
+          <p className="bold">{`${moment(userProfile.description.startDate).format("YYYY")} - ${moment(userProfile.description.endDate).format(
+            "YYYY"
+          )}`}</p>
         </div>
       </div>
       <div className="profilePage_line">
@@ -100,14 +132,12 @@ function ProfilePage(props) {
       <div className="profilePage_projects">
         <p className="profilePage_title fs">Projects</p>
         <div className="profilePage_projects_box">
-          <ProjectViewProfile onClick={closeProjectDisplay} />
-          <ProjectViewProfile onClick={closeProjectDisplay} />
-          <ProjectViewProfile onClick={closeProjectDisplay} />
-          <ProjectViewProfile onClick={closeProjectDisplay} />
-          <ProjectViewProfile onClick={closeProjectDisplay} />
+          {userProfile.projects.map((p) => (
+            <ProjectViewProfile onClick={closeProjectDisplay} data={p} />
+          ))}
         </div>
       </div>
-      {projectDisplay && <ProjectDisplay close={setProjectDisplay} />}
+      {projectDisplay && <ProjectDisplay close={setProjectDisplay} data={showProject} />}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import git from "./../../../src/images/git.jpg";
 
 import { FaGithub } from "react-icons/fa";
 const ProjectDisplay = (props) => {
+  console.log(props.data);
   return (
     <div className={classes.container}>
       <div className={classes.project_wrap}>
@@ -16,21 +17,16 @@ const ProjectDisplay = (props) => {
         <div className={classes.infoBox}>
           <div className={classes.project_box}>
             <img src={git} alt="" />
-            <p className={classes.title}>Steamwe</p>
+            <p className={classes.title}>{props.data.projectName}</p>
             <div className={classes.chipBox}>
-              <ChipViewProfile>Java</ChipViewProfile>
-              <ChipViewProfile>C#</ChipViewProfile>
-              <ChipViewProfile>PHP</ChipViewProfile>
+              {props.data.projectTech.map((t, i) => (
+                <ChipViewProfile key={i}>{t}</ChipViewProfile>
+              ))}
             </div>
           </div>
-          <p className={classes.desc}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit, ipsam quidem? Rem iste quisquam consectetur excepturi! Enim ducimus vel
-            quos nesciunt necessitatibus suscipit esse autem nihil sit? Quos, consectetur illo. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Accusamus debitis iusto quae consequuntur necessitatibus. Mollitia quas distinctio in voluptatum, laborum nihil id molestiae
-            obcaecati at beatae ducimus quisquam dignissimos saepe.
-          </p>
+          <p className={classes.desc}>{props.data.projectDesc}</p>
           <div className={classes.github}>
-            <FaGithub /> sadjasda.com
+            <FaGithub /> {props.data.projectLink}
           </div>
         </div>
       </div>

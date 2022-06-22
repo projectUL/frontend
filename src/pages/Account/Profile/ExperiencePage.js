@@ -16,23 +16,45 @@ const deafultExperienceFormDate = {
     value: "",
     isEmpty: true,
   },
-  start: {
+  startDate: {
     value: "",
     isEmpty: true,
   },
-  end: {
+  endDate: {
     value: "",
     isEmpty: true,
   },
 };
 const defultExperience = [
-  { companyName: "Google", position: "Fullstack Mitiomani", start: "10-07-2022", end: "11-07-2022" },
-  { companyName: "Google", position: "Fullstack Mitiomani", start: "10-07-2022", end: "11-07-2022" },
-  { companyName: "Google", position: "Fullstack Mitiomani", start: "10-07-2022", end: "11-07-2022" },
+  { companyName: "Google", position: "Fullstack Mitiomani", startDate: "10-07-2022", endDate: "11-07-2022" },
+  { companyName: "Google", position: "Fullstack Mitiomani", startDate: "10-07-2022", endDate: "11-07-2022" },
+  { companyName: "Google", position: "Fullstack Mitiomani", startDate: "10-07-2022", endDate: "11-07-2022" },
 ];
-function ExperiencePage() {
+function ExperiencePage(props) {
   const [experienceForm, setUserExperienceForm] = useState(deafultExperienceFormDate);
   const [experience, setExerience] = useState(defultExperience);
+  const [reloadData, setReloadData] = useState(false);
+
+  const dataAPI = useCallback(async () => {
+    const response = await api.getUserProfileExperience(props.id);
+    console.log(response);
+    // console.log(typeof response.data);
+    if (typeof response.data !== "object") {
+      return;
+    }
+
+    setExerience(response.data);
+
+    // if (response.hasOwnProperty("error")) {
+    //   setErroApi(true);
+    //   return;
+    // }
+  }, []);
+
+  useEffect(() => {
+    dataAPI();
+  }, [reloadData]);
+
   function handleChange(event) {
     setUserExperienceForm({
       ...experienceForm,
@@ -42,12 +64,31 @@ function ExperiencePage() {
       },
     });
   }
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     console.log(experienceForm);
+    const exp = [
+      ...experience,
+      {
+        companyName: experienceForm.companyName.value,
+        position: experienceForm.position.value,
+        startDate: experienceForm.startDate.value,
+        endDate: experienceForm.endDate.value,
+      },
+    ];
+    const response = await api.putUserProfileExperience(props.id, exp);
+    console.log(response);
+    if (response.status === 200) {
+      setReloadData(!reloadData);
+      setUserExperienceForm(deafultExperienceFormDate);
+    }
   }
-  function handleDelete() {
-    console.log(`usuwam`);
+  async function handleDelete(value) {
+    console.log(`usuwam`, value);
+    const toDelete = { data: { companyName: value } };
+    const response = await api.deleteUserProfileExperience(props.id, toDelete);
+    console.log(response);
+    setReloadData(!reloadData);
   }
   return (
     <div className={classes.experiencePage_wrap}>
@@ -59,12 +100,12 @@ function ExperiencePage() {
           <input type="text" id="position" onChange={handleChange} value={experienceForm.position.value} />
           <div className={classes.startEndCollege_wrap}>
             <div className={classes.startEndCollege}>
-              <label htmlFor="start">Start</label>
-              <input type="date" id="start" onChange={handleChange} value={experienceForm.start.value} />
+              <label htmlFor="startDate">Start</label>
+              <input type="date" id="startDate" onChange={handleChange} value={experienceForm.startDate.value} />
             </div>
             <div className={classes.startEndCollege}>
-              <label htmlFor="end">End</label>
-              <input type="date" id="end" onChange={handleChange} value={experienceForm.end.value} />
+              <label htmlFor="endDate">End</label>
+              <input type="date" id="endDate" onChange={handleChange} value={experienceForm.endDate.value} />
             </div>
           </div>
         </div>

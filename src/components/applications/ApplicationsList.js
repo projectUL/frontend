@@ -7,7 +7,7 @@ function ApplicationsList(props) {
   return (
     <div className={classes.list}>
       {props.applications.map((application) => {
-        return <Application key={application.id} {...application} />;
+        return <Application key={application.offerID} {...application} />;
       })}
     </div>
   );
