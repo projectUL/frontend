@@ -74,7 +74,10 @@ function OffersPage() {
   const [errorApi, setErroApi] = useState(false);
 
   const dataAPI = useCallback(async () => {
-    const response = await api.getAllOffers();
+    const response = await api.getAllOffers(
+      page.currentPage,
+      offersSearch.searchText
+    );
     if (response.hasOwnProperty("error")) {
       setErroApi(true);
       return;
@@ -100,7 +103,11 @@ function OffersPage() {
 
     console.log(text);
     async function data() {
-      const response = await api.getFilterOffers(text, offersSearch.category[0], offersSearch.jobType[0]);
+      const response = await api.getFilterOffers(
+        text,
+        offersSearch.category[0],
+        offersSearch.jobType[0]
+      );
       if (response.hasOwnProperty("error")) {
         setErroApi(true);
         return;
@@ -113,9 +120,17 @@ function OffersPage() {
   }
 
   function filterHandler({ category, jobType }) {
-    setOffersSearch({ ...offersSearch, category: [category], jobType: [jobType] });
+    setOffersSearch({
+      ...offersSearch,
+      category: [category],
+      jobType: [jobType],
+    });
     async function data() {
-      const response = await api.getFilterOffers(offersSearch.searchText, category, jobType);
+      const response = await api.getFilterOffers(
+        offersSearch.searchText,
+        category,
+        jobType
+      );
       if (response.hasOwnProperty("error")) {
         setErroApi(true);
         return;
