@@ -86,6 +86,7 @@ function ExperiencePage(props) {
   async function handleDelete(value) {
     console.log(`usuwam`, value);
     const toDelete = { data: { companyName: value } };
+    console.log("WTF", props.id, toDelete);
     const response = await api.deleteUserProfileExperience(props.id, toDelete);
     console.log(response);
     setReloadData(!reloadData);

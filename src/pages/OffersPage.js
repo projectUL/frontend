@@ -61,7 +61,7 @@ const deafult = {
 
 const pagedefault = {
   currentPage: 1,
-  pages: 30,
+  pages: 1,
   hasNext: false,
   hasPrevious: false,
 };
@@ -74,15 +74,18 @@ function OffersPage() {
   const [errorApi, setErroApi] = useState(false);
 
   const dataAPI = useCallback(async () => {
-    const response = await api.getAllOffers(
-      page.currentPage,
-      offersSearch.searchText
-    );
+    const response = await api.getAllOffers(page.currentPage, offersSearch.searchText);
     if (response.hasOwnProperty("error")) {
       setErroApi(true);
       return;
     }
     setOffers(response.data);
+    setPage({
+      ...page,
+      hasNext: response.next,
+      pages: response.pages,
+      hasPrevious: response.previous,
+    });
     setIsLoading(false);
   }, []);
 
@@ -90,7 +93,8 @@ function OffersPage() {
     dataAPI();
   }, [dataAPI]);
 
-  function changePage(page) {
+  async function changePage(page) {
+    const response = await api.getAllOffers(page, offersSearch.searchText);
     setPage((lastState) => {
       return { ...lastState, currentPage: page };
     });
@@ -103,17 +107,19 @@ function OffersPage() {
 
     console.log(text);
     async function data() {
-      const response = await api.getFilterOffers(
-        text,
-        offersSearch.category[0],
-        offersSearch.jobType[0]
-      );
+      const response = await api.getFilterOffers(text, offersSearch.category[0], offersSearch.jobType[0]);
       if (response.hasOwnProperty("error")) {
         setErroApi(true);
         return;
       }
       console.log(response);
       setOffers(response.data.data);
+      setPage({
+        ...page,
+        hasNext: response.data.next,
+        pages: response.data.pages,
+        hasPrevious: response.data.previous,
+      });
       setIsLoading(false);
     }
     data();
@@ -126,20 +132,24 @@ function OffersPage() {
       jobType: [jobType],
     });
     async function data() {
-      const response = await api.getFilterOffers(
-        offersSearch.searchText,
-        category,
-        jobType
-      );
+      const response = await api.getFilterOffers(offersSearch.searchText, category, jobType);
       if (response.hasOwnProperty("error")) {
         setErroApi(true);
         return;
       }
       setOffers(response.data.data);
+      setPage({
+        ...page,
+        hasNext: response.data.next,
+        pages: response.data.pages,
+        hasPrevious: response.data.previous,
+      });
       setIsLoading(false);
     }
     data();
   }
+
+  console.log(page);
 
   return (
     <div className="wrap-offersPage">

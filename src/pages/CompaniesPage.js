@@ -6,7 +6,7 @@ import api from "../api/api";
 
 const pagedefault = {
   currentPage: 1,
-  pages: 30,
+  pages: 1,
   hasNext: false,
   hasPrevious: false,
 };
@@ -25,6 +25,12 @@ function CompaniesPage() {
       return;
     }
     setCompanies(response.data);
+    setPage({
+      ...page,
+      hasNext: response.next,
+      pages: response.pages,
+      hasPrevious: response.previous,
+    });
     setIsLoading(false);
   }, []);
 
@@ -41,6 +47,12 @@ function CompaniesPage() {
         return;
       }
       setCompanies(response.data);
+      setPage({
+        ...page,
+        hasNext: response.next,
+        pages: response.pages,
+        hasPrevious: response.previous,
+      });
       setIsLoading(false);
     }
     data();

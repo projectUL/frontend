@@ -3,17 +3,16 @@ import React from "react";
 import classes from "./Pagebar.module.css";
 
 function Pagebar(props) {
-  const pageList = [];
+  const pageList = props.pages !== 1 ? getPagingRange(props.currentPage, { total: props.pages }) : [];
 
-  let j = 0;
-  let k = 0;
-  for (let i = -2; i <= 2; i++) {
-    if (props.currentPage + i < 1) pageList.push(1 + j++);
-    else if (props.currentPage + i > props.pages) k++;
-    else pageList.push(props.currentPage + i + j);
-  }
-  for (let i = 1; i <= k; i++) {
-    pageList.unshift(-2 - i + props.currentPage);
+  function getPagingRange(current, { min = 1, total = 20, length = 5 } = {}) {
+    if (length > total) length = total;
+
+    let start = current - Math.floor(length / 2);
+    start = Math.max(start, min);
+    start = Math.min(start, min + total - length);
+
+    return Array.from({ length: length }, (el, i) => start + i);
   }
 
   function changePageHandler(event) {
@@ -28,12 +27,7 @@ function Pagebar(props) {
         </button>
       )}
       {pageList.map((el) => (
-        <button
-          className={el === props.currentPage ? classes.current : ""}
-          value={el}
-          onClick={changePageHandler}
-          key={el}
-        >
+        <button className={el === props.currentPage ? classes.current : ""} value={el} onClick={changePageHandler} key={el}>
           {el}
         </button>
       ))}

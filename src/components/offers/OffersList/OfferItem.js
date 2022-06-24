@@ -33,7 +33,7 @@ function OfferItem({ id }) {
   function offerNavigate() {
     return navigate(`/offers/${id}`);
   }
-  console.log(offer);
+
   return (
     <div className={`defaultBox ${classes.item}`}>
       {isLoading ? (

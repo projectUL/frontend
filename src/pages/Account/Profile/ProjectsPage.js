@@ -35,7 +35,7 @@ function ProjectsPage(props) {
   async function deleteProject(value) {
     console.log(`usuwam`, value);
     const toDelete = { data: { projectName: value } };
-    const response = await api.deleteUserProfileExperience(props.id, toDelete);
+    const response = await api.deleteUserProfileProject(props.id, toDelete);
     console.log(response);
     setReloadData(!reloadData);
   }

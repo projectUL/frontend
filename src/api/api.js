@@ -29,9 +29,7 @@ export default {
   },
   async createProfile(email) {
     try {
-      const response = await axios.post(
-        `${backEndUrl}userprofile/createprofile/${email}`
-      ); //627d48d6569bc8ba6916385c { email: "123@edu.uni.lodz.pl", password: "123456789"}
+      const response = await axios.post(`${backEndUrl}userprofile/createprofile/${email}`); //627d48d6569bc8ba6916385c { email: "123@edu.uni.lodz.pl", password: "123456789"}
       console.log("createProfile", response);
       //return response.data;
     } catch (error) {
@@ -67,9 +65,9 @@ export default {
   async getAllOffers(page, search) {
     try {
       console.log(page, search);
-      const response = await axios.get(
-        `${backEndUrl}offers/search/all/all?q=${search}&page=${page}`
-      ); //627d48d6569bc8ba6916385c
+      const response = await axios.get(`${backEndUrl}offers/search/all/all?q=${search}&page=${page}`); //627d48d6569bc8ba6916385c
+
+      console.log(response);
       return response.data;
     } catch (error) {
       return { error: true };
@@ -84,17 +82,9 @@ export default {
     }
   },
   async getFilterOffers(text = "", category = "", jobType = "") {
-    console.log(
-      `${backEndUrl}offers/search/${category ? category : "all"}/${
-        jobType ? jobType : "all"
-      }?q=${text}&page=`
-    );
+    console.log(`${backEndUrl}offers/search/${category ? category : "all"}/${jobType ? jobType : "all"}?q=${text}&page=`);
     try {
-      const response = await axios.get(
-        `${backEndUrl}offers/search/${category ? category : "all"}/${
-          jobType ? jobType : "all"
-        }?q=${text}&page=`
-      ); //627d48d6569bc8ba6916385c
+      const response = await axios.get(`${backEndUrl}offers/search/${category ? category : "all"}/${jobType ? jobType : "all"}?q=${text}&page=`); //627d48d6569bc8ba6916385c
       return response;
     } catch (error) {
       return { error: true };
@@ -110,9 +100,7 @@ export default {
   },
   async getUserProfileDescription(id) {
     try {
-      const response = await axios.get(
-        `${backEndUrl}userprofile/createprofile/description/${id}`
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.get(`${backEndUrl}userprofile/createprofile/description/${id}`); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       return { error: true };
@@ -120,10 +108,7 @@ export default {
   },
   async putUserProfileDescription(id, description) {
     try {
-      const response = await axios.put(
-        `${backEndUrl}userprofile/createprofile/description/${id}`,
-        description
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.put(`${backEndUrl}userprofile/createprofile/description/${id}`, description); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       return { error: true };
@@ -131,9 +116,7 @@ export default {
   },
   async getUserProfileSkills(id) {
     try {
-      const response = await axios.get(
-        `${backEndUrl}userprofile/createprofile/skills/${id}`
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.get(`${backEndUrl}userprofile/createprofile/skills/${id}`); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       return { error: true };
@@ -141,10 +124,7 @@ export default {
   },
   async putUserProfileSkills(id, skills) {
     try {
-      const response = await axios.put(
-        `${backEndUrl}userprofile/createprofile/skills/${id}`,
-        skills
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.put(`${backEndUrl}userprofile/createprofile/skills/${id}`, skills); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       return { error: true };
@@ -152,10 +132,7 @@ export default {
   },
   async deleteUserProfileSkills(id, toDelete) {
     try {
-      const response = await axios.delete(
-        `${backEndUrl}userprofile/delete/skills/${id}`,
-        toDelete
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.delete(`${backEndUrl}userprofile/delete/skills/${id}`, toDelete); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       console.log(error);
@@ -164,9 +141,7 @@ export default {
   },
   async getUserProfileExperience(id) {
     try {
-      const response = await axios.get(
-        `${backEndUrl}userprofile/createprofile/experience/${id}`
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.get(`${backEndUrl}userprofile/createprofile/experience/${id}`); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       console.log(error);
@@ -175,10 +150,7 @@ export default {
   },
   async putUserProfileExperience(id, experience) {
     try {
-      const response = await axios.put(
-        `${backEndUrl}userprofile/createprofile/experience/${id}`,
-        experience
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.put(`${backEndUrl}userprofile/createprofile/experience/${id}`, experience); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       console.log(error);
@@ -187,10 +159,7 @@ export default {
   },
   async deleteUserProfileExperience(id, toDelete) {
     try {
-      const response = await axios.delete(
-        `${backEndUrl}userprofile/delete/experience/${id}`,
-        toDelete
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.delete(`${backEndUrl}userprofile/delete/experience/${id}`, toDelete); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       console.log(error);
@@ -199,9 +168,7 @@ export default {
   },
   async getUserProfileProjects(id) {
     try {
-      const response = await axios.get(
-        `${backEndUrl}userprofile/createprofile/project/${id}`
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.get(`${backEndUrl}userprofile/createprofile/project/${id}`); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       return { error: true };
@@ -209,21 +176,15 @@ export default {
   },
   async putUserProfileProjects(id, projects) {
     try {
-      const response = await axios.put(
-        `${backEndUrl}userprofile/createprofile/project/${id}`,
-        projects
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.put(`${backEndUrl}userprofile/createprofile/project/${id}`, projects); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       return { error: true };
     }
   },
-  async deleteUserProfileExperience(id, toDelete) {
+  async deleteUserProfileProject(id, toDelete) {
     try {
-      const response = await axios.delete(
-        `${backEndUrl}userprofile/delete/project/${id}`,
-        toDelete
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.delete(`${backEndUrl}userprofile/delete/project/${id}`, toDelete); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       console.log(error);
@@ -232,9 +193,7 @@ export default {
   },
   async getUserProfile(email) {
     try {
-      const response = await axios.get(
-        `${backEndUrl}userprofile/getprofile/${email}`
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.get(`${backEndUrl}userprofile/getprofile/${email}`); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       return { error: true };
@@ -266,10 +225,7 @@ export default {
   },
   async putApply(email, apply) {
     try {
-      const response = await axios.put(
-        `${backEndUrl}user/apply/${email}`,
-        apply
-      ); //62a8a83c948abb64c01a0232
+      const response = await axios.put(`${backEndUrl}user/apply/${email}`, apply); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
       return error;
