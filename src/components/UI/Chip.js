@@ -4,7 +4,8 @@ import classes from "./Chip.module.css";
 
 function Chip(props) {
   function removeChipHandler(val) {
-    props.removeChip(props.children);
+    if (props.nameArray) props.removeChip(props.children, props.nameArray);
+    else props.removeChip(props.children);
   }
 
   return (
