@@ -62,7 +62,7 @@
   flex-wrap: wrap;
 }
 
-.leftjt input[type="date"] {
+.rightjt input[type="date"] {
   width: 100%;
 }
 
@@ -93,4 +93,8 @@
   justify-content: flex-end;
   align-items: flex-end;
   margin-top: 1rem;
+}
+
+.smallInput {
+  max-width: 120px;
 }
