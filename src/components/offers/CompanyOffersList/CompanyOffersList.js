@@ -8,11 +8,7 @@ function CompanyOffersList(props) {
     <div className={classes.container}>
       {props.companyOffers.map((offer) => {
         return (
-          <CompanyOffer
-            {...offer}
-            key={offer.id}
-            myOffersPage={props.myOffersPage}
-          />
+          <CompanyOffer {...offer} key={offer.id} myOffersPage={props.myOffersPage} changePage={props.changePage} setIdOffer={props.setIdOffer} />
         );
       })}
     </div>

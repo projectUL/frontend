@@ -5,6 +5,10 @@ import Button from "../../UI/Button";
 import classes from "./CompanyOffer.module.css";
 
 function CompanyOffer(props) {
+  function setPageAndId(value) {
+    props.changePage(value);
+    props.setIdOffer(props.id);
+  }
   return (
     <div className={classes.offer}>
       <div>{props.name}</div>
@@ -14,11 +18,11 @@ function CompanyOffer(props) {
         <div>{props.ends}</div>
       </div>
       <div>
-        {props.myOffersPage === "current" && <Button>Edit</Button>}
-        {props.myOffersPage === "history" && <Button>Renew</Button>}
+        {props.myOffersPage === "current" && <Button onClick={() => setPageAndId("edit")}>Edit</Button>}
+        {props.myOffersPage === "history" && <Button onClick={() => setPageAndId("renew")}>Renew</Button>}
       </div>
       <div>
-        <Button>See application</Button>
+        <Button onClick={() => setPageAndId("applications")}>See application</Button>
       </div>
       <div>
         <CloseButton />

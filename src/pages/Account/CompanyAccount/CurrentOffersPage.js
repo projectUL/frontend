@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import CompanyOffersList from "../../../components/offers/CompanyOffersList/CompanyOffersList";
 
+import EditOfferPage from "./EditOfferPage";
+import Applications from "./Applications";
+import ProfilePageView from "./../../ProfilePageView";
 const fakeData = [
   {
     id: 1,
@@ -29,12 +32,19 @@ const fakeData = [
 ];
 
 function CurrentOffersPage(props) {
+  const [page, setPage] = useState("offers");
+  const [idOffer, setIdOffer] = useState("");
+  function changePage(value) {
+    setPage(value);
+  }
   return (
     <>
-      <CompanyOffersList
-        myOffersPage={props.myOffersPage}
-        companyOffers={fakeData}
-      />
+      {page === "offers" ? (
+        <CompanyOffersList myOffersPage={props.myOffersPage} companyOffers={fakeData} changePage={changePage} setIdOffer={setIdOffer} />
+      ) : null}
+      {page === "edit" || page === "renew" ? <EditOfferPage changePage={changePage} idOffer={idOffer} /> : null}
+      {page === "applications" ? <Applications changePage={changePage} idOffer={idOffer} setIdOffer={setIdOffer} /> : null}
+      {page === "see" ? <ProfilePageView changePage={changePage} idOffer={idOffer} /> : null}
     </>
   );
 }

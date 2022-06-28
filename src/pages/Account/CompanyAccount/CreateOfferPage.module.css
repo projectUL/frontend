@@ -98,3 +98,12 @@
 .smallInput {
   max-width: 120px;
 }
+
+.back {
+  margin-bottom: 15px;
+  font-weight: 400;
+}
+.back:hover {
+  cursor: pointer;
+  color: var(--action);
+}

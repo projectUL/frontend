@@ -1,0 +1,60 @@
+.wrap {
+  width: 100%;
+  background-color: var(--secendary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-top: 15px;
+  padding-bottom: 35px;
+}
+.wrapTitle {
+  width: 90%;
+  font-size: 1.4rem;
+}
+
+.wrapTitle p {
+  font-weight: bold;
+}
+.wrapApplication {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  border: 2px solid var(--action);
+  border-radius: 10px;
+  box-shadow: 4px 6px 7px 3px rgb(0 0 0 / 30%);
+  padding: 15px;
+  font-size: 1.3rem;
+}
+.wrapApplication img {
+  width: 125px;
+  height: 125px;
+}
+.date {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.wrapStatus {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.wrapStatus select {
+  font-size: 1.1rem;
+}
+
+.back {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  padding: 10px;
+}
+.back:hover {
+  cursor: pointer;
+  color: var(--action);
+}
