@@ -1,0 +1,60 @@
+.item {
+  font-size: 1.4rem;
+  padding: 1rem;
+  border: solid var(--action) 3px;
+  margin-top: 2rem;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  overflow: hidden;
+}
+
+.itemName {
+}
+
+.itemEmail {
+}
+
+.icons {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.accept {
+  color: rgb(70, 179, 70);
+  font-size: 3rem;
+  background-color: none;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  border: 0;
+  background: none;
+}
+
+.deny {
+  color: rgb(204, 55, 55);
+  font-size: 3rem;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  border: 0;
+  background: none;
+}
+
+.accept:hover {
+  cursor: pointer;
+  background-color: rgb(70, 179, 70);
+  color: white;
+  transition: 0.5s;
+}
+.deny:hover {
+  cursor: pointer;
+  background-color: rgb(204, 55, 55);
+  color: white;
+  transition: 0.5s;
+}
