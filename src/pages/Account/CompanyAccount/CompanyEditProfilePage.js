@@ -37,21 +37,42 @@ function CompanyEditProfilePage(props) {
   const [companyProfile, setCompanyProfile] = useState(defaultCompanyProfile);
   const [showError, setShowError] = useState(false);
 
-  // const dataAPI = useCallback(async () => {
-  //   const response = await api.getUserProfile(localStorage.getItem("email"));
-  //   console.log(response);
-  //   if (response.status === 200 && response.data !== {})
-  //     setUserProfile({
-  //       description: { ...response.data.description },
-  //       skills: { ...response.data.skills },
-  //       experience: [...response.data.experience],
-  //       projects: [...response.data.projects],
-  //     });
-  // }, []);
+  const dataAPI = useCallback(async () => {
+    const response = await api.getCompanyProfile(localStorage.getItem("email"));
 
-  // useEffect(() => {
-  //   dataAPI();
-  // }, [dataAPI]);
+    if (response.status === 200)
+      setCompanyProfile({
+        companyLogo: {
+          value: response.data.data.companyLogo !== null ? response.data.data.companyLogo : "",
+          isEmpty: response.data.data.companyLogo !== null ? false : true,
+          errorMessage: "",
+        },
+        companyName: {
+          value: response.data.data.companyName !== null ? response.data.data.companyName : "",
+          isEmpty: response.data.data.companyName !== null ? false : true,
+          errorMessage: "",
+        },
+        companyMail: {
+          value: response.data.data.companyMail !== null ? response.data.data.companyMail : "",
+          isEmpty: response.data.data.companyMail !== null ? false : true,
+          errorMessage: "",
+        },
+        companyOverview: {
+          value: response.data.data.companyOverview !== null ? response.data.data.companyOverview : "",
+          isEmpty: response.data.data.companyOverview !== null ? false : true,
+          errorMessage: "",
+        },
+        companyWebsite: {
+          value: response.data.data.companyWebsite !== null ? response.data.data.companyWebsite : "",
+          isEmpty: response.data.data.companyWebsite !== null ? false : true,
+          errorMessage: "",
+        },
+      });
+  }, []);
+
+  useEffect(() => {
+    dataAPI();
+  }, [dataAPI]);
 
   function handleOnChange(e) {
     setCompanyProfile({
@@ -70,6 +91,15 @@ function CompanyEditProfilePage(props) {
       setShowError(true);
       return;
     }
+    const data = {};
+    for (const key in companyProfile) {
+      data[key] = companyProfile[key].value;
+    }
+
+    const resDel = await api.deleteCompanyProfile(companyProfile.id);
+    console.log("Del", resDel);
+    const res = await api.putCompanyProfile(data);
+    console.log("PuT", res);
   }
 
   function validationForm(form) {
