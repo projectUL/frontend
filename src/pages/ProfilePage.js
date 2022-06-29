@@ -62,9 +62,11 @@ function ProfilePage(props) {
     <div className="profilePage_wrap">
       <div className="profilePage_personalData">
         <div className="profilePage_personalData_box">
-          <img src={git} alt="podatek" />
+          <img src={userProfile.description.avatar} alt="podatek" />
           <div className="profilePage_personalData_box2">
-            <p className="profilePage_personalData_name">{userProfile.description.name}</p>
+            <p className="profilePage_personalData_name">
+              {userProfile.description.name}
+            </p>
             <p>
               <FaGithub /> asdas.github
             </p>
@@ -76,7 +78,9 @@ function ProfilePage(props) {
             </p>
           </div>
         </div>
-        <p className="profilePage_personalData_about">{userProfile.description.description}</p>
+        <p className="profilePage_personalData_about">
+          {userProfile.description.description}
+        </p>
       </div>
       <div className="profilePage_line">
         <div className="square"></div>
@@ -85,7 +89,7 @@ function ProfilePage(props) {
       <div className="profilePage_skills">
         <p className="profilePage_title">Skills</p>
         <div className="profilePage_skill_box">
-          {userProfile.skills.skill.map((s, i) => (
+          {userProfile.skills.skill?.map((s, i) => (
             <SkillViewProfile skill={s} key={i} />
           ))}
         </div>
@@ -97,7 +101,7 @@ function ProfilePage(props) {
       <div className="profilePage_courses">
         <p className="profilePage_title">Courses</p>
         <ul>
-          {userProfile.skills.courses.map((c) => (
+          {userProfile.skills.courses?.map((c) => (
             <li>{c}</li>
           ))}
         </ul>
@@ -108,7 +112,7 @@ function ProfilePage(props) {
       </div>
       <div className="profilePage_expirience">
         <p className="profilePage_title">Expierence</p>
-        {userProfile.experience.map((e) => (
+        {userProfile.experience?.map((e) => (
           <ExperienceProfileView exp={e} />
         ))}
       </div>
@@ -120,7 +124,9 @@ function ProfilePage(props) {
         <p className="profilePage_title">Education</p>
         <div className="profilePage_education_box">
           <p>{userProfile.description.college}</p>
-          <p className="bold">{`${moment(userProfile.description.startDate).format("YYYY")} - ${moment(userProfile.description.endDate).format(
+          <p className="bold">{`${moment(
+            userProfile.description.startDate
+          ).format("YYYY")} - ${moment(userProfile.description.endDate).format(
             "YYYY"
           )}`}</p>
         </div>
@@ -132,12 +138,14 @@ function ProfilePage(props) {
       <div className="profilePage_projects">
         <p className="profilePage_title fs">Projects</p>
         <div className="profilePage_projects_box">
-          {userProfile.projects.map((p) => (
+          {userProfile.projects?.map((p) => (
             <ProjectViewProfile onClick={closeProjectDisplay} data={p} />
           ))}
         </div>
       </div>
-      {projectDisplay && <ProjectDisplay close={setProjectDisplay} data={showProject} />}
+      {projectDisplay && (
+        <ProjectDisplay close={setProjectDisplay} data={showProject} />
+      )}
     </div>
   );
 }

@@ -3,7 +3,10 @@ import { FaPlus } from "react-icons/fa";
 
 const ButtonAdd = (props) => {
   return (
-    <button className={classes.btnAdd_wrap} onClick={() => props.add && props.add()}>
+    <button
+      className={classes.btnAdd_wrap}
+      onClick={(e) => props.add && props.add(e)}
+    >
       <FaPlus className={classes.actionColor} />
     </button>
   );

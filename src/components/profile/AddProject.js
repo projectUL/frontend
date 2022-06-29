@@ -26,6 +26,10 @@ const defaultProjectForm = {
     value: "",
     isEmpty: true,
   },
+  logo: {
+    value: "",
+    isEmpty: true,
+  },
   technologies: ["Java", "JavaScript", "SQL", "PHP"],
 };
 
@@ -43,10 +47,14 @@ const AddProject = (props) => {
       },
     });
   }
-  function addTechnologies() {
+  function addTechnologies(event) {
+    event.preventDefault();
     if (projectForm.tech.isEmpty) return;
 
-    const newTechnologies = [...projectForm.technologies, projectForm.tech.value];
+    const newTechnologies = [
+      ...projectForm.technologies,
+      projectForm.tech.value,
+    ];
     setProjectForm({
       ...projectForm,
       technologies: newTechnologies,
@@ -57,7 +65,9 @@ const AddProject = (props) => {
     });
   }
   function deleteTechnologies(value) {
-    const newTechnologies = projectForm.technologies.filter((name) => name != value);
+    const newTechnologies = projectForm.technologies.filter(
+      (name) => name != value
+    );
     setProjectForm({ ...projectForm, technologies: newTechnologies });
   }
 
@@ -71,7 +81,7 @@ const AddProject = (props) => {
         projectLink: projectForm.linkRepository.value,
         projectDesc: projectForm.description.value,
         projectTech: projectForm.technologies,
-        projectLogo: "",
+        projectLogo: projectForm.logo.value,
         userEmail: localStorage.getItem("email"),
       },
     ];
@@ -81,6 +91,7 @@ const AddProject = (props) => {
     props.setReloadData(!props.reloadData);
     close();
   }
+  console.log("props", props.projects);
   return (
     <div className={classes.container}>
       <div className={classes.addProjects_wrap}>
@@ -90,27 +101,60 @@ const AddProject = (props) => {
         <form className={classes.form} onSubmit={handleSubmit}>
           <div className={classes.firstSection}>
             <div className={classes.addGraphic}>
-              <FaPlus />
+              {projectForm.logo.value && (
+                <img src={projectForm.logo.value} alt="logo" />
+              )}
+              <div className={classes.avatarInput}>
+                <input
+                  type="text"
+                  id="logo"
+                  onChange={handleChange}
+                  value={projectForm.logo.value}
+                  placeholder="project logo link"
+                />
+              </div>
             </div>
             <div>
               <div className={classes.labelInputWrap}>
                 <label htmlFor="name">Name</label>
-                <input type="text" id="name" onChange={handleChange} value={projectForm.name.value} />
+                <input
+                  type="text"
+                  id="name"
+                  onChange={handleChange}
+                  value={projectForm.name.value}
+                />
               </div>
               <div className={classes.labelInputWrap}>
                 <label htmlFor="linkRepository">Link to code repository</label>
-                <input type="text" id="linkRepository" onChange={handleChange} value={projectForm.linkRepository.value} />
+                <input
+                  type="text"
+                  id="linkRepository"
+                  onChange={handleChange}
+                  value={projectForm.linkRepository.value}
+                />
               </div>
             </div>
           </div>
           <div className={classes.labelInputWrap}>
             <label htmlFor="description">Description</label>
-            <textarea name="" id="description" cols="30" rows="10" onChange={handleChange} value={projectForm.description.value}></textarea>
+            <textarea
+              name=""
+              id="description"
+              cols="30"
+              rows="10"
+              onChange={handleChange}
+              value={projectForm.description.value}
+            ></textarea>
           </div>
           <div className={classes.secondSection}>
             <div className={classes.labelInputWrap}>
               <label htmlFor="tech">Technologies</label>
-              <input type="text" id="tech" onChange={handleChange} value={projectForm.tech.value} />
+              <input
+                type="text"
+                id="tech"
+                onChange={handleChange}
+                value={projectForm.tech.value}
+              />
             </div>
             <div className={classes.btnAddWrap}>
               <ButtonAdd add={addTechnologies} />

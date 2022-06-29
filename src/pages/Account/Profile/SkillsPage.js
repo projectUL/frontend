@@ -7,6 +7,7 @@ import ButtonAdd from "./../../../components/UI/ButtonAdd";
 import Chip from "./../../../components/UI/Chip";
 
 import api from "../../../api/api";
+import ErrorMessageForm from "../../../components/UI/ErrorMessageForm";
 
 const deafultUserSkillsData = {
   skills: [],
@@ -21,11 +22,17 @@ const defaultCourse = {
   value: "",
   isEmpty: true,
 };
+
+const defaultError = {
+  skill: false,
+  course: false,
+};
+
 function SkillsPage(props) {
   const [skill, setSkill] = useState(defaultSkill);
   const [course, setCourse] = useState(defaultCourse);
   const [userSkillsDate, setUserSkillsDate] = useState(deafultUserSkillsData);
-  const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState(defaultError);
   const [errorApi, setErroApi] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [reloadData, setReloadData] = useState(false);
@@ -65,12 +72,18 @@ function SkillsPage(props) {
         ...skill,
         skillLevel: event.target.value,
       });
+    setShowError((lastState) => {
+      return { ...lastState, skill: false };
+    });
   }
 
   function handleChangeCourse(event) {
     setCourse({
       value: event.target.value,
       isEmpty: event.target.value === "",
+    });
+    setShowError((lastState) => {
+      return { ...lastState, course: false };
     });
   }
 
@@ -80,6 +93,14 @@ function SkillsPage(props) {
     //   setShowError(true);
     //   return;
     // }
+
+    if (skill.value.length < 1) {
+      setShowError((lastState) => {
+        return { ...lastState, skill: true };
+      });
+      return;
+    }
+
     const newSkills = {
       skill: [
         ...userSkillsDate.skills,
@@ -107,6 +128,14 @@ function SkillsPage(props) {
     //   setShowError(true);
     //   return;
     // }
+
+    if (course.value.length < 1) {
+      setShowError((lastState) => {
+        return { ...lastState, course: true };
+      });
+      return;
+    }
+
     const newCourses = {
       skill: userSkillsDate.skills,
       courses: [...userSkillsDate.courses, course.value], //[course.value],
@@ -146,19 +175,37 @@ function SkillsPage(props) {
 
   return (
     <div className={classes.SkillsPage_wrap}>
-      <form action="" className={classes.skillForm} onSubmit={handleSubmitSkill}>
+      <form
+        action=""
+        className={classes.skillForm}
+        onSubmit={handleSubmitSkill}
+      >
         <div className={classes.labelInputWrap}>
           <label htmlFor="skillanme">Skill name</label>
-          <input type="text" id="skillName" onChange={handleChangeSkill} value={skill.value} />
+          <input
+            type="text"
+            id="skillName"
+            onChange={handleChangeSkill}
+            value={skill.value}
+          />
         </div>
         <div className={classes.labelInputWrap}>
           <label htmlFor="skillLevel">Skill level</label>
-          <input type="range" min="0" max="5" className={classes.slider} id="skillLevel" onChange={handleChangeSkill} value={skill.skillLevel} />
+          <input
+            type="range"
+            min="0"
+            max="5"
+            className={classes.slider}
+            id="skillLevel"
+            onChange={handleChangeSkill}
+            value={skill.skillLevel}
+          />
         </div>
         <div className={classes.end}>
           <ButtonAdd />
         </div>
       </form>
+      {showError.skill && <ErrorMessageForm message="Skill cannot be empty." />}
       <div className={classes.mySkills_wrap}>
         <p className={classes.title}>My skills</p>
         {userSkillsDate.skills.map((e, index) => (
@@ -167,15 +214,27 @@ function SkillsPage(props) {
       </div>
       <div className={classes.courses_wrap}>
         <p className={classes.title}>Finished courses</p>
-        <form action="" className={classes.coursesform} onSubmit={handleSubmitCourse}>
+        <form
+          action=""
+          className={classes.coursesform}
+          onSubmit={handleSubmitCourse}
+        >
           <div className={classes.labelInputWrap}>
             <label htmlFor="courseName">Course name</label>
-            <input type="text" id="courseName" onChange={handleChangeCourse} value={course.value} />
+            <input
+              type="text"
+              id="courseName"
+              onChange={handleChangeCourse}
+              value={course.value}
+            />
           </div>
           <div className={classes.end}>
             <ButtonAdd />
           </div>
         </form>
+        {showError.course && (
+          <ErrorMessageForm message="Course cannot be empty." />
+        )}
         <div className={classes.courseChipsWrap}>
           {userSkillsDate.courses.map((name, index) => (
             <Chip removeChip={handleDeleteCourse} key={index}>

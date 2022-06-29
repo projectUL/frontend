@@ -13,10 +13,17 @@ const defaultData = {
   companyName: { value: "", isEmpty: true },
 };
 
+const defaultError = {
+  email: false,
+  password: false,
+  repeatPassword: false,
+  companyName: false,
+};
+
 function RegisterForm() {
   const [isEmployer, setIsEmployer] = useState(false);
   const [formData, setFormData] = useState(defaultData);
-  const [showError, setShowError] = useState(false);
+  const [showError, setShowError] = useState(defaultError);
   const [errorApi, setErrorApi] = useState(false);
 
   let navigate = useNavigate();
@@ -24,21 +31,36 @@ function RegisterForm() {
   function accountTypeHandler(event) {
     const chceckIsEmployer = event.target.value === "company" ? true : false;
     setIsEmployer(chceckIsEmployer);
+    setShowError({
+      email: false,
+      password: false,
+      repeatPassword: false,
+      companyName: false,
+    });
   }
 
   function inputChangeHandler(event) {
     setFormData(() => {
-      return { ...formData, [event.target.name]: { value: event.target.value, isEmpty: checkIsEmpty(event.target.value) } };
+      return {
+        ...formData,
+        [event.target.name]: {
+          value: event.target.value,
+          isEmpty: checkIsEmpty(event.target.value),
+        },
+      };
+    });
+    setShowError({
+      email: false,
+      password: false,
+      repeatPassword: false,
+      companyName: false,
     });
   }
 
   async function submitHandler(event) {
     event.preventDefault();
 
-    if (!validation()) {
-      setShowError(true);
-      return;
-    }
+    if (validation()) return;
 
     const data = await api.registration({
       email: formData.email.value,
@@ -60,13 +82,39 @@ function RegisterForm() {
     return value === "";
   }
 
-  function validation() {
-    for (const key in formData) {
-      if (!isEmployer && key === "companyName") continue;
+  const checkPassword = (str) => {
+    var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    return re.test(str);
+  };
 
-      if (formData[key].isEmpty) return false;
+  function validateEmail(email) {
+    let re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
+
+  function validation() {
+    const errorObj = {
+      email: false,
+      password: false,
+      repeatPassword: false,
+      companyName: false,
+    };
+    console.log(validateEmail("adam@wp.pl"));
+
+    if (isEmployer && formData.companyName.value.length < 2)
+      errorObj.companyName = true;
+    if (!validateEmail(formData.email.value)) errorObj.email = true;
+    if (!checkPassword(formData.password.value)) errorObj.password = true;
+    if (formData.password.value !== formData.repeatPassword.value)
+      errorObj.repeatPassword = true;
+
+    console.log(errorObj);
+    setShowError(errorObj);
+
+    for (let i of Object.values(errorObj)) {
+      if (i) return true;
     }
-    return true;
+    return false;
   }
   return (
     <React.Fragment>
@@ -75,11 +123,24 @@ function RegisterForm() {
         <div>
           <div className={classes.radio}>
             <div>
-              <input type="radio" name="accountType" id="student" value="student" onClick={accountTypeHandler} defaultChecked />
+              <input
+                type="radio"
+                name="accountType"
+                id="student"
+                value="student"
+                onClick={accountTypeHandler}
+                defaultChecked
+              />
               <label htmlFor="student">Student</label>
             </div>
             <div>
-              <input type="radio" name="accountType" id="company" value="company" onClick={accountTypeHandler} />
+              <input
+                type="radio"
+                name="accountType"
+                id="company"
+                value="company"
+                onClick={accountTypeHandler}
+              />
               <label htmlFor="student">Company</label>
             </div>
           </div>
@@ -87,24 +148,56 @@ function RegisterForm() {
             {isEmployer && (
               <div>
                 <label htmlFor="companyname">Company name</label>
-                <input name="companyName" type="text" id="companyname" value={formData.companyName.value} onChange={inputChangeHandler} />
-                {showError && formData.companyName.isEmpty && <ErrorMessageForm message="Fill in this field." />}
+                <input
+                  name="companyName"
+                  type="text"
+                  id="companyname"
+                  value={formData.companyName.value}
+                  onChange={inputChangeHandler}
+                />
+                {showError.companyName && (
+                  <ErrorMessageForm message="Company name should have at least 2 characters." />
+                )}
               </div>
             )}
             <div>
               <label htmlFor="email">Email</label>
-              <input name="email" type="text" id="email" value={formData.email.value} onChange={inputChangeHandler} />
-              {showError && formData.email.isEmpty && <ErrorMessageForm message="Fill in this field." />}
+              <input
+                name="email"
+                type="text"
+                id="email"
+                value={formData.email.value}
+                onChange={inputChangeHandler}
+              />
+              {showError.email && (
+                <ErrorMessageForm message="Email adress is not valid." />
+              )}
             </div>
             <div>
               <label htmlFor="password">Password</label>
-              <input name="password" type="password" id="password" value={formData.password.value} onChange={inputChangeHandler} />
-              {showError && formData.password.isEmpty && <ErrorMessageForm message="Fill in this field." />}
+              <input
+                name="password"
+                type="password"
+                id="password"
+                value={formData.password.value}
+                onChange={inputChangeHandler}
+              />
+              {showError.password && (
+                <ErrorMessageForm message="Password should have min 8 letters, with at least a symbol, upper and lower case letters and a number." />
+              )}
             </div>
             <div>
               <label htmlFor="repeatPassword">Repeat password</label>
-              <input name="repeatPassword" type="password" id="repeatPassword" value={formData.repeatPassword.value} onChange={inputChangeHandler} />
-              {showError && formData.repeatPassword.isEmpty && <ErrorMessageForm message="Fill in this field." />}
+              <input
+                name="repeatPassword"
+                type="password"
+                id="repeatPassword"
+                value={formData.repeatPassword.value}
+                onChange={inputChangeHandler}
+              />
+              {showError.repeatPassword && (
+                <ErrorMessageForm message="Passwords doesn't match." />
+              )}
             </div>
           </div>
         </div>

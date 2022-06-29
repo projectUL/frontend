@@ -52,7 +52,8 @@
 }
 
 .project_box img {
-  width: 100%;
+  width: 50%;
+  margin: auto;
   background-size: cover;
   border-radius: 0.8rem;
 }

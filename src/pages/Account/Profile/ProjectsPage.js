@@ -42,7 +42,10 @@ function ProjectsPage(props) {
   return (
     <div className={classes.center}>
       <div className={classes.projects_wrap}>
-        <div className={classes.addProjects} onClick={() => setAddProjectDisplay(true)}>
+        <div
+          className={classes.addProjects}
+          onClick={() => setAddProjectDisplay(true)}
+        >
           <FaPlus />
         </div>
         {projects.map((project, index) => (
