@@ -4,8 +4,15 @@ import ChipViewProfile from "./ChipViewProfile";
 import git from "./../../../src/images/git.jpg";
 
 import { FaGithub } from "react-icons/fa";
+
 const ProjectDisplay = (props) => {
-  console.log(props.data);
+  console.log("prjct", props.data);
+
+  let logo1 =
+    "https://1757140519.rsc.cdn77.org/pl/blog/wp-content/themes/logaster/img/placeholder.png";
+
+  if (props.data.projectLogo) logo1 = props.data.projectLogo;
+
   return (
     <div className={classes.container}>
       <div className={classes.project_wrap}>
@@ -16,7 +23,7 @@ const ProjectDisplay = (props) => {
         </div>
         <div className={classes.infoBox}>
           <div className={classes.project_box}>
-            <img src={git} alt="" />
+            <img src={logo1} alt="" />
             <p className={classes.title}>{props.data.projectName}</p>
             <div className={classes.chipBox}>
               {props.data.projectTech.map((t, i) => (

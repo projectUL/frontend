@@ -78,6 +78,7 @@
   border-radius: 1.5rem;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .addGraphic img {
