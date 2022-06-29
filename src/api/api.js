@@ -75,7 +75,7 @@ export default {
   },
   async getOfferById(id) {
     try {
-      const response = await axios.get(`${backEndUrl}offers/${id}`); //627d48d6569bc8ba6916385c
+      const response = await axios.get(`${backEndUrl}offers/${id}`, { headers: { "Access-Control-Allow-Origin": "*" } }); //627d48d6569bc8ba6916385c
       return response;
     } catch (error) {
       return { error: true };
@@ -228,6 +228,71 @@ export default {
       const response = await axios.put(`${backEndUrl}user/apply/${email}`, apply); //62a8a83c948abb64c01a0232
       return response;
     } catch (error) {
+      return error;
+    }
+  },
+  async getCompanyProfileIdByEmail(email) {
+    try {
+      const response = await axios.get(`${backEndUrl}companyprofile/getprofile/${email}`); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      return error;
+    }
+  },
+  async getCompanyProfile(email) {
+    try {
+      const response = await axios.get(`${backEndUrl}company/${email}`); //62a8a83c948abb64c01a0232
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  async putCompanyProfile(data) {
+    try {
+      const response = await axios.put(`${backEndUrl}company/update`, data); //62a8a83c948abb64c01a0232
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  async deleteCompanyProfile(id) {
+    try {
+      const response = await axios.delete(`${backEndUrl}delete/${id}`); //62a8a83c948abb64c01a0232
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  async postCreateOffer(data) {
+    try {
+      const response = await axios.post(`${backEndUrl}offers/create`, data, {
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+      }); //62a8a83c948abb64c01a0232
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  async getCompanyJobs(name) {
+    try {
+      const response = await axios.get(`${backEndUrl}offers/${name}`, {
+        headers: { "Access-Control-Allow-Origin": "*" },
+      }); //62a8a83c948abb64c01a0232
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
       return error;
     }
   },

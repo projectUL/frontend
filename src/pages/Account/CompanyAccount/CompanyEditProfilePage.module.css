@@ -34,7 +34,6 @@ input[type="date"] {
 .profileDescriptionForm_FirstSection_Wrap {
   display: flex;
   gap: 2.5rem;
-  height: 17rem;
 }
 
 .profileDescriptionForm_FirstSection_Wrap_Img {

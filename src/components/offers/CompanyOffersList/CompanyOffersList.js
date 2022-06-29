@@ -6,15 +6,15 @@ import classes from "./CompanyOffersList.module.css";
 function CompanyOffersList(props) {
   return (
     <div className={classes.container}>
-      {props.companyOffers.map((offer) => {
-        return (
-          <CompanyOffer
-            {...offer}
-            key={offer.id}
-            myOffersPage={props.myOffersPage}
-          />
-        );
-      })}
+      {props.companyOffers === null || props.companyOffers.length === 0 ? (
+        <h2>You have no offers.</h2>
+      ) : (
+        props.companyOffers.map((offer) => {
+          return (
+            <CompanyOffer {...offer} key={offer.id} myOffersPage={props.myOffersPage} changePage={props.changePage} setIdOffer={props.setIdOffer} />
+          );
+        })
+      )}
     </div>
   );
 }

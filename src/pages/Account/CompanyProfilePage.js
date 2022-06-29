@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import MyOffersNavbar from "../../components/layout/MyOffersNavbar";
 import CompanyEditProfilePage from "./CompanyAccount/CompanyEditProfilePage";
 import CreateOfferPage from "./CompanyAccount/CreateOfferPage";
@@ -21,17 +21,10 @@ function CompanyProfilePage(props) {
         {props.accountPage === "createOffer" && <CreateOfferPage />}
         {props.accountPage === "applications" && (
           <>
-            <MyOffersNavbar
-              changeProfilePage={changeMyOffersPage}
-              picked={myOffersPage}
-            />
+            <MyOffersNavbar changeProfilePage={changeMyOffersPage} picked={myOffersPage} />
 
-            {myOffersPage === "current" && (
-              <CurrentOffersPage myOffersPage={myOffersPage} />
-            )}
-            {myOffersPage === "history" && (
-              <HistoryOffersPage myOffersPage={myOffersPage} />
-            )}
+            {myOffersPage === "current" && <CurrentOffersPage myOffersPage={myOffersPage} />}
+            {myOffersPage === "history" && <HistoryOffersPage myOffersPage={myOffersPage} />}
           </>
         )}
         {props.accountPage === "settings" && <SettingsPage />}

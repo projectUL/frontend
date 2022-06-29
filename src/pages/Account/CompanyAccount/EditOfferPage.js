@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import Button from "../../../components/UI/Button";
 import Chip from "../../../components/UI/Chip";
 
@@ -6,7 +6,7 @@ import classes from "./CreateOfferPage.module.css";
 
 import api from "../../../api/api";
 import ErrorMessageForm from "../../../components/UI/ErrorMessageForm";
-import moment from "moment";
+
 const categoryArray = [
   "Office administration",
   "Customer service",
@@ -40,29 +40,31 @@ const defaultFormOffer = {
   weOffer: [],
 };
 
-function CreateOfferPage(props) {
+function EditOfferPage(props) {
   const [formOffer, setFormOffer] = useState(defaultFormOffer);
   const [jobType, setJobType] = useState("Office administration");
   const [category, setCategory] = useState("Stationary");
   const [showError, setShowError] = useState(false);
-  const [companyInfo, setComapnyInfo] = useState({});
   const tags = useRef(null);
   const duties = useRef(null);
   const expectations = useRef(null);
   const weOffer = useRef(null);
 
-  const dataAPI = useCallback(async () => {
-    const response = await api.getCompanyProfile(localStorage.getItem("email"));
-    console.log(response);
-    if (response.status === 200) {
-      setComapnyInfo(response.data.data);
-    }
-  }, []);
+  // const dataAPI = useCallback(async () => {
+  //   const response = await api.getUserProfile(localStorage.getItem("email"));
+  //   console.log(response);
+  //   if (response.status === 200 && response.data !== {})
+  //     setUserProfile({
+  //       description: { ...response.data.description },
+  //       skills: { ...response.data.skills },
+  //       experience: [...response.data.experience],
+  //       projects: [...response.data.projects],
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    dataAPI();
-  }, [dataAPI]);
-
+  // useEffect(() => {
+  //   dataAPI();
+  // }, [dataAPI]);
   function handleOnChangeJobDetails(e) {
     setFormOffer({
       ...formOffer,
@@ -117,8 +119,8 @@ function CreateOfferPage(props) {
 
     const start = new Date(d1);
     const end = new Date(d2);
-    const x = new Date().toLocaleDateString().split(".").reverse().join("-");
-    const currentDate = new Date(x);
+    const currentDate = new Date(new Date().toLocaleDateString());
+
     if (start < currentDate) {
       isError = true;
       formOffer.starts.messageError = "The date cannot be earlier than the present date.";
@@ -145,38 +147,24 @@ function CreateOfferPage(props) {
     return isError;
   }
   async function handleOnSubmit() {
+    console.log("Show", showError);
+    console.log("empty:", isEmpty(formOffer));
+    console.log("Number:", onlyNumber());
+    console.log("Data:", compareDate(formOffer.starts.value, formOffer.ends.value));
     if (isEmpty(formOffer) || onlyNumber() || compareDate(formOffer.starts.value, formOffer.ends.value)) {
       setShowError(true);
       return;
     }
-    const data = {
-      offerTitle: formOffer.offerTitle.value,
-      companyOverview: companyInfo.companyOverview, //props
-      duties: formOffer.duties,
-      expectations: formOffer.expectations,
-      weOffer: formOffer.weOffer,
-      jobDetail: {
-        location: formOffer.location.value,
-        starts: formOffer.starts.value,
-        ends: formOffer.ends.value,
-        minSalary: formOffer.minSalary.value,
-        maxSalary: formOffer.maxSalary.value,
-        numberOfCandidates: formOffer.numberOfCandidates.value,
-      },
-      category: category,
-      jobType: jobType,
-      tags: [],
-      companyLogo: companyInfo.companyLogo, //props
-      companyName: companyInfo.companyName, //props
-      applications: [],
-      created: new Date().toLocaleDateString(),
-    };
-    console.log(data);
-    // const res = await api.postCreateOffer(data);
-    // console.log(res);
+    console.log("wysyłam");
+    // console.log(formOffer);
+    // console.log(jobType);
+    // console.log(category);
   }
   return (
     <div className={classes.container}>
+      <h2 className={classes.back} onClick={() => props.changePage("offers")}>
+        Back to offers
+      </h2>
       <label htmlFor="category">Category</label>
       <div>
         <select className={classes.select} id="category" value={category} onChange={(e) => handleOnChangeCategory(e)}>
@@ -324,10 +312,10 @@ function CreateOfferPage(props) {
       </div>
 
       <div className={classes.addOffer}>
-        <Button onClick={() => handleOnSubmit()}>Add Offer</Button>
+        <Button onClick={() => handleOnSubmit()}>Save changes</Button>
       </div>
     </div>
   );
 }
 
-export default CreateOfferPage;
+export default EditOfferPage;
