@@ -4,7 +4,7 @@ import Button from "../../../components/UI/Button";
 
 import ErrorMessageForm from "../../../components/UI/ErrorMessageForm";
 import api from "../../../api/api";
-
+import ApplicationSent from "../Applications/ApplicationSent";
 const defaultCompanyProfile = {
   companyLogo: {
     value: "",
@@ -37,6 +37,8 @@ function CompanyEditProfilePage(props) {
   const [companyProfile, setCompanyProfile] = useState(defaultCompanyProfile);
   const [showError, setShowError] = useState(false);
   const [id, setId] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   const dataAPI = useCallback(async () => {
     const response = await api.getCompanyProfile(localStorage.getItem("email"));
 
@@ -101,6 +103,12 @@ function CompanyEditProfilePage(props) {
     // const resDel = await api.deleteCompanyProfile(id);
     // console.log("Del", resDel);
     const res = await api.putCompanyProfile(data);
+    if (res.status === 200) {
+      setShowModal(true);
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000);
+    }
     console.log("PuT", res);
   }
 
@@ -138,6 +146,7 @@ function CompanyEditProfilePage(props) {
         {showError && <ErrorMessageForm message={companyProfile.companyOverview.errorMessage} />}
       </div>
       <Button className={classes.profileDescriptionForm_button}>Save</Button>
+      {showModal && <ApplicationSent message={"The data has been saved."} />}
     </form>
   );
 }

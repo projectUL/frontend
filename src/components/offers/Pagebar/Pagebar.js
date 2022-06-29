@@ -21,7 +21,7 @@ function Pagebar(props) {
 
   return (
     <div className={classes.pagebar}>
-      {props.hasPrevious && (
+      {props.currentPage - 1 >= 1 && (
         <button value={props.currentPage - 1} onClick={changePageHandler}>
           {"<"}
         </button>
@@ -31,7 +31,7 @@ function Pagebar(props) {
           {el}
         </button>
       ))}
-      {props.hasNext && (
+      {props.currentPage + 1 <= props.pages && (
         <button value={props.currentPage + 1} onClick={changePageHandler}>
           {">"}
         </button>

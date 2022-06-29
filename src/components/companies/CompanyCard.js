@@ -17,7 +17,7 @@ function CompanyCard(props) {
             <div>{props.companyWebsite}</div>
           </div>
         </div>
-        <div className={classes.activeOffers}>{`${props.jobs && props.jobs.length} Job Posted`}</div>
+        <div className={classes.activeOffers}>{`${props.jobs !== null ? props.jobs.length : 0} Job Posted`}</div>
       </div>
       <SectionText title="Company Overview" content={props.companyOverview} className={classes.companyOverview} />
     </div>

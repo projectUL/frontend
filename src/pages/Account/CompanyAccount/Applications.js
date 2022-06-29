@@ -45,7 +45,7 @@ function Applications(props) {
 
   useEffect(() => {
     dataAPI();
-  }, [dataAPI]);
+  }, [dataAPI, f5]);
   //console.log(xd);
   return (
     <>

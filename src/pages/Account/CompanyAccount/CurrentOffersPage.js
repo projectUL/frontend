@@ -28,7 +28,7 @@ function CurrentOffersPage(props) {
 
   useEffect(() => {
     dataAPI();
-  }, [dataAPI]);
+  }, [dataAPI, render]);
 
   function changePage(value) {
     setPage(value);

@@ -22,7 +22,7 @@ function CompaniesItem(props) {
         </div>
       </div>
       <Button className={classes.btn} onClick={offerNavigate}>
-        {`${props.jobs && props.jobs.length} Job Posted`}
+        {`${props.jobs !== null ? props.jobs.length : 0} Job Posted`}
       </Button>
     </div>
   );

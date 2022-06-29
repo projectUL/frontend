@@ -7,7 +7,7 @@ function CompaniesList(props) {
   console.log("COMPANIElisy", props);
   return (
     <div className={classes.companiesList}>
-      {props.data.map((element) => {
+      {props?.data?.map((element) => {
         return <CompaniesItem key={element.id} {...element} />;
       })}
     </div>

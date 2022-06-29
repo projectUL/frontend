@@ -5,53 +5,6 @@ import OffersList from "../components/offers/OffersList/OffersList";
 import Pagebar from "../components/offers/Pagebar/Pagebar";
 
 import api from "../api/api";
-const fakeData = [
-  {
-    id: 1,
-    company_name: "Google company",
-    offer_name: "Fullstack mitomani",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    techs: ["Java", "SpringBoot"],
-    created: "09-05-2022",
-    isRemote: true,
-  },
-  {
-    id: 2,
-    company_name: "Google company",
-    offer_name: "Fullstack mitomani",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    techs: ["Java", "SpringBoot"],
-    created: "09-05-2022",
-    isRemote: false,
-  },
-  {
-    id: 3,
-    company_name: "Google company",
-    offer_name: "Fullstack mitomani",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    techs: ["Java", "SpringBoot"],
-    created: "09-05-2022",
-    isRemote: false,
-  },
-  {
-    id: 4,
-    company_name: "Google company",
-    offer_name: "Fullstack mitomani",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    techs: ["Java", "SpringBoot"],
-    created: "09-05-2022",
-    isRemote: false,
-  },
-  {
-    id: 5,
-    company_name: "Google company",
-    offer_name: "Fullstack mitomani",
-    logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-    techs: ["Java", "SpringBoot"],
-    created: "09-05-2022",
-    isRemote: false,
-  },
-];
 
 const deafult = {
   searchText: "",

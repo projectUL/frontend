@@ -7,32 +7,6 @@ import SectionText from "../components/UI/SectionText";
 import api from "../api/api";
 import moment from "moment";
 import ApplicationSent from "./Account/Applications/ApplicationSent";
-const fakeOffer = {
-  id: 5,
-  company_name: "Google company",
-  offer_name: "Fullstack mitomani",
-  logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
-  techs: ["Java", "SpringBoot"],
-  duties: ["mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1"],
-  expectations: ["mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1"],
-  weOffer: ["mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1"],
-  created: "09-05-2022",
-  isRemote: false,
-};
-
-const content =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
-
-const details = {
-  jobProperties: [
-    { name: "Job Type", value: "Fulltime" },
-    { name: "Location", value: "Lodz" },
-    { name: "Starts", value: "12-05-2020" },
-    { name: "Ends", value: "12-05-2020" },
-    { name: "Salary", value: "10 000 $ - 250 000 $" },
-    { name: "Number of candidates", value: "10 people" },
-  ],
-};
 
 function OfferPage() {
   const { id } = useParams();
@@ -91,7 +65,7 @@ function OfferPage() {
         <h1>Laduje dane</h1>
       ) : (
         <>
-          <div>
+          <div style={{ width: "70%", overflowWrap: "anywhere" }}>
             <h2>{offer.offerTitle}</h2>
             <h3>{offer.companyName}</h3>
             <SectionText title="Company Overview" content={offer.companyOverview} className="offer_compOverview" />

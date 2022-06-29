@@ -1,8 +1,9 @@
 .companiesItem {
   padding: 2rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: fit-content;
+  width: 30%;
   margin: 1rem;
+  overflow-wrap: anywhere;
 }
 
 .companyDetails {

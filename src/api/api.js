@@ -244,7 +244,7 @@ export default {
   },
   async getCompanyProfile(email) {
     try {
-      const response = await axios.get(`${backEndUrl}company/${email}`); //62a8a83c948abb64c01a0232
+      const response = await axios.get(`${backEndUrl}company/email/${email}`); //62a8a83c948abb64c01a0232
       console.log(response);
       return response;
     } catch (error) {

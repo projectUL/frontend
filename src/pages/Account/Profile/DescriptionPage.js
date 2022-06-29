@@ -6,6 +6,8 @@ import Button from "./../../../components/UI/Button";
 import api from "../../../api/api";
 import ErrorMessageForm from "../../../components/UI/ErrorMessageForm";
 
+import ApplicationSent from "../Applications/ApplicationSent";
+
 const deafultUserDescriptionData = {
   avatar: {
     value: "",
@@ -58,13 +60,12 @@ const errorData = {
 };
 
 function DescriptionPage(props) {
-  const [userDescriptionDate, setUserDescriptionDate] = useState(
-    deafultUserDescriptionData
-  );
+  const [userDescriptionDate, setUserDescriptionDate] = useState(deafultUserDescriptionData);
   const [showError, setShowError] = useState(errorData);
   const [errorApi, setErroApi] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [reloadData, setReloadData] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const dataAPI = useCallback(async () => {
     const response = await api.getUserProfileDescription(props.id);
@@ -78,10 +79,7 @@ function DescriptionPage(props) {
     for (const key in response.data) {
       if (key === "start" || key === "end") {
         userDataFromDB[key] = {
-          value:
-            response.data[key] === null
-              ? ""
-              : moment(response.data[key]).format("YYYY-MM-DD"),
+          value: response.data[key] === null ? "" : moment(response.data[key]).format("YYYY-MM-DD"),
           isEmpty: response.data[key] === "",
         };
       } else {
@@ -133,17 +131,13 @@ function DescriptionPage(props) {
     //   return;
     // }
     const profileDataForm = createProfileToSend(userDescriptionDate);
-    const response = await api.putUserProfileDescription(
-      props.id,
-      profileDataForm
-    );
+    const response = await api.putUserProfileDescription(props.id, profileDataForm);
     console.log(response);
+    setShowModal(true);
     setReloadData(true);
-    // if (response.hasOwnProperty("error")) {
-    //   setErroApi(true);
-    //   return;
-    // }
-    //console.log("zapisane")
+    setTimeout(() => {
+      setShowModal(false);
+    }, 2000);
   }
 
   function validateEmail(email) {
@@ -175,19 +169,14 @@ function DescriptionPage(props) {
     }
 
     if (!validateEmail(userDescriptionDate.email.value)) errorObj.email = true;
-    if (!validatePhoneNumber(userDescriptionDate.phoneNumber.value))
-      errorObj.phoneNumber = true;
+    if (!validatePhoneNumber(userDescriptionDate.phoneNumber.value)) errorObj.phoneNumber = true;
 
     console.log(errorObj);
 
     let fdate = new Date(userDescriptionDate.start.value);
     let tdate = new Date(userDescriptionDate.end.value);
 
-    if (
-      fdate.valueOf() > tdate.valueOf() ||
-      !userDescriptionDate.start.value ||
-      !userDescriptionDate.end.value
-    ) {
+    if (fdate.valueOf() > tdate.valueOf() || !userDescriptionDate.start.value || !userDescriptionDate.end.value) {
       errorObj.start = true;
       errorObj.end = true;
     }
@@ -210,108 +199,49 @@ function DescriptionPage(props) {
     <form className={classes.profileDescriptionForm} onSubmit={handleSubmit}>
       <div className={classes.profileDescriptionForm_FirstSection_Wrap}>
         <div className={classes.profileDescriptionForm_FirstSection_Wrap_Img}>
-          {userDescriptionDate.avatar.value && (
-            <img src={userDescriptionDate.avatar.value} alt="avatar" />
-          )}
+          {userDescriptionDate.avatar.value && <img src={userDescriptionDate.avatar.value} alt="avatar" />}
           <div className={classes.avatarInput}>
-            <input
-              type="text"
-              id="avatar"
-              onChange={handleChange}
-              value={userDescriptionDate.avatar.value}
-              placeholder="avatar link"
-            />
+            <input type="text" id="avatar" onChange={handleChange} value={userDescriptionDate.avatar.value} placeholder="avatar link" />
           </div>
         </div>
-        <div
-          className={classes.profileDescriptionForm_FirstSection_PersonalData}
-        >
+        <div className={classes.profileDescriptionForm_FirstSection_PersonalData}>
           <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            onChange={handleChange}
-            value={userDescriptionDate.name.value}
-          />
-          {showError.name && (
-            <ErrorMessageForm message="Name cannot be empty" />
-          )}
+          <input type="text" id="name" onChange={handleChange} value={userDescriptionDate.name.value} />
+          {showError.name && <ErrorMessageForm message="Name cannot be empty" />}
           <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            id="email"
-            onChange={handleChange}
-            value={userDescriptionDate.email.value}
-          />
-          {showError.email && (
-            <ErrorMessageForm message="Email address is not valid." />
-          )}
+          <input type="text" id="email" onChange={handleChange} value={userDescriptionDate.email.value} />
+          {showError.email && <ErrorMessageForm message="Email address is not valid." />}
           <label htmlFor="phoneNumber">Phon number</label>
-          <input
-            type="text"
-            id="phoneNumber"
-            onChange={handleChange}
-            value={userDescriptionDate.phoneNumber.value}
-          />
-          {showError.phoneNumber && (
-            <ErrorMessageForm message="Phone number is not valid." />
-          )}
+          <input type="text" id="phoneNumber" onChange={handleChange} value={userDescriptionDate.phoneNumber.value} />
+          {showError.phoneNumber && <ErrorMessageForm message="Phone number is not valid." />}
         </div>
       </div>
       <div className={classes.profileDescriptionForm_SecondSection_description}>
         <label htmlFor="description">Description</label>
-        <textarea
-          name=""
-          id="description"
-          onChange={handleChange}
-          value={userDescriptionDate.description.value}
-        ></textarea>
-        {showError.description && (
-          <ErrorMessageForm message="Description cannot be empty." />
-        )}
+        <textarea name="" id="description" onChange={handleChange} value={userDescriptionDate.description.value}></textarea>
+        {showError.description && <ErrorMessageForm message="Description cannot be empty." />}
       </div>
       <div className={classes.profileDescriptionForm_ThirdSection_School}>
         <label htmlFor="college">College</label>
-        <input
-          type="text"
-          id="college"
-          onChange={handleChange}
-          value={userDescriptionDate.college.value}
-        />
-        {showError.college && (
-          <ErrorMessageForm message="College cannot be empty." />
-        )}
+        <input type="text" id="college" onChange={handleChange} value={userDescriptionDate.college.value} />
+        {showError.college && <ErrorMessageForm message="College cannot be empty." />}
         <label htmlFor="direction">Direction</label>
-        <input
-          type="text"
-          id="direction"
-          onChange={handleChange}
-          value={userDescriptionDate.direction.value}
-        />
+        <input type="text" id="direction" onChange={handleChange} value={userDescriptionDate.direction.value} />
         <div className={classes.startEndCollege_wrap}>
           <div className={classes.startEndCollege}>
             <label htmlFor="start">Start</label>
-            <input
-              type="date"
-              id="start"
-              onChange={handleChange}
-              value={userDescriptionDate.start.value}
-            />
+            <input type="date" id="start" onChange={handleChange} value={userDescriptionDate.start.value} />
             {showError.start && <ErrorMessageForm message="Invalid date" />}
           </div>
           <div className={classes.startEndCollege}>
             <label htmlFor="end">End</label>
-            <input
-              type="date"
-              id="end"
-              onChange={handleChange}
-              value={userDescriptionDate.end.value}
-            />
+            <input type="date" id="end" onChange={handleChange} value={userDescriptionDate.end.value} />
             {showError.end && <ErrorMessageForm message="Invalid date" />}
           </div>
         </div>
       </div>
       <Button className={classes.profileDescriptionForm_button}>Save</Button>
+      {showModal && <ApplicationSent message={"The data has been saved."} />}
     </form>
   );
 }

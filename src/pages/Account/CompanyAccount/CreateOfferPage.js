@@ -7,6 +7,7 @@ import classes from "./CreateOfferPage.module.css";
 import api from "../../../api/api";
 import ErrorMessageForm from "../../../components/UI/ErrorMessageForm";
 import moment from "moment";
+import ApplicationSent from "../Applications/ApplicationSent";
 const categoryArray = [
   "Office administration",
   "Customer service",
@@ -46,6 +47,8 @@ function CreateOfferPage(props) {
   const [category, setCategory] = useState("Stationary");
   const [showError, setShowError] = useState(false);
   const [companyInfo, setComapnyInfo] = useState({});
+  const [showModal, setShowModal] = useState(false);
+
   const tags = useRef(null);
   const duties = useRef(null);
   const expectations = useRef(null);
@@ -174,6 +177,15 @@ function CreateOfferPage(props) {
     console.log(data);
     const res = await api.postCreateOffer(data);
     console.log(res);
+    if (res.status === 200) {
+      setFormOffer(defaultFormOffer);
+      setJobType("Stationary");
+      setCategory("Office administration");
+      setShowModal(true);
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000);
+    }
   }
   return (
     <div className={classes.container}>
@@ -326,6 +338,7 @@ function CreateOfferPage(props) {
       <div className={classes.addOffer}>
         <Button onClick={() => handleOnSubmit()}>Add Offer</Button>
       </div>
+      {showModal && <ApplicationSent message={"The offer has been created."} />}
     </div>
   );
 }
