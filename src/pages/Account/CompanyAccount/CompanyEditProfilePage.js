@@ -36,11 +36,11 @@ const defaultCompanyProfile = {
 function CompanyEditProfilePage(props) {
   const [companyProfile, setCompanyProfile] = useState(defaultCompanyProfile);
   const [showError, setShowError] = useState(false);
-
+  const [id, setId] = useState("");
   const dataAPI = useCallback(async () => {
     const response = await api.getCompanyProfile(localStorage.getItem("email"));
 
-    if (response.status === 200)
+    if (response.status === 200) {
       setCompanyProfile({
         companyLogo: {
           value: response.data.data.companyLogo !== null ? response.data.data.companyLogo : "",
@@ -68,6 +68,8 @@ function CompanyEditProfilePage(props) {
           errorMessage: "",
         },
       });
+      setId(response.data.data.id);
+    }
   }, []);
 
   useEffect(() => {
@@ -95,9 +97,9 @@ function CompanyEditProfilePage(props) {
     for (const key in companyProfile) {
       data[key] = companyProfile[key].value;
     }
-
-    const resDel = await api.deleteCompanyProfile(companyProfile.id);
-    console.log("Del", resDel);
+    data["id"] = id;
+    // const resDel = await api.deleteCompanyProfile(id);
+    // console.log("Del", resDel);
     const res = await api.putCompanyProfile(data);
     console.log("PuT", res);
   }

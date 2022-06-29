@@ -10,6 +10,8 @@ function CurrentOffersPage(props) {
   const [idOffer, setIdOffer] = useState("");
   const [companyInformation, setCompanyInformation] = useState({});
   const [render, setRender] = useState(false);
+  const [application, setApplication] = useState([]);
+  const [email, setEmail] = useState("");
 
   const dataAPI = useCallback(async () => {
     const response = await api.getCompanyProfile(localStorage.getItem("email"));
@@ -18,7 +20,7 @@ function CurrentOffersPage(props) {
       const response2 = await api.getCompanyJobs(response.data.data.companyName);
       console.log("JOBS", response2);
       if (response2.status === 200) {
-        setCompanyInformation(response.data.data);
+        setCompanyInformation(response2.data);
         setRender(true);
       }
     }
@@ -31,20 +33,29 @@ function CurrentOffersPage(props) {
   function changePage(value) {
     setPage(value);
   }
-
+  console.log(companyInformation);
   return (
     <>
       {render && page === "offers" ? (
         <CompanyOffersList
           myOffersPage={props.myOffersPage}
-          companyOffers={companyInformation.jobs}
+          companyOffers={companyInformation}
           changePage={changePage}
           setIdOffer={setIdOffer}
+          setApplication={setApplication}
         />
       ) : null}
       {page === "edit" || page === "renew" ? <EditOfferPage changePage={changePage} idOffer={idOffer} /> : null}
-      {page === "applications" ? <Applications changePage={changePage} idOffer={idOffer} setIdOffer={setIdOffer} /> : null}
-      {page === "see" ? <ProfilePageView changePage={changePage} idOffer={idOffer} /> : null}
+      {page === "applications" ? (
+        <Applications
+          changePage={changePage}
+          companyInformation={companyInformation}
+          idOffer={idOffer}
+          setEmail={setEmail}
+          application={application}
+        />
+      ) : null}
+      {page === "see" ? <ProfilePageView changePage={changePage} email={email} /> : null}
     </>
   );
 }

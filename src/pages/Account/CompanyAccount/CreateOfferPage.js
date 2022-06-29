@@ -169,11 +169,11 @@ function CreateOfferPage(props) {
       companyLogo: companyInfo.companyLogo, //props
       companyName: companyInfo.companyName, //props
       applications: [],
-      created: new Date().toLocaleDateString(),
+      created: new Date().toLocaleDateString().split(".").reverse().join("-"),
     };
     console.log(data);
-    // const res = await api.postCreateOffer(data);
-    // console.log(res);
+    const res = await api.postCreateOffer(data);
+    console.log(res);
   }
   return (
     <div className={classes.container}>

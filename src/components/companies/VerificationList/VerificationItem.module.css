@@ -58,3 +58,11 @@
   color: white;
   transition: 0.5s;
 }
+
+.acceptBg {
+  background-color: #4cfa6e;
+}
+
+.denyBg {
+  background-color: #ff3c3c;
+}

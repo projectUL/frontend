@@ -19,7 +19,7 @@ function ApplicationSent(props) {
     <>
       <ModalOverlay>
         <h2>
-          Aplikacja na stanowisko {props.name} została pomyślne wysłana.{" "}
+          The job application {props.name} has been successfully sent.
           <span className={classes.verify}>
             <GoVerified />
           </span>

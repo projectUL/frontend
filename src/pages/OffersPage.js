@@ -98,6 +98,7 @@ function OffersPage() {
     setPage((lastState) => {
       return { ...lastState, currentPage: page };
     });
+    setOffers(response.data);
   }
 
   function searchHandler(text = "") {
@@ -107,7 +108,7 @@ function OffersPage() {
 
     console.log(text);
     async function data() {
-      const response = await api.getFilterOffers(text, offersSearch.category[0], offersSearch.jobType[0]);
+      const response = await api.getFilterOffers(text, offersSearch.category[0], offersSearch.jobType[0], page);
       if (response.hasOwnProperty("error")) {
         setErroApi(true);
         return;
@@ -132,7 +133,7 @@ function OffersPage() {
       jobType: [jobType],
     });
     async function data() {
-      const response = await api.getFilterOffers(offersSearch.searchText, category, jobType);
+      const response = await api.getFilterOffers(offersSearch.searchText, category, jobType, page);
       if (response.hasOwnProperty("error")) {
         setErroApi(true);
         return;

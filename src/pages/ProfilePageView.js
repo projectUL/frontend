@@ -7,7 +7,6 @@ import ProjectDisplay from "./../components/profile/ProjectDisplay";
 
 import api from "../api/api";
 import moment from "moment";
-import git from "./../images/git2.jpg";
 
 import { FaGithub, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 
@@ -33,7 +32,7 @@ function ProfilePage(props) {
   const [showProject, setShowProject] = useState({});
 
   const dataAPI = useCallback(async () => {
-    const response = await api.getUserProfile(props.idOffer);
+    const response = await api.getUserProfile(props.email);
     console.log(response);
     if (response.status === 200 && response.data !== {})
       setUserProfile({
@@ -61,12 +60,16 @@ function ProfilePage(props) {
       <div className="profilePage_wrap">
         <div className="profilePage_personalData">
           <div className="profilePage_personalData_box">
-            <img src={git} alt="podatek" />
+            <img
+              src={
+                userProfile.description.avatar === ""
+                  ? "https://www.pngitem.com/pimgs/m/421-4212341_default-avatar-svg-hd-png-download.png"
+                  : userProfile.description.avatar
+              }
+              alt="avatar"
+            />
             <div className="profilePage_personalData_box2">
               <p className="profilePage_personalData_name">{userProfile.description.name}</p>
-              <p>
-                <FaGithub /> asdas.github
-              </p>
               <p>
                 <FaEnvelope /> {userProfile.description.email}
               </p>

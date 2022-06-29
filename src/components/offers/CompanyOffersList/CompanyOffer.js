@@ -3,29 +3,23 @@ import CloseButton from "../../profile/CloseButton";
 import Button from "../../UI/Button";
 
 import classes from "./CompanyOffer.module.css";
-
+import moment from "moment";
 function CompanyOffer(props) {
   function setPageAndId(value) {
     props.changePage(value);
+    props.setApplication(props.applications);
     props.setIdOffer(props.id);
   }
   return (
     <div className={classes.offer}>
-      <div>{props.name}</div>
-      <div>{`${props.numberOfApplications} applications`}</div>
+      <div>{props.offerTitle}</div>
+      <div>{`${props.applications.length} applications`}</div>
       <div className={classes.ends}>
         <div>Ends</div>
-        <div>{props.ends}</div>
-      </div>
-      <div>
-        {props.myOffersPage === "current" && <Button onClick={() => setPageAndId("edit")}>Edit</Button>}
-        {props.myOffersPage === "history" && <Button onClick={() => setPageAndId("renew")}>Renew</Button>}
+        <div>{moment(props.jobDetail.ends).format("DD.MM.YYYY")}</div>
       </div>
       <div>
         <Button onClick={() => setPageAndId("applications")}>See application</Button>
-      </div>
-      <div>
-        <CloseButton />
       </div>
     </div>
   );

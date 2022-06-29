@@ -10,7 +10,7 @@ function CompaniesItem(props) {
   function offerNavigate() {
     return navigate(`/companies/${props.id}`);
   }
-
+  console.log("EEE", props);
   return (
     <div className={`defaultBox ${classes.companiesItem}`}>
       <div className={classes.companyDetails}>
@@ -23,7 +23,7 @@ function CompaniesItem(props) {
         </div>
       </div>
       <Button className={classes.btn} onClick={offerNavigate}>
-        {`${props.jobs.length} Job Posted`}
+        {`${props.jobs && props.jobs.length} Job Posted`}
       </Button>
     </div>
   );

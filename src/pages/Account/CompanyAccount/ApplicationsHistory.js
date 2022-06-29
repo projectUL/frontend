@@ -4,11 +4,11 @@ import classes from "./Applications.module.css";
 import Button from "../../../components/UI/Button";
 import api from "../../../api/api";
 import moment from "moment";
-const status = ["Rejected", "Pending", "Accepted"];
+const status = ["oczekuje1", "oczekuje2", "oczekuj3"];
 
-function Applications(props) {
+function ApplicationsHistory(props) {
   const [applications, setApplications] = useState([]);
-  const [f5, setF5] = useState(false);
+
   const dataAPI = useCallback(async () => {
     const applicationData = [];
     for (let x of props.application) {
@@ -24,7 +24,6 @@ function Applications(props) {
         applied: test[0].applied,
         status: test[0].status,
         email: res1.data.email,
-        offerID: test[0].offerID,
       };
 
       applicationData.push(data);
@@ -54,7 +53,7 @@ function Applications(props) {
       </p>
       <div className={classes.wrap}>
         {applications.map((e, i) => (
-          <Application key={i} {...e} changePage={props.changePage} setEmail={props.setEmail} setF5={setF5} f5={f5} />
+          <Application key={i} {...e} changePage={props.changePage} setEmail={props.setEmail} />
         ))}
       </div>
     </>
@@ -63,18 +62,14 @@ function Applications(props) {
 
 function Application(props) {
   let navigate = useNavigate();
-
+  function handleOnChangeStatus(e) {
+    console.log(e.target.value);
+  }
   function seeProfile(email) {
     //navigate(`/profile/view/${email}`);
     props.changePage("see");
     props.setEmail(email);
   }
-  async function handleOnChangeStatus(e) {
-    const res = await api.putChangeStatus(props.email, props.offerID, status.indexOf(e.target.value));
-    console.log(res);
-    props.setF5(!props.f5);
-  }
-
   return (
     <div className={classes.wrapApplication}>
       <img
@@ -87,15 +82,7 @@ function Application(props) {
         <p>{moment(props.applied).format("DD.MM.YYYY")}</p>
       </div>
       <Button onClick={() => seeProfile(props.email)}>See profile</Button>
-      <div className={classes.wrapStatus}>
-        <p>Status</p>
-        <select id="category" onChange={(e) => handleOnChangeStatus(e)} value={props.status}>
-          {status.map((c, i) => (
-            <option key={i}>{c}</option>
-          ))}
-        </select>
-      </div>
     </div>
   );
 }
-export default Applications;
+export default ApplicationsHistory;

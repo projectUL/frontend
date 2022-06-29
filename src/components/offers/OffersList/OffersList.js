@@ -4,8 +4,9 @@ import classes from "./OffersList.module.css";
 import OfferItem from "./OfferItem";
 
 function OffersList(props) {
+  console.log(props.data);
   const list = props.data.map((element) => {
-    if (typeof element === "object") return <OfferItem key={element.id} id={element.id} />;
+    if (typeof element === "object") return <OfferItem key={element.id} {...element} />;
     else return <OfferItem key={element} id={element} />;
   });
 

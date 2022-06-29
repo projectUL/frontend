@@ -13,22 +13,9 @@ const fakeOffer = {
   offer_name: "Fullstack mitomani",
   logo: "https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png",
   techs: ["Java", "SpringBoot"],
-  duties: [
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-  ],
+  duties: ["mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1"],
   expectations: ["mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1"],
-  weOffer: [
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-    "mitomania 1",
-  ],
+  weOffer: ["mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1", "mitomania 1"],
   created: "09-05-2022",
   isRemote: false,
 };
@@ -68,9 +55,7 @@ function OfferPage() {
     dataAPI();
   }, [dataAPI]);
   async function applyToJob() {
-    const response2 = await api.getUserApplications(
-      localStorage.getItem("email")
-    );
+    const response2 = await api.getUserApplications(localStorage.getItem("email"));
 
     let isTrue = response2.data.applications.every((applications) => {
       return applications.offerID !== offer.id;
@@ -79,23 +64,25 @@ function OfferPage() {
     if (!isTrue) return;
 
     console.log("response2", response2);
-
-    const apply = {
-      companyName: offer.companyName,
-      jobName: offer.offerTitle,
-      companyPic: offer.companyLogo,
-      status: "Pending",
-      applied: moment().toDate(),
-      offerID: offer.id,
-    };
-    //console.log(offer);
-    //console.log(apply);
-    const res = await api.putApply(localStorage.getItem("email"), apply);
-    console.log(res);
-    setShowModal(true);
-    setTimeout(() => {
-      setShowModal(false);
-    }, 2000);
+    const res3 = await api.getUserApplications(localStorage.getItem("email"));
+    console.log(res3);
+    if (res3.status === 200) {
+      const apply = {
+        companyName: offer.companyName,
+        jobName: offer.offerTitle,
+        companyPic: offer.companyLogo,
+        status: "Pending",
+        applied: moment().toDate(),
+        offerID: offer.id,
+        userID: res3.data.id,
+      };
+      const res = await api.putApply(localStorage.getItem("email"), apply);
+      console.log(res);
+      setShowModal(true);
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000);
+    }
   }
 
   return (
@@ -107,11 +94,7 @@ function OfferPage() {
           <div>
             <h2>{offer.offerTitle}</h2>
             <h3>{offer.companyName}</h3>
-            <SectionText
-              title="Company Overview"
-              content={offer.companyOverview}
-              className="offer_compOverview"
-            />
+            <SectionText title="Company Overview" content={offer.companyOverview} className="offer_compOverview" />
             <SectionList title="Your scope of duties" points={offer.duties} />
             <SectionList title="Our expectations" points={offer.expectations} />
             <SectionList title="What we offer" points={offer.weOffer} />
@@ -119,11 +102,7 @@ function OfferPage() {
               Apply Job
             </Button>
           </div>
-          <JobDetails
-            {...offer.jobDetail}
-            jobType={offer.jobType}
-            apply={applyToJob}
-          />
+          <JobDetails {...offer.jobDetail} jobType={offer.jobType} apply={applyToJob} />
         </>
       )}
       {showModal && <ApplicationSent name={offer.offerTitle} />}

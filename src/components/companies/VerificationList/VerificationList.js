@@ -7,7 +7,7 @@ function VerificationList(props) {
   return (
     <div className={classes.list}>
       {props.data.map((element) => {
-        return <VerificationItem key={element.companyId} data={element} />;
+        return <VerificationItem key={element.companyId} data={element} setReload={props.setReload} reload={props.reload} />;
       })}
     </div>
   );

@@ -4,6 +4,7 @@ import CompanyOffer from "./CompanyOffer";
 import classes from "./CompanyOffersList.module.css";
 
 function CompanyOffersList(props) {
+  console.log("Wtf", props.companyOffers);
   return (
     <div className={classes.container}>
       {props.companyOffers === null || props.companyOffers.length === 0 ? (
@@ -11,7 +12,14 @@ function CompanyOffersList(props) {
       ) : (
         props.companyOffers.map((offer) => {
           return (
-            <CompanyOffer {...offer} key={offer.id} myOffersPage={props.myOffersPage} changePage={props.changePage} setIdOffer={props.setIdOffer} />
+            <CompanyOffer
+              {...offer}
+              key={offer.id}
+              myOffersPage={props.myOffersPage}
+              changePage={props.changePage}
+              setIdOffer={props.setIdOffer}
+              setApplication={props.setApplication}
+            />
           );
         })
       )}

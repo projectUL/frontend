@@ -65,6 +65,7 @@ export default {
   async getAllOffers(page, search) {
     try {
       console.log(page, search);
+      console.log("getAllOffers", `offers/search/all/all?q=${search}&page=${page}`);
       const response = await axios.get(`${backEndUrl}offers/search/all/all?q=${search}&page=${page}`); //627d48d6569bc8ba6916385c
 
       console.log(response);
@@ -81,8 +82,8 @@ export default {
       return { error: true };
     }
   },
-  async getFilterOffers(text = "", category = "", jobType = "") {
-    console.log(`${backEndUrl}offers/search/${category ? category : "all"}/${jobType ? jobType : "all"}?q=${text}&page=`);
+  async getFilterOffers(text = "", category = "", jobType = "", page = 1) {
+    console.log(`${backEndUrl}offers/search/${category ? category : "all"}/${jobType ? jobType : "all"}?q=${text}&page=${page}`);
     try {
       const response = await axios.get(`${backEndUrl}offers/search/${category ? category : "all"}/${jobType ? jobType : "all"}?q=${text}&page=`); //627d48d6569bc8ba6916385c
       return response;
@@ -261,7 +262,7 @@ export default {
   },
   async deleteCompanyProfile(id) {
     try {
-      const response = await axios.delete(`${backEndUrl}delete/${id}`); //62a8a83c948abb64c01a0232
+      const response = await axios.delete(`${backEndUrl}delete/${id}`, { crossdomain: true }); //62a8a83c948abb64c01a0232
       console.log(response);
       return response;
     } catch (error) {
@@ -286,9 +287,49 @@ export default {
   },
   async getCompanyJobs(name) {
     try {
-      const response = await axios.get(`${backEndUrl}offers/${name}`, {
+      const response = await axios.get(`${backEndUrl}offers/name/${name}`, {
         headers: { "Access-Control-Allow-Origin": "*" },
       }); //62a8a83c948abb64c01a0232
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  async getUserInfoById(id) {
+    try {
+      const response = await axios.get(`${backEndUrl}user/id/${id}`); //62a8a83c948abb64c01a0232
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  async putChangeStatus(email, offerID, status) {
+    try {
+      const response = await axios.put(`${backEndUrl}user/change/${email}/${offerID}/${status}`); //62a8a83c948abb64c01a0232
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  async getCompanyToVerify() {
+    try {
+      const response = await axios.get(`${backEndUrl}admin?size=20`); //62a8a83c948abb64c01a0232
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  },
+  async putCompanyVerify(email, verify, accepted, name) {
+    try {
+      const response = await axios.put(`${backEndUrl}admin/${email}/${name}?verify=${verify}&accept=${accepted}`); //62a8a83c948abb64c01a0232
       console.log(response);
       return response;
     } catch (error) {

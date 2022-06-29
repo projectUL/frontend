@@ -62,14 +62,16 @@ function ProfilePage(props) {
     <div className="profilePage_wrap">
       <div className="profilePage_personalData">
         <div className="profilePage_personalData_box">
-          <img src={userProfile.description.avatar} alt="podatek" />
+          <img
+            src={
+              userProfile.description.avatar === ""
+                ? "https://www.pngitem.com/pimgs/m/421-4212341_default-avatar-svg-hd-png-download.png"
+                : userProfile.description.avatar
+            }
+            alt="img"
+          />
           <div className="profilePage_personalData_box2">
-            <p className="profilePage_personalData_name">
-              {userProfile.description.name}
-            </p>
-            <p>
-              <FaGithub /> asdas.github
-            </p>
+            <p className="profilePage_personalData_name">{userProfile.description.name}</p>
             <p>
               <FaEnvelope /> {userProfile.description.email}
             </p>
@@ -78,9 +80,7 @@ function ProfilePage(props) {
             </p>
           </div>
         </div>
-        <p className="profilePage_personalData_about">
-          {userProfile.description.description}
-        </p>
+        <p className="profilePage_personalData_about">{userProfile.description.description}</p>
       </div>
       <div className="profilePage_line">
         <div className="square"></div>
@@ -124,9 +124,7 @@ function ProfilePage(props) {
         <p className="profilePage_title">Education</p>
         <div className="profilePage_education_box">
           <p>{userProfile.description.college}</p>
-          <p className="bold">{`${moment(
-            userProfile.description.startDate
-          ).format("YYYY")} - ${moment(userProfile.description.endDate).format(
+          <p className="bold">{`${moment(userProfile.description.startDate).format("YYYY")} - ${moment(userProfile.description.endDate).format(
             "YYYY"
           )}`}</p>
         </div>
@@ -143,9 +141,7 @@ function ProfilePage(props) {
           ))}
         </div>
       </div>
-      {projectDisplay && (
-        <ProjectDisplay close={setProjectDisplay} data={showProject} />
-      )}
+      {projectDisplay && <ProjectDisplay close={setProjectDisplay} data={showProject} />}
     </div>
   );
 }
