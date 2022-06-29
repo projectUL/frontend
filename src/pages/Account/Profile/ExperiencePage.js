@@ -58,7 +58,7 @@ function ExperiencePage(props) {
   const [experienceForm, setUserExperienceForm] = useState(
     deafultExperienceFormDate
   );
-  const [experience, setExerience] = useState(defultExperience);
+  const [experience, setExerience] = useState([]);
   const [reloadData, setReloadData] = useState(false);
   const [showError, setShowError] = useState(defaultError);
 
