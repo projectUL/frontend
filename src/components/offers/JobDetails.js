@@ -40,9 +40,11 @@ function JobDetails(props) {
         <div className={classes.value}>{props.numberOfCandidates} </div>
       </div>
       <div className={classes.action}>
-        <Button className={classes.btn} onClick={() => props.apply()}>
-          Apply job
-        </Button>
+        {props.accessLevel === 1 ? (
+          <Button className={classes.btn} onClick={() => props.apply()}>
+            Apply job
+          </Button>
+        ) : null}
       </div>
     </div>
   );

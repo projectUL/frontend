@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useParams } from "react-router-dom";
 import JobDetails from "../components/offers/JobDetails";
 import Button from "../components/UI/Button";
@@ -7,14 +7,15 @@ import SectionText from "../components/UI/SectionText";
 import api from "../api/api";
 import moment from "moment";
 import ApplicationSent from "./Account/Applications/ApplicationSent";
+import AuthContext from "./../components/context/auth-context";
 
-function OfferPage() {
+function OfferPage(props) {
   const { id } = useParams();
   const [offer, setOffer] = useState({});
   const [errorApi, setErroApi] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
-
+  const authCtx = useContext(AuthContext);
   const dataAPI = useCallback(async () => {
     const response = await api.getOfferById(id);
     if (response.hasOwnProperty("error")) {
@@ -72,11 +73,13 @@ function OfferPage() {
             <SectionList title="Your scope of duties" points={offer.duties} />
             <SectionList title="Our expectations" points={offer.expectations} />
             <SectionList title="What we offer" points={offer.weOffer} />
-            <Button className="offer_btn" onClick={() => applyToJob()}>
-              Apply Job
-            </Button>
+            {authCtx.accessLevel === 1 ? (
+              <Button className="offer_btn" onClick={() => applyToJob()}>
+                Apply Job
+              </Button>
+            ) : null}
           </div>
-          <JobDetails {...offer.jobDetail} jobType={offer.jobType} apply={applyToJob} />
+          <JobDetails {...offer.jobDetail} jobType={offer.jobType} apply={applyToJob} accessLevel={authCtx.accessLevel} />
         </>
       )}
       {showModal && <ApplicationSent message={`The job application ${offer.offerTitle} has been successfully sent.`} />}

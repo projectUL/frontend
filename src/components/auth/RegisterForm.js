@@ -73,7 +73,7 @@ function RegisterForm() {
       return;
     }
 
-    if (formData.companyName === "") await api.createProfile(formData.email.value);
+    if (formData.companyName.value === "") await api.createProfile(formData.email.value);
 
     return navigate("/login");
   }

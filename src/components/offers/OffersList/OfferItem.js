@@ -33,7 +33,6 @@ function OfferItem({ id }) {
   function offerNavigate() {
     return navigate(`/offers/${id}`);
   }
-
   return (
     <div className={`defaultBox ${classes.item}`}>
       {isLoading ? (
@@ -51,13 +50,6 @@ function OfferItem({ id }) {
             <div className={classes.companyInfo}>
               {offer.companyName}
               <div className={classes.remote}>{offer.jobType}</div>
-            </div>
-            <div className={classes.techs}>
-              {offer.tags.map((tag) => (
-                <div className={classes.techItem} key={tag}>
-                  {tag}
-                </div>
-              ))}
             </div>
           </div>
           <div className={classes.right}>

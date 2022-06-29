@@ -10,7 +10,7 @@ function AccountPage() {
 
   const authCtx = useContext(AuthContext);
   //function sendData(data) {}
-
+  console.log(authCtx);
   function changeAccountPage(page) {
     setAccountPage(page);
   }
@@ -18,32 +18,21 @@ function AccountPage() {
   if (authCtx.accessLevel === 1) {
     return (
       <>
-        <AccountNavbar
-          changeAccountPage={changeAccountPage}
-          picked={accountPage}
-        />
+        <AccountNavbar changeAccountPage={changeAccountPage} picked={accountPage} />
         <UserProfilePage accountPage={accountPage} />
       </>
     );
   } else if (authCtx.accessLevel === 2) {
     return (
       <>
-        <AccountNavbar
-          company={true}
-          changeAccountPage={changeAccountPage}
-          picked={accountPage}
-        />
+        <AccountNavbar company={true} changeAccountPage={changeAccountPage} picked={accountPage} />
         <CompanyProfilePage accountPage={accountPage} />
       </>
     );
   } else if (authCtx.accessLevel === 3) {
     return (
       <>
-        <AccountNavbar
-          admin={true}
-          changeAccountPage={changeAccountPage}
-          picked={accountPage}
-        />
+        <AccountNavbar admin={true} changeAccountPage={changeAccountPage} picked={accountPage} />
         <AdminProfilePage accountPage={accountPage} />
       </>
     );
