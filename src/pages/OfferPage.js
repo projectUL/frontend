@@ -105,7 +105,7 @@ function OfferPage() {
           <JobDetails {...offer.jobDetail} jobType={offer.jobType} apply={applyToJob} />
         </>
       )}
-      {showModal && <ApplicationSent name={offer.offerTitle} />}
+      {showModal && <ApplicationSent message={`The job application ${offer.offerTitle} has been successfully sent.`} />}
     </div>
   );
 }

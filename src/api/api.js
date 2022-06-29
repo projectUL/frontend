@@ -57,8 +57,10 @@ export default {
   async getCompanyById(id) {
     try {
       const response = await axios.get(`${backEndUrl}company/${id}`); //627d48d6569bc8ba6916385c
+      console.log(response);
       return response.data;
     } catch (error) {
+      console.log(error);
       return { error: true };
     }
   },

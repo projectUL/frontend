@@ -4,7 +4,7 @@ import SectionText from "../UI/SectionText";
 import classes from "./CompanyCard.module.css";
 
 function CompanyCard(props) {
-  console.log(props);
+  console.log("TESTW", props);
   return (
     <div className={`defaultBox ${classes.companyCard}`}>
       <div className={classes.companyDetails}>
@@ -17,7 +17,7 @@ function CompanyCard(props) {
             <div>{props.companyWebsite}</div>
           </div>
         </div>
-        <div className={classes.activeOffers}>{`${props.jobs.length} Job Posted`}</div>
+        <div className={classes.activeOffers}>{`${props.jobs && props.jobs.length} Job Posted`}</div>
       </div>
       <SectionText title="Company Overview" content={props.companyOverview} className={classes.companyOverview} />
     </div>

@@ -68,36 +68,37 @@ const pagedefault = {
   hasNext: false,
   hasPrevious: false,
 };
-
+const defaultCompany = { companyLogo: "", companyMail: "", companyName: "", companyOverview: "", companyWebsite: "", id: "", jobs: [] };
 function CompanyPage() {
   const { id } = useParams();
 
   const [page, setPage] = useState(pagedefault);
-  const [company, setCompany] = useState({});
+  const [company, setCompany] = useState(defaultCompany);
   const [errorApi, setErroApi] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const dataAPI = useCallback(async () => {
     const response = await api.getCompanyById(id);
-
+    console.log("CompanyID", response);
     if (response.hasOwnProperty("error")) {
       setErroApi(true);
       return;
     }
 
     setIsLoading(false);
-    setCompany(response);
+    setCompany(response.data);
   }, []);
 
   useEffect(() => {
     dataAPI();
-  }, [dataAPI]);
+  }, [dataAPI, page]);
 
   function changePage(page) {
     setPage((lastState) => {
       return { ...lastState, currentPage: page };
     });
   }
+  console.log("CO JEST", company);
   return (
     <>
       {isLoading ? (

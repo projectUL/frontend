@@ -10,7 +10,6 @@ function CompaniesItem(props) {
   function offerNavigate() {
     return navigate(`/companies/${props.id}`);
   }
-  console.log("EEE", props);
   return (
     <div className={`defaultBox ${classes.companiesItem}`}>
       <div className={classes.companyDetails}>

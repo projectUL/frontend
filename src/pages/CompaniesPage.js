@@ -64,7 +64,7 @@ function CompaniesPage() {
       return { ...lastState, currentPage: page };
     });
   }
-  console.log(companies);
+  console.log("COMPANIESPAGE", companies);
   return (
     <div>
       {isLoading ? (

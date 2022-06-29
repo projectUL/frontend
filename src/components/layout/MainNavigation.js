@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../UI/Button";
 
 import classes from "./MainNavigation.module.css";
-
+import { GiSailboat } from "react-icons/gi";
 function MainNavigation(props) {
   let navigate = useNavigate();
 
@@ -14,7 +14,10 @@ function MainNavigation(props) {
 
   return (
     <header className={classes.header}>
-      <div className={classes.logo}>Logo</div>
+      <div className={classes.logo}>
+        <GiSailboat />
+        Treasure boat
+      </div>
       <nav>
         <ul>
           <li>

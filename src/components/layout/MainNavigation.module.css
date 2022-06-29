@@ -10,6 +10,10 @@
   font-size: 2rem;
   color: #252525;
   font-weight: bold;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header ul {

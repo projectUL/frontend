@@ -8,21 +8,12 @@ function VerificationPage() {
 
   const dataAPI = useCallback(async () => {
     const response = await api.getCompanyToVerify();
-    console.log(response);
     setCompanyAccount(response.data.data);
-    // if (response.status === 200) {
-    //   const response2 = await api.getCompanyJobs(response.data.data.companyName);
-    //   console.log("JOBS", response2);
-    //   if (response2.status === 200) {
-    //     setCompanyInformation(response2.data);
-    //     setRender(true);
-    //   }
-    // }
   }, []);
 
   useEffect(() => {
     dataAPI();
-  }, [dataAPI]);
+  }, [dataAPI, reload]);
   return (
     <>
       <h1 style={{ marginTop: "15px", marginLeft: "15px", padding: "10px" }}>Companies Verification</h1>
