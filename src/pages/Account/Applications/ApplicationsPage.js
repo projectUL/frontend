@@ -62,7 +62,15 @@ function ApplicationsPage() {
     dataAPI();
   }, [dataAPI]);
   console.log(applications);
-  return <>{applications.length !== 0 ? <ApplicationsList applications={applications} /> : <p>Loading...</p>}</>;
+  return (
+    <>
+      {applications.length !== 0 ? (
+        <ApplicationsList applications={applications} />
+      ) : (
+        <p style={{ padding: "15px", fontSize: "1.3rem" }}>No application</p>
+      )}
+    </>
+  );
 }
 
 export default ApplicationsPage;
